@@ -24,6 +24,15 @@ True or False: A key feature of machine learning is that the algorithms are buil
 - True [X]
 - False
 
+<br/>
+
+### **Question 2**
+
+True or False: In machine learning, we build algorithms that take feature values (X) and train a model using known outcomes (Y) that is then used to predict outcomes when presented with features without known outcomes.
+
+- True [X]
+- False
+
 ---
 title: "02 - Machine Learning Basics Comprehension Check"
 author: "Alessandro Corradini - Harvard Data Science Professional"

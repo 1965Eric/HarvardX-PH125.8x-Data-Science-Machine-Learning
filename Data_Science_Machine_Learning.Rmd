@@ -110,6 +110,8 @@ After completing this section, you will be able to:
 
 This section has two parts: **basics of evaluating machine learning algorithms** and **conditional probabilities**. 
 
+
+
 ## **Basics of Evaluating Machine Learning Algorithms**
 ### **Question 1**
 
@@ -121,8 +123,6 @@ For each of the following, indicate whether the outcome is continuous or categor
 - Number of hospitalizations: continuous
 - Siri: categorical
 
-<br/>
-
 ### **Question 2**
 
 How many features are available to us for prediction in the mnist digits dataset?
@@ -132,8 +132,6 @@ library(dslabs)
 mnist <- read_mnist()
 ncol(mnist$train$images)
 ```
-
-<br/>
 
 ### **Question 3**
 
@@ -147,7 +145,7 @@ y[5] > y[6]
 - No, because y is not a numeric vector.
 - No, because 11 is not one digit, it is two digits.
 - No, because these are labels representing a category, not a number. A 9 represents a type of digit, not the number 9.
-<br/>
+
 ## **Confusion Matrix**
 The following questions all ask you to work with the dataset described below.
 The ```reported_heights``` and heights datasets were collected from three classes taught in the Departments of Computer Science and Biostatistics, as well as remotely through the Extension School. The Biostatistics class was taught in 2016 along with an online version offered by the Extension School. On 2016-01-25 at 8:15 AM, during one of the lectures, the instructors asked student to fill in the sex and height questionnaire that populated the reported_height dataset. The online students filled out the survey during the next few days, after the lecture was posted online. We can use this insight to define a variable which we will call type, to denote the type of student, inclass or online.
@@ -165,8 +163,6 @@ y <- factor(dat$sex, c("Female", "Male"))
 x <- dat$type
 ```
 
-<br/>
-
 ### **Question 1**
 
 What is the propotion of females in class and online? (That is, calculate the proportion of the in class students who are female and the proportion of the online students who are female.)
@@ -174,8 +170,6 @@ What is the propotion of females in class and online? (That is, calculate the pr
 ```{r, include=TRUE}
 dat %>% group_by(type) %>% summarize(prop_female = mean(sex == "Female"))
 ```
-
-<br/>
 
 ### **Question 2**
 
@@ -187,8 +181,6 @@ y_hat <- ifelse(x == "online", "Male", "Female") %>%
 mean(y_hat==y)
 ```
 
-<br/>
-
 ### **Question 3**
 
 Write a line of code using the table function to show the confusion matrix, assuming the prediction is y_hat and the truth is y.
@@ -197,7 +189,7 @@ Write a line of code using the table function to show the confusion matrix, assu
 table(y_hat, y)
 ```
 
-<br/>
+
 
 ### **Question 4**
 
@@ -208,7 +200,7 @@ library(caret)
 sensitivity(y_hat, y)
 ```
 
-<br/>
+
 
 ### **Question 5**
 
@@ -219,7 +211,7 @@ library(caret)
 specificity(y_hat, y)
 ```
 
-<br/>
+
 
 ### **Question 6**
 
@@ -228,7 +220,7 @@ What is the prevalence (% of females) in the dat dataset defined above?
 mean(y == "Female") 
 ```
 
-<br/>
+
 
 ## **Practice with Machine Learning**
 
@@ -243,7 +235,7 @@ y <- iris$Species
 
 The following questions all involve work with this dataset.
 
-<br/>
+
 
 ### **Question 1**
 
@@ -263,7 +255,7 @@ Which code should be used in place of # line of code above?
 - ```test_index <- createDataPartition(y,times=1,p=0.5,list=FALSE)``` [X] 
 - ```test_index <- rep(1,length(y))```
 
-<br/>
+
 
 ### **Question 2**
 
@@ -288,7 +280,7 @@ sapply(predictions,max)
 - Petal.Length [X]
 - Petal.Width
 
-<br/>
+
 
 ### **Question 3**
 
@@ -302,7 +294,7 @@ y_hat <- ifelse(test[,3]>cutoffs[1],'virginica','versicolor')
 mean(y_hat==test$Species) 
 ```
 
-<br/>
+
 
 ### **Question 4**
 
@@ -317,7 +309,7 @@ Which feature best optimizes our overall accuracy?
 - Petal.Length
 - Petal.Width [X]
 
-<br/>
+
 
 ### **Question 5**
 
@@ -351,7 +343,7 @@ optimalCutoff <- cutoffs[id,] %>% as.numeric
 y_hat <- ifelse(test[,3]>optimalCutoff[1] & test[,4]>optimalCutoff[2],'virginica','versicolor')
 mean(y_hat==test$Species)
 ```
-<br/>
+
 
 ## **Conditional Probabilities Review**
 ### **Question 1**
@@ -389,7 +381,7 @@ test[disease==0] <- sample(c(0,1), size=sum(disease==0), replace=TRUE, prob=c(0.
 test[disease==1] <- sample(c(0,1), size=sum(disease==1), replace=TRUE, prob=c(0.15, 0.85))
 ```
 
-<br/>
+
 
 ### **Question 2**
 
@@ -399,7 +391,7 @@ What is the probability that a test is positive?
 mean(test)
 ```
 
-<br/>
+
 
 ### **Question 3**
 
@@ -409,7 +401,7 @@ What is the probability that an individual has the disease if the test is negati
 mean(disease[test==0])
 ```
 
-<br/>
+
 
 ### **Question 4**
 
@@ -420,7 +412,7 @@ Remember: calculate the conditional probability the disease is positive assuming
 mean(disease[test==1]==1)
 ```
 
-<br/>
+
 
 ### **Question 5**
 
@@ -431,7 +423,7 @@ First calculate the probability of having the disease given a positive test, the
 mean(disease[test==1]==1)/mean(disease==1)
 ```
 
-<br/>
+
 
 ## **Conditional Probabilities Practice**
 ### **Question 1**
@@ -475,7 +467,7 @@ heights %>%
 	summarize(p = mean(sex == "Male")) %>% [X]
 ```
 
-<br/>
+
 
 ### **Question 2**
 
@@ -507,7 +499,7 @@ mutate(g = cut(female, quantile(height, ps), include.lowest = TRUE)) %>%
 mutate(g = cut(height, quantile(height, ps))) %>%
 ```
 
-<br/>
+
 
 ### **Question 3**
 You can generate data from a bivariate normal distrubution using the MASS package using the following code.
@@ -556,20 +548,6 @@ group_by(g) %>%
 summarize(y =(y), x =(x)) %>%
 ```
 
----
-title: "03 - Linear Regression for Prediction, Smoothing, and Working with Matrices Comprehension Check"
-author: "Alessandro Corradini - Harvard Data Science Professional"
-output:
-  pdf_document: default
-  html_document: default
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-<br/>
-
 ## **Linear Regression**
 ### **Question 1**
 
@@ -604,7 +582,7 @@ sd(rmse)
 - Mean: 2.488661
 - SD: 0.1243952
 
-<br/>
+
 
 ### **Question 2**
 Now we will repeat the above but using larger datasets. Repeat the previous exercise but for datasets with ```n <- c(100, 500, 1000, 5000, 10000)```. Save the average and standard deviation of RMSE from the 100 repetitions using a seed of 1. Hint: use the sapply or map functions.
@@ -640,7 +618,7 @@ res
 - Mean, 10000: 2.618442
 - SD, 10000: 0.01689205
 
-<br/>
+
 
 ### **Question 3**
 
@@ -651,7 +629,7 @@ What happens to the RMSE as the size of the dataset becomes larger?
 - ```n = 10000``` is not sufficiently large. To see a decrease in the RMSE we would need to make it larger.
 - The RMSE is not a random variable.
 
-<br/>
+
 
 ### **Question 4**
 
@@ -684,7 +662,7 @@ sd(rmse)
 - Mean: 0.9099808
 - SD:0.06244347
 
-<br/>
+
 
 ### **Question 5**
 
@@ -695,7 +673,7 @@ Which of the following best explains why the RMSE in question 4 is so much lower
 - When we increase the correlation between x and y, x has more predictive power and thus provides a better estimate of y. [X]
 - These are both examples of regression so the RMSE has to be the same.
 
-<br/>
+
 
 ### **Question 6**
 
@@ -736,7 +714,7 @@ sqrt(mean((y_hat-test_set$y)^2))
 - x_2
 - x_1 and x_2 [X]
 
-<br/>
+
 
 ### **Question 7**
 
@@ -744,7 +722,7 @@ Report the lowest RMSE of the three models tested in Q6.
 
 - Lowest: 0.3070962
 
-<br/>
+
 
 ### **Question 8**
 
@@ -782,7 +760,7 @@ sqrt(mean((y_hat-test_set$y)^2))
 - Adding extra predictors results in over fitting.
 - Adding extra predictors can improve RMSE substantially, but not when the added predictors are highly correlated with other predictors. [X]
 
-<br/>
+
 
 ## **Logistic Regression**
 ### **Question 1**
@@ -823,7 +801,7 @@ res <- sapply(delta, function(d){
 qplot(delta, res)
 ``` 
 
-<br/>
+
 
 ## **Smoothing**
 ### **Question 1**
@@ -877,7 +855,7 @@ dat %>% mutate(smooth = predict(fit, as.numeric(date))) %>%
 	geom_line(aes(date, smooth), lwd = 2, col = 2)
 ```
 
-<br/>
+
 
 ### **Question 2**
 
@@ -918,7 +896,7 @@ dat %>%
 	geom_line(lwd = 2) [X]
 ```
 
-<br/>
+
 
 ### **Question 3**
 
@@ -948,7 +926,7 @@ Fit a loess line to the data above and plot the results. What do you observe?
 - There is predictive power and the conditional probability is linear.
 - There is predictive power and the conditional probability is non-linear. [X}
 
-<br/>
+
 
 ## **Working with Matrices**
 ### **Question 1**
@@ -960,7 +938,7 @@ Which line of code correctly creates a 100 by 10 matrix of randomly generated no
 - ```x <- matrix(rnorm(100*10), 10, 10)```
 - ```x <- matrix(rnorm(100*10), 10, 100)```
 
-<br/>
+
 
 ### **Question 2**
 
@@ -973,21 +951,21 @@ Number of rows of ```x```.
 ```nrow(x)```
 Number of columns of ```x```.
 ```ncol(x)```
-<br/>
+
 ### **Question 3**
 Which of the following lines of code would add the scalar 1 to row 1, the scalar 2 to row 2, and so on, for the matrix ```x```?
 - ```x <- x + seq(nrow(x)) ``` [X]
 - ```x <- 1:nrow(x)```
 - ```x <- sweep(x, 2, 1:nrow(x),"+")```
 - ```x <- sweep(x, 1, 1:nrow(x),"+")``` [X]
-<br/>
+
 ### **Question 4**
 Which of the following lines of code would add the scalar 1 to column 1, the scalar 2 to column 2, and so on, for the matrix ```x?```
 - ```x <- 1:ncol(x)```
 - ```x <- 1:col(x)```
 - ```x <- sweep(x, 2, 1:ncol(x), FUN = "+") ``` [X]
 - ```x <- -x```
-<br/>
+
 ### **Question 5**
 Which code correctly computes the average of each row of ```x```?
 - mean(x)```
@@ -1002,7 +980,7 @@ Which code correctly computes the average of each row of ```x```?
 - ```colMeans(x)``` [X]
 - ```colMedians(x)```
 - ```colSums(x)```
-<br/>
+
 ### **Question 6**
 For each digit in the mnist training data, compute the proportion of pixels that are in the grey area, defined as values between 50 and 205. (To visualize this, you can make a boxplot by digit class.)
 What proportion of pixels are in the grey area overall, defined as values between 50 and 205?
@@ -1015,7 +993,7 @@ mean(y)
 
 
 
-<br/>
+
 
 ### **Question 2**
 
@@ -1024,19 +1002,7 @@ True or False: In machine learning, we build algorithms that take feature values
 - True [X]
 - False
 
----
-title: "04 - Distance, Knn, Cross Validation, and Generative Models Comprehension Check"
-author: "Alessandro Corradini - Harvard Data Science Professional"
-output:
-  html_document: default
-  pdf_document: default
----
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-<br/>
 
 ## **Distance**
 ### **Question 1**
@@ -1071,7 +1037,7 @@ d <- dist(tissue_gene_expression$x)
 - ```d <- dist(tissue_gene_expression$x)``` [X]
 - ```d <- cor(tissue_gene_expression$x)```
 
-<br/>
+
 
 ### **Question 2**
 
@@ -1210,7 +1176,6 @@ Now, instead of using a random selection of predictors, we are going to search f
 
 ```{r, include=TRUE}
 library(devtools)
-devtools::install_bioc("genefilter")
 library(genefilter)
 tt <- colttests(x, y)
 ```
@@ -1557,19 +1522,8 @@ fit_lda$results["Accuracy"]
 
 What is the accuracy using LDA? 0.8194837
 
----
-title: "05 - Classification with More than Two Classes and the Caret Package Comprehension Check"
-author: "Alessandro Corradini - Harvard Data Science Professional"
-output:
-  html_document: default
-  pdf_document: default
----
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-<br/>
 
 ## **Trees and Random Forests**
 ### **Question 1**
@@ -1598,7 +1552,7 @@ fit <- rpart(y ~ ., data = dat)
 - ```fit <- rpart(x ~ ., data = dat)```
 - ```fit <- rpart(y ~ ., data = dat)``` [X]
 
-<br/>
+
 
 ### **Question 2**
 
@@ -1845,19 +1799,7 @@ data_frame(term = rownames(imp$importance),
 - What is the importance of the CFHR4 gene in the Random Forest call? 35.03253
 - What is the rank of the CFHR4 gene in the Random Forest call? 7
 
----
-title: "06 - Model Fitting and Recommendation Systems Comprehension Check"
-author: "Alessandro Corradini - Harvard Data Science Professional"
-output:
-  html_document: default
-  pdf_document: default
----
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-<br/>
 
 ## **Ensembles**
 

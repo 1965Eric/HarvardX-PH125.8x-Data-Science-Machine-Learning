@@ -98,6 +98,18 @@ There is a link to the relevant section of the textbook: [An Example](https://ra
 - [X] A. True
 - [ ] B. False
 
+# Section 2 - Machine Learning Basics Overview
+
+In the **Machine Learning Basics** section, you will learn the basics of machine learning.
+
+After completing this section, you will be able to:
+
+* Start to use the **caret** package.
+* Construct and interpret a **confusion matrix**.
+* Use **conditional probabilities** in the context of machine learning.
+
+This section has two parts: **basics of evaluating machine learning algorithms** and **conditional probabilities**. 
+
 ## **Basics of Evaluating Machine Learning Algorithms**
 ### **Question 1**
 

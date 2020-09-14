@@ -1,10 +1,10 @@
 ---
 title: "Data Science Linear Regression"
 output:
+  html_document: default
+  word_document: default
   bookdown::epub_book:
       number_sections: true
-  word_document: default
-  html_document: default
   pdf_document:
     latex_engine: xelatex
 urlcolor: blue
@@ -84,7 +84,7 @@ There is a link to the relevant section of the textbook: [An Example](https://ra
 * We use boldface for $\textbf{X_i}$ to distinguish the vector of predictors from the individual predictors $X_{i,1}, ..., X_{i,784}$.
 * When referring to an arbitrary set of features and outcomes, we drop the index i and use $Y$ and bold $\textbf{X}$.
 * Uppercase is used to refer to variables because we think of predictors as random variables.
-* Lowercase is used to denote observed values. For example, \textbf{X} = \textbf{x}.
+* Lowercase is used to denote observed values. For example, $\textbf{X} = \textbf{x}$.
 
 ## Comprehension Check - Introduction to Machine Learning
 

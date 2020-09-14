@@ -52,40 +52,51 @@ In this section, you'll learn how to overcome the curse of dimensionality using 
 
 In this section, you'll learn how to apply the machine learning algorithms you have learned.
 
+# Section 1 - Introduction to Machine Learning Overview
 
+In the **Introduction to Machine Learning** section, you will be introduced to machine learning.
 
-## **Introduction to Machine Learning**
-### **Question 1**
+After completing this section, you will be able to:
 
-"Turbochamp" was one of the first algorithms written by famed British computer scientist, mathematician and crypto-analyst Alan Turing in the late 1940s. The artificial intelligence program was based on programmable rules derived from theory or first principles and could 'think' two moves ahead.
+* Explain the difference between the **outcome** and the **features**.
+* Explain when to use **classification** and when to use **prediction**.
+* Explain the importance of **prevalence**.
+* Explain the difference between **sensitivity** and **specificity**.
 
-True or False: A key feature of machine learning is that the algorithms are built on data.
+This section has one part: **introduction to machine learning**.
 
-- True [X]
-- False
+## Notation
 
-<br/>
+There is a link to the relevant section of the textbook: [Notation](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#notation-1){target="_blank"}
 
-### **Question 2**
+**Key points**
 
-True or False: In machine learning, we build algorithms that take feature values (X) and train a model using known outcomes (Y) that is then used to predict outcomes when presented with features without known outcomes.
+* $X_1, ..., X_p$ denote the features, $Y$ denotes the outcomes, and $\hat{Y}$ denotes the predictions.
+* Machine learning prediction tasks can be divided into **categorical** and **continuous** outcomes. We refer to these as **classification** and **prediction**, respectively.
 
-- True [X]
-- False
+## An Example
 
----
-title: "02 - Machine Learning Basics Comprehension Check"
-author: "Alessandro Corradini - Harvard Data Science Professional"
-output:
-  html_document: default
-  pdf_document: default
----
+There is a link to the relevant section of the textbook: [An Example](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#an-example){target="_blank"}
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+**Key points**
 
-<br/>
+* $Y_i$ = an outcome for observation or index i.
+* We use boldface for $\textbf{X_i}$ to distinguish the vector of predictors from the individual predictors $X_{i,1}, ..., X_{i,784}$.
+* When referring to an arbitrary set of features and outcomes, we drop the index i and use $Y$ and bold $\textbf{X}$.
+* Uppercase is used to refer to variables because we think of predictors as random variables.
+* Lowercase is used to denote observed values. For example, \textbf{X} = \textbf{x}.
+
+## Comprehension Check - Introduction to Machine Learning
+
+1. True or False: A key feature of machine learning is that the algorithms are built with data.
+
+- [X] A. True
+- [ ] B. False
+
+2. True or False: In machine learning, we build algorithms that take feature values (X) and train a model using known outcomes (Y) that is then used to predict outcomes when presented with features without known outcomes.
+
+- [X] A. True
+- [ ] B. False
 
 ## **Basics of Evaluating Machine Learning Algorithms**
 ### **Question 1**

@@ -196,3 +196,66 @@ mnist <- read_mnist()
 ncol(mnist$train$images)
 ```
 
+## Confusion matrix
+
+There is a link to the relevant sections of the textbook: [Confusion Matrix](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#the-confusion-matrix){target="_blank"}
+
+**Key points**
+
+* Overall accuracy can sometimes be a deceptive measure because of unbalanced classes.
+* A general improvement to using overall accuracy is to study sensitivity and specificity separately. **Sensitivity**, also known as the true positive rate or recall, is the proportion of actual positive outcomes correctly identified as such. **Specificity**, also known as the true negative rate, is the proportion of actual negative outcomes that are correctly identified as such.
+* A confusion matrix tabulates each combination of prediction and actual value. You can create a confusion matrix in R using the ```table()``` function or the ```confusionMatrix()``` function from the **caret** package.
+
+*Code*
+
+```{r}
+# tabulate each combination of prediction and actual value
+table(predicted = y_hat, actual = test_set$sex)
+test_set %>% 
+  mutate(y_hat = y_hat) %>%
+  group_by(sex) %>% 
+  summarize(accuracy = mean(y_hat == sex))
+prev <- mean(y == "Male")
+
+confusionMatrix(data = y_hat, reference = test_set$sex)
+```
+
+## Balanced accuracy and F1 score
+
+There is a link to the relevant sections of the textbook: [Balanced accuracy and F1 Score](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#balanced-accuracy-and-f_1-score){target="_blank"}
+
+**Key points**
+
+* For optimization purposes, sometimes it is more useful to have a one number summary than studying both specificity and sensitivity. One preferred metric is **balanced accuracy**. Because specificity and sensitivity are rates, it is more appropriate to compute the *harmonic* average. In fact, the **F1-score**, a widely used one-number summary, is the harmonic average of precision and recall. 
+* Depending on the context, some type of errors are more costly than others. The **F1-score** can be adapted to weigh specificity and sensitivity differently. 
+* You can compute the **F1-score** using the ```F_meas()``` function in the **caret** package.
+
+*Code*
+
+```{r}
+# maximize F-score
+cutoff <- seq(61, 70)
+F_1 <- map_dbl(cutoff, function(x){
+  y_hat <- ifelse(train_set$height > x, "Male", "Female") %>% 
+    factor(levels = levels(test_set$sex))
+  F_meas(data = y_hat, reference = factor(train_set$sex))
+})
+
+data.frame(cutoff, F_1) %>% 
+  ggplot(aes(cutoff, F_1)) + 
+  geom_point() + 
+  geom_line()
+
+max(F_1)
+
+best_cutoff <- cutoff[which.max(F_1)]
+best_cutoff
+
+y_hat <- ifelse(test_set$height > best_cutoff, "Male", "Female") %>% 
+  factor(levels = levels(test_set$sex))
+sensitivity(data = y_hat, reference = test_set$sex)
+specificity(data = y_hat, reference = test_set$sex)
+```
+
+## Prevalence matters in practice
+

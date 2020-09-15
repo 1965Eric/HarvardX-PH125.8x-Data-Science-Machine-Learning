@@ -110,3 +110,89 @@ After completing this section, you will be able to:
 
 This section has two parts: **basics of evaluating machine learning algorithms** and **conditional probabilities**. 
 
+## Caret package, training and test sets, and overall accuracy
+
+There is a link to the relevant sections of the textbook: [Training and test sets](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#training-and-test-sets){target="_blank"} and [Overall accuracy](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#overall-accuracy){target="_blank"}
+
+**Key points**
+
+* Note: the ```set.seed()``` function is used to obtain reproducible results. If you have R 3.6 or later, please use the ```sample.kind = "Rounding"``` argument whenever you set the seed for this course.
+* To mimic the ultimate evaluation process, we randomly split our data into two — a training set and a test set — and act as if we don’t know the outcome of the test set. We develop algorithms using only the training set; the test set is used only for evaluation.
+* The ```createDataPartition()```  function from the **caret** package can be used to generate indexes for randomly splitting data.
+* Note: contrary to what the documentation says, this course will use the argument p as the percentage of data that goes to testing. The indexes made from ```createDataPartition()``` should be used to create the test set. Indexes should be created on the outcome and not a predictor.
+* The simplest evaluation metric for categorical outcomes is overall accuracy: the proportion of cases that were correctly predicted in the test set.
+
+*Code*
+
+```{r}
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(caret)) install.packages("caret")
+if(!require(dslabs)) install.packages("dslabs")
+
+library(tidyverse)
+library(caret)
+library(dslabs)
+data(heights)
+
+# define the outcome and predictors
+y <- heights$sex
+x <- heights$height
+
+# generate training and test sets
+set.seed(2, sample.kind = "Rounding") # if using R 3.5 or earlier, remove the sample.kind argument
+test_index <- createDataPartition(y, times = 1, p = 0.5, list = FALSE)
+test_set <- heights[test_index, ]
+train_set <- heights[-test_index, ]
+
+# guess the outcome
+y_hat <- sample(c("Male", "Female"), length(test_index), replace = TRUE)
+y_hat <- sample(c("Male", "Female"), length(test_index), replace = TRUE) %>% 
+  factor(levels = levels(test_set$sex))
+
+# compute accuracy
+mean(y_hat == test_set$sex)
+heights %>% group_by(sex) %>% summarize(mean(height), sd(height))
+y_hat <- ifelse(x > 62, "Male", "Female") %>% factor(levels = levels(test_set$sex))
+mean(y == y_hat)
+
+# examine the accuracy of 10 cutoffs
+cutoff <- seq(61, 70)
+accuracy <- map_dbl(cutoff, function(x){
+  y_hat <- ifelse(train_set$height > x, "Male", "Female") %>% 
+    factor(levels = levels(test_set$sex))
+  mean(y_hat == train_set$sex)
+})
+data.frame(cutoff, accuracy) %>% 
+  ggplot(aes(cutoff, accuracy)) + 
+  geom_point() + 
+  geom_line() 
+max(accuracy)
+
+best_cutoff <- cutoff[which.max(accuracy)]
+best_cutoff
+
+y_hat <- ifelse(test_set$height > best_cutoff, "Male", "Female") %>% 
+  factor(levels = levels(test_set$sex))
+y_hat <- factor(y_hat)
+mean(y_hat == test_set$sex)
+```
+
+## Comprehension Check - Basics of Evaluating Machine Learning Algorithms
+
+1. For each of the following, indicate whether the outcome is continuous or categorical.
+
+* Digit reader - categorical 
+* Height - continuous  
+* Spam filter - categorical 
+* Stock prices - continuous 
+* Sex - categorical
+
+2. How many features are available to us for prediction in the ```mnist``` digits dataset?
+
+You can download the ```mnist``` dataset using the ```read_mnist()``` function from the **dslabs** package.
+
+```{r}
+mnist <- read_mnist()
+ncol(mnist$train$images)
+```
+

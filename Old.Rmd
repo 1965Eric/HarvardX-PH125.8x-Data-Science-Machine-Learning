@@ -1,26 +1,3 @@
-
-
-## **Basics of Evaluating Machine Learning Algorithms**
-### **Question 1**
-
-For each of the following, indicate whether the outcome is continuous or categorical.
-
-- Digit reader: categorical
-- Movie recommendation ratings: continuous
-- Spam filter: categorical
-- Number of hospitalizations: continuous
-- Siri: categorical
-
-### **Question 2**
-
-How many features are available to us for prediction in the mnist digits dataset?
-
-```{r, include=TRUE}
-library(dslabs)
-mnist <- read_mnist()
-ncol(mnist$train$images)
-```
-
 ### **Question 3**
 
 In the digit reader example, the outcomes are stored here: ```y <- mnist$train$labels.

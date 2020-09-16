@@ -827,8 +827,16 @@ dat &lt;- mutate(reported_heights, date_time = ymd_hms(time_stamp)) %&gt;%
 y &lt;- factor(dat$sex, c(&quot;Female&quot;, &quot;Male&quot;))
 x &lt;- dat$type</code></pre>
 <ol style="list-style-type: decimal">
-<li></li>
+<li>The <code>type</code> column of <code>dat</code> indicates whether students took classes in person (“inclass”) or online (“online”). What proportion of the inclass group is female? What proportion of the online group is female?</li>
 </ol>
+<p>Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</p>
+<pre class="r"><code>dat %&gt;% group_by(type) %&gt;% summarize(prop_female = mean(sex == &quot;Female&quot;))</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   type    prop_female
+##   &lt;chr&gt;         &lt;dbl&gt;
+## 1 inclass       0.667
+## 2 online        0.378</code></pre>
 </div>
 </div>
 

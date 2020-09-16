@@ -397,4 +397,12 @@ y <- factor(dat$sex, c("Female", "Male"))
 x <- dat$type
 ```
 
-1. 
+1. The ```type``` column of ```dat``` indicates whether students took classes in person ("inclass") or online ("online"). What proportion of the inclass group is female? What proportion of the online group is female?
+
+Enter your answer as a percentage or decimal (eg "50%" or "0.50") to at least the hundredths place.
+
+```{r}
+dat %>% group_by(type) %>% summarize(prop_female = mean(sex == "Female"))
+```
+
+

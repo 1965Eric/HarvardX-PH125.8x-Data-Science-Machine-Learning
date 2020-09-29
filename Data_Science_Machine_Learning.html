@@ -906,6 +906,32 @@ set.seed(2, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></
 ## classes have no records ( setosa ) and these will be ignored</code></pre>
 <pre class="r"><code>test &lt;- iris[test_index,]
 train &lt;- iris[-test_index,]</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Next we will figure out the singular feature in the dataset that yields the greatest overall accuracy when predicting species. You can use the code from the introduction and from Q7 to start your analysis.</li>
+</ol>
+<p>Using only the <code>train</code> iris dataset, for each feature, perform a simple search to find the cutoff that produces the highest accuracy, predicting virginica if greater than the cutoff and versicolor otherwise. Use the <code>seq</code> function over the range of each feature by intervals of 0.1 for this search.</p>
+<p>Which feature produces the highest accuracy?</p>
+<pre class="r"><code>foo &lt;- function(x){
+    rangedValues &lt;- seq(range(x)[1],range(x)[2],by=0.1)
+    sapply(rangedValues,function(i){
+        y_hat &lt;- ifelse(x&gt;i,&#39;virginica&#39;,&#39;versicolor&#39;)
+        mean(y_hat==train$Species)
+    })
+}
+predictions &lt;- apply(train[,-5],2,foo)
+sapply(predictions,max) </code></pre>
+<pre><code>## Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+##         0.70         0.62         0.96         0.94</code></pre>
+<ul class="task-list">
+<li><input type="checkbox" disabled></input>
+A. Sepal.Length</li>
+<li><input type="checkbox" disabled></input>
+B. Sepal.Width</li>
+<li><input type="checkbox" disabled checked></input>
+C. Petal.Length</li>
+<li><input type="checkbox" disabled></input>
+D. Petal.Width</li>
+</ul>
 </div>
 </div>
 

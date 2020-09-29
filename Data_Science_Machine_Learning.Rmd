@@ -1,5 +1,5 @@
 ---
-title: "Data Science Linear Regression"
+title: "Data Science Machine Learning"
 output:
   pdf_document:
     latex_engine: xelatex

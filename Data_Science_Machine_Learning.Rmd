@@ -407,4 +407,21 @@ Enter your answer as a percentage or decimal (eg "50%" or "0.50") to at least th
 dat %>% group_by(type) %>% summarize(prop_female = mean(sex == "Female"))
 ```
 
+2. In the course videos, height cutoffs were used to predict sex. Instead of height, use the ```type``` variable to predict sex. Assume that for each class type the students are either all male or all female, based on the most prevalent sex in each class type you calculated in Q1. Report the accuracy of your prediction of sex based on type. You do not need to split the data into training and test sets.
+
+Enter your accuracy as a percentage or decimal (eg "50%" or "0.50") to at least the hundredths place.
+
+```{r}
+y_hat <- ifelse(x == "online", "Male", "Female") %>% 
+      factor(levels = levels(y))
+mean(y_hat==y)
+```
+
+3. Write a line of code using the ```table()``` function to show the confusion matrix between ```y_hat``` and ```y```. Use the **exact** format ```function(a, b)``` for your answer and do not name the columns and rows. Your answer should have exactly one space.
+
+```{r}
+table(y_hat, y)
+```
+
+4. What is the sensitivity of this prediction? You can use the ```sensitivity()``` function from the **caret** package. Enter your answer as a percentage or decimal (eg "50%" or "0.50") to at least the hundredths place.
 

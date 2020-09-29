@@ -425,3 +425,56 @@ table(y_hat, y)
 
 4. What is the sensitivity of this prediction? You can use the ```sensitivity()``` function from the **caret** package. Enter your answer as a percentage or decimal (eg "50%" or "0.50") to at least the hundredths place.
 
+```{r}
+sensitivity(y_hat, y)
+```
+
+5. What is the specificity of this prediction? You can use the ```specificity()``` function from the **caret** package. Enter your answer as a percentage or decimal (eg "50%" or "0.50") to at least the hundredths place.
+
+```{r}
+specificity(y_hat, y)
+```
+
+6. What is the prevalence (% of females) in the ```dat``` dataset defined above? Enter your answer as a percentage or decimal (eg "50%" or "0.50") to at least the hundredths place.
+
+```{r}
+mean(y == "Female")
+```
+
+## Comprehension Check - Practice with Machine Learning, Part 2
+
+We will practice building a machine learning algorithm using a new dataset, ```iris```, that provides multiple predictors for us to use to train. To start, we will remove the ```setosa``` species and we will focus on the ```versicolor``` and ```virginica``` iris species using the following code:
+
+```{r}
+data(iris)
+iris <- iris[-which(iris$Species=='setosa'),]
+y <- iris$Species
+```
+
+The following questions all involve work with this dataset.
+
+7. First let us create an even split of the data into ```train``` and ```test``` partitions using ```createDataPartition()``` from the **caret** package. The code with a missing line is given below:
+
+```{r, include=TRUE, eval=FALSE}
+# set.seed(2) # if using R 3.5 or earlier
+set.seed(2, sample.kind="Rounding") # if using R 3.6 or later
+# line of code
+test <- iris[test_index,]
+train <- iris[-test_index,]
+```
+
+Which code should be used in place of # line of code above?
+
+- [ ] A. test_index <- createDataPartition(y,times=1,p=0.5)
+- [ ] B. test_index <- sample(2,length(y),replace=FALSE)
+- [X] C. test_index <- createDataPartition(y,times=1,p=0.5,list=FALSE)
+- [ ] D. test_index <- rep(1,length(y))
+
+```{r}
+# set.seed(2) # if using R 3.5 or earlier
+set.seed(2, sample.kind="Rounding") # if using R 3.6 or later
+test_index <- createDataPartition(y,times=1,p=0.5,list=FALSE)
+test <- iris[test_index,]
+train <- iris[-test_index,]
+```
+

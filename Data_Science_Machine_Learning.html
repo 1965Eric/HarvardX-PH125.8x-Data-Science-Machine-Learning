@@ -858,6 +858,54 @@ mean(y_hat==y)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>What is the sensitivity of this prediction? You can use the <code>sensitivity()</code> function from the <strong>caret</strong> package. Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</li>
 </ol>
+<pre class="r"><code>sensitivity(y_hat, y)</code></pre>
+<pre><code>## [1] 0.3823529</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>What is the specificity of this prediction? You can use the <code>specificity()</code> function from the <strong>caret</strong> package. Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</li>
+</ol>
+<pre class="r"><code>specificity(y_hat, y)</code></pre>
+<pre><code>## [1] 0.8414634</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>What is the prevalence (% of females) in the <code>dat</code> dataset defined above? Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</li>
+</ol>
+<pre class="r"><code>mean(y == &quot;Female&quot;)</code></pre>
+<pre><code>## [1] 0.4533333</code></pre>
+</div>
+<div id="comprehension-check---practice-with-machine-learning-part-2" class="section level2">
+<h2>Comprehension Check - Practice with Machine Learning, Part 2</h2>
+<p>We will practice building a machine learning algorithm using a new dataset, <code>iris</code>, that provides multiple predictors for us to use to train. To start, we will remove the <code>setosa</code> species and we will focus on the <code>versicolor</code> and <code>virginica</code> iris species using the following code:</p>
+<pre class="r"><code>data(iris)
+iris &lt;- iris[-which(iris$Species==&#39;setosa&#39;),]
+y &lt;- iris$Species</code></pre>
+<p>The following questions all involve work with this dataset.</p>
+<ol start="7" style="list-style-type: decimal">
+<li>First let us create an even split of the data into <code>train</code> and <code>test</code> partitions using <code>createDataPartition()</code> from the <strong>caret</strong> package. The code with a missing line is given below:</li>
+</ol>
+<pre class="r"><code># set.seed(2) # if using R 3.5 or earlier
+set.seed(2, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later
+# line of code
+test &lt;- iris[test_index,]
+train &lt;- iris[-test_index,]</code></pre>
+<p>Which code should be used in place of # line of code above?</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled></input>
+A. test_index &lt;- createDataPartition(y,times=1,p=0.5)</li>
+<li><input type="checkbox" disabled></input>
+B. test_index &lt;- sample(2,length(y),replace=FALSE)</li>
+<li><input type="checkbox" disabled checked></input>
+C. test_index &lt;- createDataPartition(y,times=1,p=0.5,list=FALSE)</li>
+<li><input type="checkbox" disabled></input>
+D. test_index &lt;- rep(1,length(y))</li>
+</ul>
+<pre class="r"><code># set.seed(2) # if using R 3.5 or earlier
+set.seed(2, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(2, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>test_index &lt;- createDataPartition(y,times=1,p=0.5,list=FALSE)</code></pre>
+<pre><code>## Warning in createDataPartition(y, times = 1, p = 0.5, list = FALSE): Some
+## classes have no records ( setosa ) and these will be ignored</code></pre>
+<pre class="r"><code>test &lt;- iris[test_index,]
+train &lt;- iris[-test_index,]</code></pre>
 </div>
 </div>
 

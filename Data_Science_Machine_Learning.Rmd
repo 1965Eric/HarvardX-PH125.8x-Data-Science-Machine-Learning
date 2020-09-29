@@ -314,6 +314,8 @@ bind_rows(guessing, height_cutoff) %>%
   xlab("1 - Specificity") +
   ylab("Sensitivity")
 
+if(!require(ggrepel)) install.packages("ggrepel")
+
 library(ggrepel)
 map_df(cutoffs, function(x){
   y_hat <- ifelse(test_set$height > x, "Male", "Female") %>% 

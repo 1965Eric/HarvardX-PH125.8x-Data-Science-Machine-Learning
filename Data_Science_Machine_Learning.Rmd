@@ -480,7 +480,7 @@ train <- iris[-test_index,]
 
 8. Next we will figure out the singular feature in the dataset that yields the greatest overall accuracy when predicting species. You can use the code from the introduction and from Q7 to start your analysis.
 
-Using only the ```train``` iris dataset, for each feature, perform a simple search to find the cutoff that produces the highest accuracy, predicting virginica if greater than the cutoff and versicolor otherwise. Use the seq function over the range of each feature by intervals of 0.1 for this search.
+Using only the ```train``` iris dataset, for each feature, perform a simple search to find the cutoff that produces the highest accuracy, predicting virginica if greater than the cutoff and versicolor otherwise. Use the ```seq``` function over the range of each feature by intervals of 0.1 for this search.
 
 Which feature produces the highest accuracy?
 

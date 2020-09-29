@@ -544,6 +544,7 @@ Optimize the the cutoffs for ```Petal.Length``` and ```Petal.Width``` separately
 What is the overall accuracy for the test data now?
 
 ```{r}
+data(iris)
 iris <- iris[-which(iris$Species=='setosa'),]
 y <- iris$Species
 

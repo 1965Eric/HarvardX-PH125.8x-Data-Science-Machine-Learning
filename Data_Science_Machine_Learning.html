@@ -839,6 +839,25 @@ x &lt;- dat$type</code></pre>
 ##   &lt;chr&gt;         &lt;dbl&gt;
 ## 1 inclass       0.667
 ## 2 online        0.378</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>In the course videos, height cutoffs were used to predict sex. Instead of height, use the <code>type</code> variable to predict sex. Assume that for each class type the students are either all male or all female, based on the most prevalent sex in each class type you calculated in Q1. Report the accuracy of your prediction of sex based on type. You do not need to split the data into training and test sets.</li>
+</ol>
+<p>Enter your accuracy as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</p>
+<pre class="r"><code>y_hat &lt;- ifelse(x == &quot;online&quot;, &quot;Male&quot;, &quot;Female&quot;) %&gt;% 
+      factor(levels = levels(y))
+mean(y_hat==y)</code></pre>
+<pre><code>## [1] 0.6333333</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Write a line of code using the <code>table()</code> function to show the confusion matrix between <code>y_hat</code> and <code>y</code>. Use the <strong>exact</strong> format <code>function(a, b)</code> for your answer and do not name the columns and rows. Your answer should have exactly one space.</li>
+</ol>
+<pre class="r"><code>table(y_hat, y)</code></pre>
+<pre><code>##         y
+## y_hat    Female Male
+##   Female     26   13
+##   Male       42   69</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>What is the sensitivity of this prediction? You can use the <code>sensitivity()</code> function from the <strong>caret</strong> package. Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</li>
+</ol>
 </div>
 </div>
 

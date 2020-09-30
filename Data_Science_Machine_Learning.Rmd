@@ -668,3 +668,188 @@ If a patient's test is positive, by how many times does that increase their risk
 mean(disease[test==1]==1)/mean(disease==1)
 ```
 
+## Comprehension Check - Conditional Probabilities, Part 2
+
+6. We are now going to write code to compute conditional probabilities for being male in the heights dataset. Round the heights to the closest inch. Plot the estimated conditional probability $P(x) = \mbox{Pr}(\mbox{Male} | \mbox{height}=x)$.
+
+Part of the code is provided here:
+
+```{r, include=TRUE, eval=FALSE}
+data("heights")
+# MISSING CODE
+	qplot(height, p, data =.)
+```
+
+Which of the following blocks of code can be used to replace **# MISSING CODE** to make the correct plot?
+
+- [ ] A.
+
+```{r, include=TRUE, eval=FALSE}
+heights %>% 
+	group_by(height) %>%
+	summarize(p = mean(sex == "Male")) %>%
+```        
+
+- [ ] B. 
+
+```{r, include=TRUE, eval=FALSE}
+heights %>% 
+	mutate(height = round(height)) %>%
+	group_by(height) %>%
+	summarize(p = mean(sex == "Female")) %>%
+```      
+ 
+- [ ] C. 
+
+```{r, include=TRUE, eval=FALSE}       
+heights %>% 
+	mutate(height = round(height)) %>%
+	summarize(p = mean(sex == "Male")) %>%
+```       
+
+- [X] D. 
+
+```{r, include=TRUE, eval=FALSE}
+heights %>% 
+	mutate(height = round(height)) %>%
+	group_by(height) %>%
+	summarize(p = mean(sex == "Male")) %>%
+```       
+
+```{r}
+data("heights")
+heights %>% 
+	mutate(height = round(height)) %>%
+	group_by(height) %>%
+	summarize(p = mean(sex == "Male")) %>%
+	qplot(height, p, data =.)
+```
+
+7. In the plot we just made in Q6 we see high variability for low values of height. This is because we have few data points. This time use the quantile $0.1,0.2,\dots,0.9$ and the ```cut()``` function to assure each group has the same number of points. Note that for any numeric vector ```x```, you can create groups based on quantiles like this: ```cut(x, quantile(x, seq(0, 1, 0.1)), include.lowest = TRUE)```.
+
+Part of the code is provided here:
+
+```{r, include=TRUE, eval=FALSE}     
+ps <- seq(0, 1, 0.1)
+heights %>% 
+	# MISSING CODE
+	group_by(g) %>%
+	summarize(p = mean(sex == "Male"), height = mean(height)) %>%
+	qplot(height, p, data =.)
+```
+    
+Which of the following lines of code can be used to replace **# MISSING CODE** to make the correct plot?
+
+- [ ] A.
+
+```{r, include=TRUE, eval=FALSE}
+mutate(g = cut(male, quantile(height, ps), include.lowest = TRUE)) %>%
+```        
+
+- [X] B.
+
+```{r, include=TRUE, eval=FALSE}
+mutate(g = cut(height, quantile(height, ps), include.lowest = TRUE)) %>%
+```        
+ 
+- [ ] C.
+
+```{r, include=TRUE, eval=FALSE}
+mutate(g = cut(female, quantile(height, ps), include.lowest = TRUE)) %>%
+```
+
+- [ ] D.
+
+```{r, include=TRUE, eval=FALSE}
+mutate(g = cut(height, quantile(height, ps))) %>%
+```
+
+```{r}     
+ps <- seq(0, 1, 0.1)
+heights %>% 
+	mutate(g = cut(height, quantile(height, ps), include.lowest = TRUE)) %>%
+	group_by(g) %>%
+	summarize(p = mean(sex == "Male"), height = mean(height)) %>%
+	qplot(height, p, data =.)
+```
+
+8. You can generate data from a bivariate normal distrubution using the **MASS** package using the following code:
+
+```{r}
+if(!require(MASS)) install.packages("MASS")
+
+Sigma <- 9*matrix(c(1,0.5,0.5,1), 2, 2)
+dat <- MASS::mvrnorm(n = 10000, c(69, 69), Sigma) %>%
+	data.frame() %>% setNames(c("x", "y"))
+```
+
+And you can make a quick plot using ```plot(dat)```.
+
+Using an approach similar to that used in the previous exercise, let's estimate the conditional expectations and make a plot. Part of the code has again been provided for you:
+
+```{r, include=TRUE, eval=FALSE}
+ps <- seq(0, 1, 0.1)
+dat %>% 
+	# MISSING CODE
+	qplot(x, y, data =.)
+```
+    
+Which of the following blocks of code can be used to replace **# MISSING CODE** to make the correct plot?
+
+- [X] A.
+
+```{r, include=TRUE, eval=FALSE}      
+mutate(g = cut(x, quantile(x, ps), include.lowest = TRUE)) %>%
+group_by(g) %>%
+summarize(y = mean(y), x = mean(x)) %>%
+```        
+ 
+- [ ] B.
+
+```{r, include=TRUE, eval=FALSE}          
+mutate(g = cut(x, quantile(x, ps))) %>%
+group_by(g) %>%
+summarize(y = mean(y), x = mean(x)) %>%
+```        
+
+- [ ] C.
+
+```{r, include=TRUE, eval=FALSE} 
+mutate(g = cut(x, quantile(x, ps), include.lowest = TRUE)) %>%
+summarize(y = mean(y), x = mean(x)) %>%
+```        
+ 
+
+- [ ] D.
+
+```{r, include=TRUE, eval=FALSE}       
+mutate(g = cut(x, quantile(x, ps), include.lowest = TRUE)) %>%
+group_by(g) %>%
+summarize(y =(y), x =(x)) %>%
+```
+
+```{r}
+ps <- seq(0, 1, 0.1)
+dat %>% 
+	mutate(g = cut(x, quantile(x, ps), include.lowest = TRUE)) %>%
+	group_by(g) %>%
+	summarize(y = mean(y), x = mean(x)) %>%
+	qplot(x, y, data =.)
+```
+
+# Section 3 - Linear Regression for Prediction, Smoothing, and Working with Matrices Overview
+
+In the **Linear Regression for Prediction, Smoothing, and Working with Matrices Overview** section, you will learn why linear regression is a useful baseline approach but is often insufficiently flexible for more complex analyses, how to smooth noisy data, and how to use matrices for machine learning.
+
+After completing this section, you will be able to:
+
+* Use **linear regression for prediction** as a baseline approach.
+* Use **logistic regression** for categorical data.
+* Detect trends in noisy data using **smoothing** (also known as **curve fitting** or **low pass filtering**).
+* Convert predictors to **matrices** and outcomes to **vectors** when all predictors are numeric (or can be converted to numerics in a meaningful way).
+* Perform basic **matrix algebra** calculations.
+
+This section has three parts: **linear regression for prediction**, **smoothing**, and **working with matrices**.
+
+## Linear Regression for Prediction
+

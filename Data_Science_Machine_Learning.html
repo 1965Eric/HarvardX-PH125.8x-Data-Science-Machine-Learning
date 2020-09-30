@@ -1051,6 +1051,43 @@ mean(y_hat==test$Species)</code></pre>
 </ul>
 <p>Using Bayes’ theorem, calculate the probability that you have the disease if the test is positive.</p>
 <p><span class="math inline">\(P(\text{disease} | \text{test}+) = P(\text{test}+ | \text{disease}) \times \frac{P(\text{disease})}{P(\text{test}+)} = \frac{P(\text{test}+ | \text{disease})P(\text{disease})}{P(\text{test}+ | \text{disease})P(\text{disease})+P(\text{test}+ | \text{healthy})P(\text{healthy})]} = \frac{0.85 \times 0.02}{0.85 \times 0.02 + 0.1 \times 0.98} = 0.1478261\)</span></p>
+<p>The following 4 questions (Q2-Q5) all relate to implementing this calculation using R.</p>
+<p>We have a hypothetical population of 1 million individuals with the following conditional probabilities as described below:</p>
+<ul>
+<li>The test is positive 85% of the time when tested on a patient with the disease (high sensitivity): <span class="math inline">\(P(\text{test} + | \text{disease}) = 0.85\)</span></li>
+<li>The test is negative 90% of the time when tested on a healthy patient (high specificity): <span class="math inline">\(P(\text{test} - | \text{heathy}) = 0.90\)</span></li>
+<li>The disease is prevalent in about 2% of the community: <span class="math inline">\(P(\text{disease}) = 0.02\)</span></li>
+</ul>
+<p>Here is some sample code to get you started:</p>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = &quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>disease &lt;- sample(c(0,1), size=1e6, replace=TRUE, prob=c(0.98,0.02))
+test &lt;- rep(NA, 1e6)
+test[disease==0] &lt;- sample(c(0,1), size=sum(disease==0), replace=TRUE, prob=c(0.90,0.10))
+test[disease==1] &lt;- sample(c(0,1), size=sum(disease==1), replace=TRUE, prob=c(0.15, 0.85))</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What is the probability that a test is positive?</li>
+</ol>
+<pre class="r"><code>mean(test)</code></pre>
+<pre><code>## [1] 0.114509</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>What is the probability that an individual has the disease if the test is negative?</li>
+</ol>
+<pre class="r"><code>mean(disease[test==0])</code></pre>
+<pre><code>## [1] 0.003461356</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>What is the probability that you have the disease if the test is positive? Remember: calculate the conditional probability the disease is positive assuming a positive test.</li>
+</ol>
+<pre class="r"><code>mean(disease[test==1]==1)</code></pre>
+<pre><code>## [1] 0.1471762</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Compare the prevalence of disease in people who test positive to the overall prevalence of disease.</li>
+</ol>
+<p>If a patient’s test is positive, by how many times does that increase their risk of having the disease? First calculate the probability of having the disease given a positive test, then divide by the probability of having the disease.</p>
+<pre class="r"><code>mean(disease[test==1]==1)/mean(disease==1)</code></pre>
+<pre><code>## [1] 7.389106</code></pre>
 </div>
 </div>
 

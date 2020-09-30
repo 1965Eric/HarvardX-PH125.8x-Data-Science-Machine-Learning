@@ -198,7 +198,7 @@ ncol(mnist$train$images)
 
 ## Confusion matrix
 
-There is a link to the relevant sections of the textbook: [Confusion Matrix](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#the-confusion-matrix){target="_blank"}
+There is a link to the relevant section of the textbook: [Confusion Matrix](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#the-confusion-matrix){target="_blank"}
 
 **Key points**
 
@@ -222,7 +222,7 @@ confusionMatrix(data = y_hat, reference = test_set$sex)
 
 ## Balanced accuracy and F1 score
 
-There is a link to the relevant sections of the textbook: [Balanced accuracy and F1 Score](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#balanced-accuracy-and-f_1-score){target="_blank"}
+There is a link to the relevant section of the textbook: [Balanced accuracy and F1 Score](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#balanced-accuracy-and-f_1-score){target="_blank"}
 
 **Key points**
 
@@ -259,7 +259,7 @@ specificity(data = y_hat, reference = test_set$sex)
 
 ## Prevalence matters in practice
 
-There is a link to the relevant sections of the textbook: [Prevalence matters in practice](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#prevalence-matters-in-practice){target="_blank"}
+There is a link to the relevant section of the textbook: [Prevalence matters in practice](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#prevalence-matters-in-practice){target="_blank"}
 
 **Key points**
 
@@ -267,7 +267,7 @@ There is a link to the relevant sections of the textbook: [Prevalence matters in
 
 ## ROC and precision-recall curves
 
-There is a link to the relevant sections of the textbook: [ROC and precision-recall curves](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#roc-and-precision-recall-curves){target="_blank"}
+There is a link to the relevant section of the textbook: [ROC and precision-recall curves](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#roc-and-precision-recall-curves){target="_blank"}
 
 **Key points**
 
@@ -574,3 +574,52 @@ width_cutoff <- petalWidthRange[which.max(width_predictions)] # 1.5
 y_hat <- ifelse(test$Petal.Length>length_cutoff | test$Petal.Width>width_cutoff,'virginica','versicolor')
 mean(y_hat==test$Species)
 ```
+
+## Conditional probabilities
+
+There is a link to the relevant section of the textbook: [Conditional probabilities](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-probabilities-1){target="_blank"}
+
+**Key points**
+
+* Conditional probabilities for each class: 
+
+$p_{k}(x) = Pr(Y = k|X = x), for\, k = 1, ..., K$
+
+* In machine learning, this is referred to as **Bayes' Rule**. This is a theoretical rule because in practice we don't know $p(x)$. Having a good estimate of the $p(x)$ will suffice for us to build optimal prediction models, since we can control the balance between specificity and sensitivity however we wish. In fact, estimating these conditional probabilities can be thought of as the main challenge of machine learning.
+
+## Conditional expectations and loss function
+
+There is a link to the relevant sections of the textbook: [Conditional expectations](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-expectations){target="_blank"} and [Loss functions](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-expectation-minimizes-squared-loss-function){target="_blank"}
+
+**Key points**
+
+* Due to the connection between **conditional probabilities** and **conditional expectations**:
+
+$p_{k}(x) = Pr(Y = k|X = x),\,\text{for}\,k = 1, ..., K$
+
+we often only use the expectation to denote both the conditional probability and conditional expectation.
+
+* For continuous outcomes, we define a loss function to evaluate the model. The most commonly used one is **MSE (Mean Squared Error)**. The reason why we care about the conditional expectation in machine learning is that the expected value minimizes the MSE:
+
+$\hat{Y} = E(Y|X = x)\, \text{minimizes}\, E\{(\hat{Y} - Y)^2|X=x\}$
+
+Due to this property, a succinct description of the main task of machine learning is that we use data to estimate for any set of features. **The main way in which competing machine learning algorithms differ is in their approach to estimating this expectation**.
+
+## Comprehension Check - Conditional Probabilities, Part 1
+
+1. In a previous module, we covered Bayes' theorem and the Bayesian paradigm. Conditional probabilities are a fundamental part of this previous covered rule.
+
+$P(A|B) = P(B|A)\frac{P(A)}{P(B)}$
+
+We first review a simple example to go over conditional probabilities.
+
+Assume a patient comes into the doctor’s office to test whether they have a particular disease.
+
+* The test is positive 85% of the time when tested on a patient with the disease (high sensitivity): $P(\text{test} + | \text{disease}) = 0.85$
+* The test is negative 90% of the time when tested on a healthy patient (high specificity): $P(\text{test} - | \text{heathy}) = 0.90$
+* The disease is prevalent in about 2% of the community: $P(\text{disease}) = 0.02$
+
+Using Bayes' theorem, calculate the probability that you have the disease if the test is positive.
+
+$P(\text{disease} | \text{test}+) = P(\text{test}+ | \text{disease}) \times \frac{P(\text{disease})}{P(\text{test}+)} = \frac{P(\text{test}+ | \text{disease})P(\text{disease})}{P(\text{test}+ | \text{disease})P(\text{disease})+P(\text{test}+ | \text{healthy})P(\text{healthy})]} = \frac{0.85 \times 0.02}{0.85 \times 0.02 + 0.1 \times 0.98} = 0.1478261$
+

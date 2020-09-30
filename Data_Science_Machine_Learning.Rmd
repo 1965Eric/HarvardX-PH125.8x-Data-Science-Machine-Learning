@@ -785,6 +785,10 @@ dat <- MASS::mvrnorm(n = 10000, c(69, 69), Sigma) %>%
 
 And you can make a quick plot using ```plot(dat)```.
 
+```{r}
+plot(dat)
+```
+
 Using an approach similar to that used in the previous exercise, let's estimate the conditional expectations and make a plot. Part of the code has again been provided for you:
 
 ```{r, include=TRUE, eval=FALSE}

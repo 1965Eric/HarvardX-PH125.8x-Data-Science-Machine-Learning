@@ -595,7 +595,7 @@ ncol(mnist$train$images)</code></pre>
 </div>
 <div id="confusion-matrix" class="section level2">
 <h2>Confusion matrix</h2>
-<p>There is a link to the relevant sections of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#the-confusion-matrix" target="_blank">Confusion Matrix</a></p>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#the-confusion-matrix" target="_blank">Confusion Matrix</a></p>
 <p><strong>Key points</strong></p>
 <ul>
 <li>Overall accuracy can sometimes be a deceptive measure because of unbalanced classes.</li>
@@ -652,7 +652,7 @@ confusionMatrix(data = y_hat, reference = test_set$sex)</code></pre>
 </div>
 <div id="balanced-accuracy-and-f1-score" class="section level2">
 <h2>Balanced accuracy and F1 score</h2>
-<p>There is a link to the relevant sections of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#balanced-accuracy-and-f_1-score" target="_blank">Balanced accuracy and F1 Score</a></p>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#balanced-accuracy-and-f_1-score" target="_blank">Balanced accuracy and F1 Score</a></p>
 <p><strong>Key points</strong></p>
 <ul>
 <li>For optimization purposes, sometimes it is more useful to have a one number summary than studying both specificity and sensitivity. One preferred metric is <strong>balanced accuracy</strong>. Because specificity and sensitivity are rates, it is more appropriate to compute the <em>harmonic</em> average. In fact, the <strong>F1-score</strong>, a widely used one-number summary, is the harmonic average of precision and recall.</li>
@@ -687,7 +687,7 @@ sensitivity(data = y_hat, reference = test_set$sex)</code></pre>
 </div>
 <div id="prevalence-matters-in-practice" class="section level2">
 <h2>Prevalence matters in practice</h2>
-<p>There is a link to the relevant sections of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#prevalence-matters-in-practice" target="_blank">Prevalence matters in practice</a></p>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#prevalence-matters-in-practice" target="_blank">Prevalence matters in practice</a></p>
 <p><strong>Key points</strong></p>
 <ul>
 <li>A machine learning algorithm with very high sensitivity and specificity may not be useful in practice when prevalence is close to either 0 or 1. For example, if you develop an algorithm for disease diagnosis with very high sensitivity, but the prevalence of the disease is pretty low, then the precision of your algorithm is probably very low based on Bayes’ theorem.</li>
@@ -695,7 +695,7 @@ sensitivity(data = y_hat, reference = test_set$sex)</code></pre>
 </div>
 <div id="roc-and-precision-recall-curves" class="section level2">
 <h2>ROC and precision-recall curves</h2>
-<p>There is a link to the relevant sections of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#roc-and-precision-recall-curves" target="_blank">ROC and precision-recall curves</a></p>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#roc-and-precision-recall-curves" target="_blank">ROC and precision-recall curves</a></p>
 <p><strong>Key points</strong></p>
 <ul>
 <li>A very common approach to evaluating accuracy and F1-score is to compare them graphically by plotting both. A widely used plot that does this is the <strong>receiver operating characteristic (ROC) curve</strong>. The ROC curve plots sensitivity (TPR) versus 1 - specificity or the false positive rate (FPR).</li>
@@ -1008,6 +1008,49 @@ width_cutoff &lt;- petalWidthRange[which.max(width_predictions)] # 1.5
 y_hat &lt;- ifelse(test$Petal.Length&gt;length_cutoff | test$Petal.Width&gt;width_cutoff,&#39;virginica&#39;,&#39;versicolor&#39;)
 mean(y_hat==test$Species)</code></pre>
 <pre><code>## [1] 0.88</code></pre>
+</div>
+<div id="conditional-probabilities" class="section level2">
+<h2>Conditional probabilities</h2>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-probabilities-1" target="_blank">Conditional probabilities</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>Conditional probabilities for each class:</li>
+</ul>
+<p><span class="math inline">\(p_{k}(x) = Pr(Y = k|X = x), for\, k = 1, ..., K\)</span></p>
+<ul>
+<li>In machine learning, this is referred to as <strong>Bayes’ Rule</strong>. This is a theoretical rule because in practice we don’t know <span class="math inline">\(p(x)\)</span>. Having a good estimate of the <span class="math inline">\(p(x)\)</span> will suffice for us to build optimal prediction models, since we can control the balance between specificity and sensitivity however we wish. In fact, estimating these conditional probabilities can be thought of as the main challenge of machine learning.</li>
+</ul>
+</div>
+<div id="conditional-expectations-and-loss-function" class="section level2">
+<h2>Conditional expectations and loss function</h2>
+<p>There is a link to the relevant sections of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-expectations" target="_blank">Conditional expectations</a> and <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-expectation-minimizes-squared-loss-function" target="_blank">Loss functions</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>Due to the connection between <strong>conditional probabilities</strong> and <strong>conditional expectations</strong>:</li>
+</ul>
+<p><span class="math inline">\(p_{k}(x) = Pr(Y = k|X = x),\,\text{for}\,k = 1, ..., K\)</span></p>
+<p>we often only use the expectation to denote both the conditional probability and conditional expectation.</p>
+<ul>
+<li>For continuous outcomes, we define a loss function to evaluate the model. The most commonly used one is <strong>MSE (Mean Squared Error)</strong>. The reason why we care about the conditional expectation in machine learning is that the expected value minimizes the MSE:</li>
+</ul>
+<p><span class="math inline">\(\hat{Y} = E(Y|X = x)\, \text{minimizes}\, E\{(\hat{Y} - Y)^2|X=x\}\)</span></p>
+<p>Due to this property, a succinct description of the main task of machine learning is that we use data to estimate for any set of features. <strong>The main way in which competing machine learning algorithms differ is in their approach to estimating this expectation</strong>.</p>
+</div>
+<div id="comprehension-check---conditional-probabilities-part-1" class="section level2">
+<h2>Comprehension Check - Conditional Probabilities, Part 1</h2>
+<ol style="list-style-type: decimal">
+<li>In a previous module, we covered Bayes’ theorem and the Bayesian paradigm. Conditional probabilities are a fundamental part of this previous covered rule.</li>
+</ol>
+<p><span class="math inline">\(P(A|B) = P(B|A)\frac{P(A)}{P(B)}\)</span></p>
+<p>We first review a simple example to go over conditional probabilities.</p>
+<p>Assume a patient comes into the doctor’s office to test whether they have a particular disease.</p>
+<ul>
+<li>The test is positive 85% of the time when tested on a patient with the disease (high sensitivity): <span class="math inline">\(P(\text{test} + | \text{disease}) = 0.85\)</span></li>
+<li>The test is negative 90% of the time when tested on a healthy patient (high specificity): <span class="math inline">\(P(\text{test} - | \text{heathy}) = 0.90\)</span></li>
+<li>The disease is prevalent in about 2% of the community: <span class="math inline">\(P(\text{disease}) = 0.02\)</span></li>
+</ul>
+<p>Using Bayes’ theorem, calculate the probability that you have the disease if the test is positive.</p>
+<p><span class="math inline">\(P(\text{disease} | \text{test}+) = P(\text{test}+ | \text{disease}) \times \frac{P(\text{disease})}{P(\text{test}+)} = \frac{P(\text{test}+ | \text{disease})P(\text{disease})}{P(\text{test}+ | \text{disease})P(\text{disease})+P(\text{test}+ | \text{healthy})P(\text{healthy})]} = \frac{0.85 \times 0.02}{0.85 \times 0.02 + 0.1 \times 0.98} = 0.1478261\)</span></p>
 </div>
 </div>
 

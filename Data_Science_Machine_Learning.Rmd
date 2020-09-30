@@ -623,3 +623,48 @@ Using Bayes' theorem, calculate the probability that you have the disease if the
 
 $P(\text{disease} | \text{test}+) = P(\text{test}+ | \text{disease}) \times \frac{P(\text{disease})}{P(\text{test}+)} = \frac{P(\text{test}+ | \text{disease})P(\text{disease})}{P(\text{test}+ | \text{disease})P(\text{disease})+P(\text{test}+ | \text{healthy})P(\text{healthy})]} = \frac{0.85 \times 0.02}{0.85 \times 0.02 + 0.1 \times 0.98} = 0.1478261$
 
+The following 4 questions (Q2-Q5) all relate to implementing this calculation using R.
+
+We have a hypothetical population of 1 million individuals with the following conditional probabilities as described below:
+
+* The test is positive 85% of the time when tested on a patient with the disease (high sensitivity): $P(\text{test} + | \text{disease}) = 0.85$
+* The test is negative 90% of the time when tested on a healthy patient (high specificity): $P(\text{test} - | \text{heathy}) = 0.90$
+* The disease is prevalent in about 2% of the community: $P(\text{disease}) = 0.02$
+
+Here is some sample code to get you started:
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
+disease <- sample(c(0,1), size=1e6, replace=TRUE, prob=c(0.98,0.02))
+test <- rep(NA, 1e6)
+test[disease==0] <- sample(c(0,1), size=sum(disease==0), replace=TRUE, prob=c(0.90,0.10))
+test[disease==1] <- sample(c(0,1), size=sum(disease==1), replace=TRUE, prob=c(0.15, 0.85))
+```
+
+2. What is the probability that a test is positive?
+
+```{r}
+mean(test)
+```
+
+3. What is the probability that an individual has the disease if the test is negative?
+
+```{r}
+mean(disease[test==0])
+```
+
+4. What is the probability that you have the disease if the test is positive? Remember: calculate the conditional probability the disease is positive assuming a positive test.
+
+```{r}
+mean(disease[test==1]==1)
+```
+
+5. Compare the prevalence of disease in people who test positive to the overall prevalence of disease.
+
+If a patient's test is positive, by how many times does that increase their risk of having the disease? First calculate the probability of having the disease given a positive test, then divide by the probability of having the disease.
+
+```{r}
+mean(disease[test==1]==1)/mean(disease==1)
+```
+

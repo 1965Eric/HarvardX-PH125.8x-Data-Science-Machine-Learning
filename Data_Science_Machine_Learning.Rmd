@@ -859,7 +859,7 @@ This section has three parts: **linear regression for prediction**, **smoothing*
 
 There is a link to the relevant section of the textbook: [Linear regression for prediction](https://rafalab.github.io/dsbook/examples-of-algorithms.html#linear-regression){target="_blank"}
 
-**Key points
+**Key points**
 
 * Linear regression can be considered a machine learning algorithm. Although it can be too rigid to be useful, it works rather well for some challenges. It also serves as a baseline approach: if you can’t beat it with a more complex approach, you probably want to stick to linear regression. 
 
@@ -874,10 +874,9 @@ library(HistData)
 
 galton_heights <- GaltonFamilies %>%
   filter(childNum == 1 & gender == "male") %>%
-  select(father, childHeight) %>%
+  dplyr::select(father, childHeight) %>%
   rename(son = childHeight)
 
-library(caret)
 y <- galton_heights$son
 test_index <- createDataPartition(y, times = 1, p = 0.5, list = FALSE)
 
@@ -901,7 +900,7 @@ mean((y_hat - test_set$son)^2)
 
 There is a link to the relevant section of the textbook: [Predict function](https://rafalab.github.io/dsbook/examples-of-algorithms.html#the-predict-function){target="_blank"}
 
-**Key points
+**Key points**
 
 * The ```predict()``` function takes a fitted object from functions such as ```lm()``` or ```glm()``` and a data frame with the new predictors for which to predict. We can use predict like this:
 

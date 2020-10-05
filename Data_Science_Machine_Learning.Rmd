@@ -985,3 +985,11 @@ res <- sapply(n, function(n){
 
 res
 ```
+
+3. What happens to the RMSE as the size of the dataset becomes larger?
+
+- [X] A. On average, the RMSE does not change much as n gets larger, but the variability of the RMSE decreases.
+- [ ] B. Because of the law of large numbers the RMSE decreases; more data means more precise estimates.
+- [ ] C. n = 10000 is not sufficiently large. To see a decrease in the RMSE we would need to make it larger.
+- [ ] D. The RMSE is not a random variable.
+

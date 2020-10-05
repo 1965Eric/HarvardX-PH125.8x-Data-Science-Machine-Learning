@@ -1129,7 +1129,6 @@ $p(x)=Pr(Y=1|X=x)=\beta_{0}+\beta_{1}x$
 * Once we have estimates $\beta_0$ and $\beta_1$, we can obtain an actual prediction $p(x)$. Then we can define a specific decision rule to form a prediction.
 
 *Code*
-Code
 
 ```{r}
 data("heights")

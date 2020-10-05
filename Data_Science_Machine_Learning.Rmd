@@ -1116,3 +1116,48 @@ sqrt(mean((y_hat-test_set$y)^2))
 - [ ] C. Adding extra predictors results in over fitting.
 - [X] D. Adding extra predictors can improve RMSE substantially, but not when the added predictors are highly correlated with other predictors.
 
+## Regression for a Categorical Outcome
+
+There is a link to the relevant section of the textbook: [Regression for a categorical outcome](https://rafalab.github.io/dsbook/examples-of-algorithms.html#logistic-regression){target="_blank"}
+
+**Key points**
+
+* The regression approach can be extended to categorical data. For example, we can try regression to estimate the conditional probability:
+
+$p(x)=Pr(Y=1|X=x)=\beta_{0}+\beta_{1}x$
+
+* Once we have estimates $\beta_0$ and $\beta_1$, we can obtain an actual prediction $p(x)$. Then we can define a specific decision rule to form a prediction.
+
+*Code*
+Code
+
+```{r}
+data("heights")
+y <- heights$height
+
+set.seed(2) #if you are using R 3.5 or earlier
+set.seed(2, sample.kind = "Rounding") #if you are using R 3.6 or later
+
+test_index <- createDataPartition(y, times = 1, p = 0.5, list = FALSE)
+train_set <- heights %>% slice(-test_index)
+test_set <- heights %>% slice(test_index)
+
+train_set %>% 
+  filter(round(height)==66) %>%
+  summarize(y_hat = mean(sex=="Female"))
+
+heights %>% 
+  mutate(x = round(height)) %>%
+  group_by(x) %>%
+  filter(n() >= 10) %>%
+  summarize(prop = mean(sex == "Female")) %>%
+  ggplot(aes(x, prop)) +
+  geom_point()
+lm_fit <- mutate(train_set, y = as.numeric(sex == "Female")) %>% lm(y ~ height, data = .)
+p_hat <- predict(lm_fit, test_set)
+y_hat <- ifelse(p_hat > 0.5, "Female", "Male") %>% factor()
+confusionMatrix(y_hat, test_set$sex)$overall["Accuracy"]
+```
+
+## Logistic Regression
+

@@ -993,3 +993,126 @@ res
 - [ ] C. n = 10000 is not sufficiently large. To see a decrease in the RMSE we would need to make it larger.
 - [ ] D. The RMSE is not a random variable.
 
+4. Now repeat the exercise from Q1, this time making the correlation between ```x``` and ```y``` larger, as in the following code: 
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+n <- 100
+Sigma <- 9*matrix(c(1.0, 0.95, 0.95, 1.0), 2, 2)
+dat <- MASS::mvrnorm(n = 100, c(69, 69), Sigma) %>%
+	data.frame() %>% setNames(c("x", "y"))
+```
+
+Note what happens to RMSE - set the seed to 1 as before.
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+rmse <- replicate(100, {
+	test_index <- createDataPartition(dat$y, times = 1, p = 0.5, list = FALSE)
+	train_set <- dat %>% slice(-test_index)
+	test_set <- dat %>% slice(test_index)
+	fit <- lm(y ~ x, data = train_set)
+ 	y_hat <- predict(fit, newdata = test_set)
+	sqrt(mean((y_hat-test_set$y)^2))
+})
+
+mean(rmse)
+sd(rmse)
+```
+
+5. Which of the following best explains why the RMSE in question 4 is so much lower than the RMSE in question 1?
+
+- [ ] A. It is just luck. If we do it again, it will be larger.
+- [ ] B. The central limit theorem tells us that the RMSE is normal.
+- [X] C. When we increase the correlation between x and y, x has more predictive power and thus provides a better estimate of y.
+- [ ] D. These are both examples of regression so the RMSE has to be the same.
+
+6. Create a data set using the following code.
+
+```{r}      
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+Sigma <- matrix(c(1.0, 0.75, 0.75, 0.75, 1.0, 0.25, 0.75, 0.25, 1.0), 3, 3)
+dat <- MASS::mvrnorm(n = 100, c(0, 0, 0), Sigma) %>%
+	data.frame() %>% setNames(c("y", "x_1", "x_2"))
+```
+
+Note that ```y``` is correlated with both ```x_1``` and ```x_2``` but the two predictors are independent of each other, as seen by ```cor(dat)```.
+
+Set the seed to 1, then use the **caret** package to partition into test and training sets with ```p = 0.5```. Compare the RMSE when using just ```x_1```, just ```x_2``` and both ```x_1``` and ```x_2```. Train a single linear model for each (not 100 like in the previous questions).
+
+Which of the three models performs the best (has the lowest RMSE)?
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+test_index <- createDataPartition(dat$y, times = 1, p = 0.5, list = FALSE)
+train_set <- dat %>% slice(-test_index)
+test_set <- dat %>% slice(test_index)
+
+fit <- lm(y ~ x_1, data = train_set)
+y_hat <- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))
+
+fit <- lm(y ~ x_2, data = train_set)
+y_hat <- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))
+
+fit <- lm(y ~ x_1 + x_2, data = train_set)
+y_hat <- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))
+```
+
+- [ ] A. ```x_1```
+- [ ] B. ```x_2```
+- [X] C. ```x_1``` and ```x_2```
+
+7. Report the lowest RMSE of the three models tested in Q6.
+
+```{r}
+fit <- lm(y ~ x_1 + x_2, data = train_set)
+y_hat <- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))
+```
+
+8. Repeat the exercise from Q6 but now create an example in which ```x_1``` and ```x_2``` are highly correlated.
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+Sigma <- matrix(c(1.0, 0.75, 0.75, 0.75, 1.0, 0.95, 0.75, 0.95, 1.0), 3, 3)
+dat <- MASS::mvrnorm(n = 100, c(0, 0, 0), Sigma) %>%
+	data.frame() %>% setNames(c("y", "x_1", "x_2"))
+```
+
+Set the seed to 1, then use the **caret** package to partition into a test and training set of equal size. Compare the RMSE when using just ```x_1```, just ```x_2```, and both ```x_1``` and ```x_2```.
+
+Compare the results from Q6 and Q8. What can you conclude?
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+test_index <- createDataPartition(dat$y, times = 1, p = 0.5, list = FALSE)
+train_set <- dat %>% slice(-test_index)
+test_set <- dat %>% slice(test_index)
+
+fit <- lm(y ~ x_1, data = train_set)
+y_hat <- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))
+
+fit <- lm(y ~ x_2, data = train_set)
+y_hat <- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))
+
+fit <- lm(y ~ x_1 + x_2, data = train_set)
+y_hat <- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))
+```
+
+- [ ] A. Unless we include all predictors we have no predictive power.
+- [ ] B. Adding extra predictors improves RMSE regardless of whether the added predictors are correlated with other predictors or not.
+- [ ] C. Adding extra predictors results in over fitting.
+- [X] D. Adding extra predictors can improve RMSE substantially, but not when the added predictors are highly correlated with other predictors.
+

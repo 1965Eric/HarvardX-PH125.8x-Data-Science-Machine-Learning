@@ -1388,6 +1388,138 @@ C. n = 10000 is not sufficiently large. To see a decrease in the RMSE we would n
 <li><input type="checkbox" disabled></input>
 D. The RMSE is not a random variable.</li>
 </ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Now repeat the exercise from Q1, this time making the correlation between <code>x</code> and <code>y</code> larger, as in the following code:</li>
+</ol>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>n &lt;- 100
+Sigma &lt;- 9*matrix(c(1.0, 0.95, 0.95, 1.0), 2, 2)
+dat &lt;- MASS::mvrnorm(n = 100, c(69, 69), Sigma) %&gt;%
+    data.frame() %&gt;% setNames(c(&quot;x&quot;, &quot;y&quot;))</code></pre>
+<p>Note what happens to RMSE - set the seed to 1 as before.</p>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>rmse &lt;- replicate(100, {
+    test_index &lt;- createDataPartition(dat$y, times = 1, p = 0.5, list = FALSE)
+    train_set &lt;- dat %&gt;% slice(-test_index)
+    test_set &lt;- dat %&gt;% slice(test_index)
+    fit &lt;- lm(y ~ x, data = train_set)
+    y_hat &lt;- predict(fit, newdata = test_set)
+    sqrt(mean((y_hat-test_set$y)^2))
+})
+
+mean(rmse)</code></pre>
+<pre><code>## [1] 0.9099808</code></pre>
+<pre class="r"><code>sd(rmse)</code></pre>
+<pre><code>## [1] 0.06244347</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Which of the following best explains why the RMSE in question 4 is so much lower than the RMSE in question 1?</li>
+</ol>
+<ul class="task-list">
+<li><input type="checkbox" disabled></input>
+A. It is just luck. If we do it again, it will be larger.</li>
+<li><input type="checkbox" disabled></input>
+B. The central limit theorem tells us that the RMSE is normal.</li>
+<li><input type="checkbox" disabled checked></input>
+C. When we increase the correlation between x and y, x has more predictive power and thus provides a better estimate of y.</li>
+<li><input type="checkbox" disabled></input>
+D. These are both examples of regression so the RMSE has to be the same.</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li>Create a data set using the following code.</li>
+</ol>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>Sigma &lt;- matrix(c(1.0, 0.75, 0.75, 0.75, 1.0, 0.25, 0.75, 0.25, 1.0), 3, 3)
+dat &lt;- MASS::mvrnorm(n = 100, c(0, 0, 0), Sigma) %&gt;%
+    data.frame() %&gt;% setNames(c(&quot;y&quot;, &quot;x_1&quot;, &quot;x_2&quot;))</code></pre>
+<p>Note that <code>y</code> is correlated with both <code>x_1</code> and <code>x_2</code> but the two predictors are independent of each other, as seen by <code>cor(dat)</code>.</p>
+<p>Set the seed to 1, then use the <strong>caret</strong> package to partition into test and training sets with <code>p = 0.5</code>. Compare the RMSE when using just <code>x_1</code>, just <code>x_2</code> and both <code>x_1</code> and <code>x_2</code>. Train a single linear model for each (not 100 like in the previous questions).</p>
+<p>Which of the three models performs the best (has the lowest RMSE)?</p>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>test_index &lt;- createDataPartition(dat$y, times = 1, p = 0.5, list = FALSE)
+train_set &lt;- dat %&gt;% slice(-test_index)
+test_set &lt;- dat %&gt;% slice(test_index)
+
+fit &lt;- lm(y ~ x_1, data = train_set)
+y_hat &lt;- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))</code></pre>
+<pre><code>## [1] 0.600666</code></pre>
+<pre class="r"><code>fit &lt;- lm(y ~ x_2, data = train_set)
+y_hat &lt;- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))</code></pre>
+<pre><code>## [1] 0.630699</code></pre>
+<pre class="r"><code>fit &lt;- lm(y ~ x_1 + x_2, data = train_set)
+y_hat &lt;- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))</code></pre>
+<pre><code>## [1] 0.3070962</code></pre>
+<ul class="task-list">
+<li><input type="checkbox" disabled></input>
+A. <code>x_1</code></li>
+<li><input type="checkbox" disabled></input>
+B. <code>x_2</code></li>
+<li><input type="checkbox" disabled checked></input>
+C. <code>x_1</code> and <code>x_2</code></li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li>Report the lowest RMSE of the three models tested in Q6.</li>
+</ol>
+<pre class="r"><code>fit &lt;- lm(y ~ x_1 + x_2, data = train_set)
+y_hat &lt;- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))</code></pre>
+<pre><code>## [1] 0.3070962</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Repeat the exercise from Q6 but now create an example in which <code>x_1</code> and <code>x_2</code> are highly correlated.</li>
+</ol>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>Sigma &lt;- matrix(c(1.0, 0.75, 0.75, 0.75, 1.0, 0.95, 0.75, 0.95, 1.0), 3, 3)
+dat &lt;- MASS::mvrnorm(n = 100, c(0, 0, 0), Sigma) %&gt;%
+    data.frame() %&gt;% setNames(c(&quot;y&quot;, &quot;x_1&quot;, &quot;x_2&quot;))</code></pre>
+<p>Set the seed to 1, then use the <strong>caret</strong> package to partition into a test and training set of equal size. Compare the RMSE when using just <code>x_1</code>, just <code>x_2</code>, and both <code>x_1</code> and <code>x_2</code>.</p>
+<p>Compare the results from Q6 and Q8. What can you conclude?</p>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>test_index &lt;- createDataPartition(dat$y, times = 1, p = 0.5, list = FALSE)
+train_set &lt;- dat %&gt;% slice(-test_index)
+test_set &lt;- dat %&gt;% slice(test_index)
+
+fit &lt;- lm(y ~ x_1, data = train_set)
+y_hat &lt;- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))</code></pre>
+<pre><code>## [1] 0.6592608</code></pre>
+<pre class="r"><code>fit &lt;- lm(y ~ x_2, data = train_set)
+y_hat &lt;- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))</code></pre>
+<pre><code>## [1] 0.640081</code></pre>
+<pre class="r"><code>fit &lt;- lm(y ~ x_1 + x_2, data = train_set)
+y_hat &lt;- predict(fit, newdata = test_set)
+sqrt(mean((y_hat-test_set$y)^2))</code></pre>
+<pre><code>## [1] 0.6597865</code></pre>
+<ul class="task-list">
+<li><input type="checkbox" disabled></input>
+A. Unless we include all predictors we have no predictive power.</li>
+<li><input type="checkbox" disabled></input>
+B. Adding extra predictors improves RMSE regardless of whether the added predictors are correlated with other predictors or not.</li>
+<li><input type="checkbox" disabled></input>
+C. Adding extra predictors results in over fitting.</li>
+<li><input type="checkbox" disabled checked></input>
+D. Adding extra predictors can improve RMSE substantially, but not when the added predictors are highly correlated with other predictors.</li>
+</ul>
 </div>
 </div>
 

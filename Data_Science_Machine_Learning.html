@@ -1314,6 +1314,81 @@ mean((y_hat - test_set$son)^2)</code></pre>
 ?predict.lm
 ?predict.glm</code></pre>
 </div>
+<div id="comprehension-check---linear-regression" class="section level2">
+<h2>Comprehension Check - Linear Regression</h2>
+<ol style="list-style-type: decimal">
+<li>Create a data set using the following code:</li>
+</ol>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>n &lt;- 100
+Sigma &lt;- 9*matrix(c(1.0, 0.5, 0.5, 1.0), 2, 2)
+dat &lt;- MASS::mvrnorm(n = 100, c(69, 69), Sigma) %&gt;%
+      data.frame() %&gt;% setNames(c(&quot;x&quot;, &quot;y&quot;))</code></pre>
+<p>We will build 100 linear models using the data above and calculate the mean and standard deviation of the combined models. First, set the seed to 1 again (make sure to use <code>sample.kind=&quot;Rounding&quot;</code> if your R is version 3.6 or later). Then, within a <code>replicate()</code> loop, (1) partition the dataset into test and training sets with <code>p = 0.5</code> and using <code>dat$y</code> to generate your indices, (2) train a linear model predicting <code>y</code> from <code>x</code>, (3) generate predictions on the test set, and (4) calculate the RMSE of that model. Then, report the mean and standard deviation (SD) of the RMSEs from all 100 models.</p>
+<p>Report all answers to at least 3 significant digits.</p>
+<pre class="r"><code># set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if using R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>rmse &lt;- replicate(100, {
+    test_index &lt;- createDataPartition(dat$y, times = 1, p = 0.5, list = FALSE)
+    train_set &lt;- dat %&gt;% slice(-test_index)
+    test_set &lt;- dat %&gt;% slice(test_index)
+    fit &lt;- lm(y ~ x, data = train_set)
+    y_hat &lt;- predict(fit, newdata = test_set)
+    sqrt(mean((y_hat-test_set$y)^2))
+})
+
+mean(rmse)</code></pre>
+<pre><code>## [1] 2.488661</code></pre>
+<pre class="r"><code>sd(rmse)</code></pre>
+<pre><code>## [1] 0.1243952</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now we will repeat the exercise above but using larger datasets. Write a function that takes a size <code>n</code>, then (1) builds a dataset using the code provided at the top of Q1 but with <code>n</code> observations instead of 100 and without the <code>set.seed(1)</code>, (2) runs the <code>replicate()</code> loop that you wrote to answer Q1, which builds 100 linear models and returns a vector of RMSEs, and (3) calculates the mean and standard deviation of the 100 RMSEs.</li>
+</ol>
+<p>Set the seed to 1 (if using R 3.6 or later, use the argument <code>sample.kind=&quot;Rounding&quot;)</code> and then use <code>sapply()</code> or <code>map()</code> to apply your new function to <code>n &lt;- c(100, 500, 1000, 5000, 10000)</code>.</p>
+<p>Hint: You only need to set the seed once before running your function; do not set a seed within your function. Also be sure to use <code>sapply()</code> or <code>map()</code> as you will get different answers running the simulations individually due to setting the seed.</p>
+<pre class="r"><code># set.seed(1) # if R 3.5 or earlier
+set.seed(1, sample.kind=&quot;Rounding&quot;) # if R 3.6 or later</code></pre>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler
+## used</code></pre>
+<pre class="r"><code>n &lt;- c(100, 500, 1000, 5000, 10000)
+res &lt;- sapply(n, function(n){
+    Sigma &lt;- 9*matrix(c(1.0, 0.5, 0.5, 1.0), 2, 2)
+    dat &lt;- MASS::mvrnorm(n, c(69, 69), Sigma) %&gt;%
+        data.frame() %&gt;% setNames(c(&quot;x&quot;, &quot;y&quot;))
+    rmse &lt;- replicate(100, {
+        test_index &lt;- createDataPartition(dat$y, times = 1, p = 0.5, list = FALSE)
+        train_set &lt;- dat %&gt;% slice(-test_index)
+        test_set &lt;- dat %&gt;% slice(test_index)
+        fit &lt;- lm(y ~ x, data = train_set)
+        y_hat &lt;- predict(fit, newdata = test_set)
+        sqrt(mean((y_hat-test_set$y)^2))
+    })
+    c(avg = mean(rmse), sd = sd(rmse))
+})
+
+res</code></pre>
+<pre><code>##          [,1]       [,2]       [,3]       [,4]       [,5]
+## avg 2.4977540 2.72095125 2.55554451 2.62482800 2.61844227
+## sd  0.1180821 0.08002108 0.04560258 0.02309673 0.01689205</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>What happens to the RMSE as the size of the dataset becomes larger?</li>
+</ol>
+<ul class="task-list">
+<li><input type="checkbox" disabled checked></input>
+A. On average, the RMSE does not change much as n gets larger, but the variability of the RMSE decreases.</li>
+<li><input type="checkbox" disabled></input>
+B. Because of the law of large numbers the RMSE decreases; more data means more precise estimates.</li>
+<li><input type="checkbox" disabled></input>
+C. n = 10000 is not sufficiently large. To see a decrease in the RMSE we would need to make it larger.</li>
+<li><input type="checkbox" disabled></input>
+D. The RMSE is not a random variable.</li>
+</ul>
+</div>
 </div>
 
 

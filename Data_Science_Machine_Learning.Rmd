@@ -1339,17 +1339,17 @@ qplot(delta, res)
 
 - [X] A.
 
-![](/images/Plot1.png)
+![](images/Plot1.png)
 
 - [ ] B.
 
-![](/images/Plot2.png)
+![](images/Plot2.png)
 
 - [ ] C.
 
-![](/images/Plot3.png)
+![](images/Plot3.png)
 
 - [ ] D.
 
-![](/images/Plot4.png)
+![](images/Plot4.png)
 

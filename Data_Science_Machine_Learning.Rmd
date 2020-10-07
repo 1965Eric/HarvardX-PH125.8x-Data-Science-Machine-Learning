@@ -1353,3 +1353,51 @@ qplot(delta, res)
 
 ![](images/Plot4.png)
 
+## Introduction to Smoothing
+
+There is a link to the relevant section of the textbook: [Smoothing](https://rafalab.github.io/dsbook/smoothing.html){target="_blank"}
+
+**Key points**
+
+* **Smoothing** is a very powerful technique used all across data analysis. It is designed to detect trends in the presence of noisy data in cases in which the shape of the trend is unknown. 
+* The concepts behind smoothing techniques are extremely useful in machine learning because **conditional expectations/probabilities** can be thought of as **trends** of unknown shapes that we need to estimate in the presence of uncertainty.
+
+*Code*
+
+```{r}
+data("polls_2008")
+qplot(day, margin, data = polls_2008)
+```
+
+## Bin Smoothing and Kernels
+
+There is a link to the relevant sections of the textbook: [Bin smoothing](https://rafalab.github.io/dsbook/smoothing.html#bin-smoothing){target="_blank"} and [Kernels](https://rafalab.github.io/dsbook/smoothing.html#kernels){target="_blank"}
+
+**Key points**
+
+* The general idea of smoothing is to group data points into strata in which the value of $f(x)$ can be assumed to be constant. We can make this assumption because we think $f(x)$ changes slowly and, as a result, $f(x)$ is almost constant in small windows of time. 
+* This assumption implies that a good estimate for $f(x)$ is the average of the $Y_{i}$ values in the window. The estimate is:
+
+$\hat{f}(x_{0})=\frac{1}{N_{0}}\sum_{i\in{A_{0}}}Y_{i}$
+
+* In smoothing, we call the size of the interval $|x-x_{0}|$ satisfying the particular condition the window size, bandwidth or span.
+
+*Code*
+
+```{r}
+# bin smoothers
+span <- 7 
+fit <- with(polls_2008,ksmooth(day, margin, x.points = day, kernel="box", bandwidth =span))
+polls_2008 %>% mutate(smooth = fit$y) %>%
+    ggplot(aes(day, margin)) +
+    geom_point(size = 3, alpha = .5, color = "grey") + 
+    geom_line(aes(day, smooth), color="red")
+
+# kernel
+span <- 7
+fit <- with(polls_2008, ksmooth(day, margin,  x.points = day, kernel="normal", bandwidth = span))
+polls_2008 %>% mutate(smooth = fit$y) %>%
+  ggplot(aes(day, margin)) +
+  geom_point(size = 3, alpha = .5, color = "grey") + 
+  geom_line(aes(day, smooth), color="red")
+```

@@ -1490,3 +1490,49 @@ dat %>% mutate(smooth = predict(fit, as.numeric(date))) %>%
 
 ![](images/Smoothplot4.png)
 
+2. Work with the same data as in Q1 to plot smooth estimates against day of the year, all on the same plot, but with different colors for each year.
+
+Which code produces the desired plot?
+
+```{r}
+dat %>% 
+    mutate(smooth = predict(fit, as.numeric(date)), day = yday(date), year = as.character(year(date))) %>%
+    ggplot(aes(day, smooth, col = year)) +
+    geom_line(lwd = 2)
+```
+
+- [ ] A.
+
+```{r, include=TRUE, eval=FALSE}
+dat %>% 
+    mutate(smooth = predict(fit), day = yday(date), year = as.character(year(date))) %>%
+    ggplot(aes(day, smooth, col = year)) +
+    geom_line(lwd = 2)
+```
+
+- [ ] B.
+
+```{r, include=TRUE, eval=FALSE}
+dat %>% 
+    mutate(smooth = predict(fit, as.numeric(date)), day = mday(date), year = as.character(year(date))) %>%
+    ggplot(aes(day, smooth, col = year)) +
+    geom_line(lwd = 2)
+```
+ 
+ - [ ] C.
+ 
+ ```{r, include=TRUE, eval=FALSE}
+ dat %>% 
+    mutate(smooth = predict(fit, as.numeric(date)), day = yday(date), year = as.character(year(date))) %>%
+    ggplot(aes(day, smooth)) +
+    geom_line(lwd = 2)
+ ```
+        
+ - [X] D.
+ 
+```{r, include=TRUE, eval=FALSE}
+dat %>% 
+    mutate(smooth = predict(fit, as.numeric(date)), day = yday(date), year = as.character(year(date))) %>%
+    ggplot(aes(day, smooth, col = year)) +
+    geom_line(lwd = 2)
+```

@@ -1476,17 +1476,17 @@ dat %>% mutate(smooth = predict(fit, as.numeric(date))) %>%
 
 - [X] A.
 
-![](images\Smoothplot1.png)
+![](images/Smoothplot1.png)
 
 - [ ] B.
 
-![](images\Smoothplot2.png)
+![](images/Smoothplot2.png)
 
 - [ ] C.
 
-![](images\Smoothplot3.png)
+![](images/Smoothplot3.png)
 
 - [ ] D.
 
-![](images\Smoothplot4.png)
+![](images/Smoothplot4.png)
 

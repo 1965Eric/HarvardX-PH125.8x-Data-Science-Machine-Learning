@@ -1414,11 +1414,79 @@ There is a link to the relevant section of the textbook: [Local weighted regress
 
 *Code*
 
-The full code can be found in the .R file Handout at the beginning of the section.
-
 ```{r}
 polls_2008 %>% ggplot(aes(day, margin)) +
   geom_point() + 
   geom_smooth(color="red", span = 0.15, method = "loess", method.args = list(degree=1))
 ```
+
+## Comprehension Check - Smoothing
+
+1. In the Wrangling course of this series, PH125.6x, we used the following code to obtain mortality counts for Puerto Rico for 2015-2018:
+
+```{r}
+if(!require(purrr)) install.packages("purrr")
+if(!require(pdftools)) install.packages("pdftools")
+
+library(tidyverse)
+library(lubridate)
+library(purrr)
+library(pdftools)
+    
+fn <- system.file("extdata", "RD-Mortality-Report_2015-18-180531.pdf", package="dslabs")
+dat <- map_df(str_split(pdf_text(fn), "\n"), function(s){
+	s <- str_trim(s)
+	header_index <- str_which(s, "2015")[1]
+	tmp <- str_split(s[header_index], "\\s+", simplify = TRUE)
+	month <- tmp[1]
+	header <- tmp[-1]
+	tail_index  <- str_which(s, "Total")
+	n <- str_count(s, "\\d+")
+	out <- c(1:header_index, which(n==1), which(n>=28), tail_index:length(s))
+	s[-out] %>%
+		str_remove_all("[^\\d\\s]") %>%
+		str_trim() %>%
+		str_split_fixed("\\s+", n = 6) %>%
+		.[,1:5] %>%
+		as_data_frame() %>% 
+		setNames(c("day", header)) %>%
+		mutate(month = month,
+			day = as.numeric(day)) %>%
+		gather(year, deaths, -c(day, month)) %>%
+		mutate(deaths = as.numeric(deaths))
+}) %>%
+	mutate(month = recode(month, "JAN" = 1, "FEB" = 2, "MAR" = 3, "APR" = 4, "MAY" = 5, "JUN" = 6, 
+                          "JUL" = 7, "AGO" = 8, "SEP" = 9, "OCT" = 10, "NOV" = 11, "DEC" = 12)) %>%
+	mutate(date = make_date(year, month, day)) %>%
+        dplyr::filter(date <= "2018-05-01")
+```
+
+Use the ```loess()``` function to obtain a smooth estimate of the expected number of deaths as a function of date. Plot this resulting smooth function. Make the span about two months long.
+
+Which of the following plots is correct?
+
+```{r}
+span <- 60 / as.numeric(diff(range(dat$date)))
+fit <- dat %>% mutate(x = as.numeric(date)) %>% loess(deaths ~ x, data = ., span = span, degree = 1)
+dat %>% mutate(smooth = predict(fit, as.numeric(date))) %>%
+	ggplot() +
+	geom_point(aes(date, deaths)) +
+	geom_line(aes(date, smooth), lwd = 2, col = "red")
+```
+
+- [X] A.
+
+![](images\Smoothplot1.png)
+
+- [ ] B.
+
+![](images\Smoothplot2.png)
+
+- [ ] C.
+
+![](images\Smoothplot3.png)
+
+- [ ] D.
+
+![](images\Smoothplot4.png)
 

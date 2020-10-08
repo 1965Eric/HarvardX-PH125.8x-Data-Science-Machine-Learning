@@ -1401,3 +1401,24 @@ polls_2008 %>% mutate(smooth = fit$y) %>%
   geom_point(size = 3, alpha = .5, color = "grey") + 
   geom_line(aes(day, smooth), color="red")
 ```
+
+## Local Weighted Regression (loess)
+
+There is a link to the relevant section of the textbook: [Local weighted regression](https://rafalab.github.io/dsbook/smoothing.html#local-weighted-regression-loess){target="_blank"}
+
+**Key points**
+
+* A limitation of the bin smoothing approach is that we need small windows for the approximately constant assumptions to hold which may lead to imprecise estimates of $f(x)$. **Local weighted regression (loess)** permits us to consider larger window sizes.
+* One important difference between loess and bin smoother is that we assume the smooth function is locally **linear** in a window instead of constant.
+* The result of loess is a smoother fit than bin smoothing because we use larger sample sizes to estimate our local parameters.
+
+*Code*
+
+The full code can be found in the .R file Handout at the beginning of the section.
+
+```{r}
+polls_2008 %>% ggplot(aes(day, margin)) +
+  geom_point() + 
+  geom_smooth(color="red", span = 0.15, method = "loess", method.args = list(degree=1))
+```
+

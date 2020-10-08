@@ -1519,16 +1519,16 @@ dat %>%
     geom_line(lwd = 2)
 ```
  
- - [ ] C.
+- [ ] C.
  
- ```{r, include=TRUE, eval=FALSE}
+```{r, include=TRUE, eval=FALSE}
  dat %>% 
     mutate(smooth = predict(fit, as.numeric(date)), day = yday(date), year = as.character(year(date))) %>%
     ggplot(aes(day, smooth)) +
     geom_line(lwd = 2)
- ```
+```
         
- - [X] D.
+- [X] D.
  
 ```{r, include=TRUE, eval=FALSE}
 dat %>% 

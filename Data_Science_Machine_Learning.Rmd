@@ -1570,3 +1570,232 @@ mnist_27$train %>%
 - [ ] C. There is predictive power and the conditional probability is linear.
 - [X] D. There is predictive power and the conditional probability is non-linear.
 
+## Matrices
+
+There is a link to the relevant section of the textbook: [Matrices](https://rafalab.github.io/dsbook/large-datasets.html#matrix-algebra){target="_blank"}
+
+**Key points**
+
+* The main reason for using matrices is that certain mathematical operations needed to develop efficient code can be performed using techniques from a branch of mathematics called **linear algebra**.
+* **Linear algebra** and **matrix notation** are key elements of the language used in academic papers describing machine learning techniques. 
+
+*Code*
+
+```{r}
+if(!exists("mnist")) mnist <- read_mnist()
+
+class(mnist$train$images)
+
+x <- mnist$train$images[1:1000,] 
+y <- mnist$train$labels[1:1000]
+```
+
+## Matrix Notation
+
+There is a link to the relevant section of the textbook: [Matrix notation](https://rafalab.github.io/dsbook/large-datasets.html#notation-2){target="_blank"}
+
+**Key points**
+
+* In matrix algebra, we have three main types of objects: **scalars**, **vectors**, and **matrices**.
+	* **Scalar:** $\alpha=1$
+	* **Vector:** $X_{1} = \left(\begin{matrix} x_{1,1} \\ \vdots \\ x_{N,1} \\ \end{matrix}\right)$
+	* **Matrix:** $X = [X_{1}X_{2}] = \left(\begin{matrix} x_{1,1} & x_{1,2} \\ \vdots & \vdots \\ x_{N,1} & x_{N,2} \\ \end{matrix}\right)$
+* In R, we can extract the dimension of a matrix with the function ```dim()```. We can convert a vector into a matrix using the function ```as.matrix()```.
+
+*Code*
+
+```{r}
+length(x[,1])
+x_1 <- 1:5
+x_2 <- 6:10
+cbind(x_1, x_2)
+dim(x)
+dim(x_1)
+dim(as.matrix(x_1))
+dim(x)
+```
+
+## Converting a Vector to a Matrix
+
+There is a link to the relevant section of the textbook: [Converting a vector to a matrix](https://rafalab.github.io/dsbook/large-datasets.html#converting-a-vector-to-a-matrix){target="_blank"}
+
+**Key points**
+
+* In R, we can **convert a vector into a matrix** with the ```matrix()``` function. The matrix is filled in by column, but we can fill by row by using the ```byrow``` argument. The function ```t()``` can be used to directly transpose a matrix. 
+* Note that the matrix function **recycles values in the vector** without warning if the product of columns and rows does not match the length of the vector.
+
+*Code*
+
+```{r}
+my_vector <- 1:15
+
+# fill the matrix by column
+mat <- matrix(my_vector, 5, 3)
+mat
+
+# fill by row
+mat_t <- matrix(my_vector, 3, 5, byrow = TRUE)
+mat_t
+identical(t(mat), mat_t)
+matrix(my_vector, 5, 5)
+grid <- matrix(x[3,], 28, 28)
+image(1:28, 1:28, grid)
+
+# flip the image back
+image(1:28, 1:28, grid[, 28:1])
+```
+
+## Row and Column Summaries and Apply
+
+There is a link to the relevant section of the textbook: [Row and column summaries](https://rafalab.github.io/dsbook/large-datasets.html#row-and-column-summaries){target="_blank"}
+
+**Key points**
+
+* The function ```rowSums()``` computes the sum of each row.
+* The function ```rowMeans()``` computes the average of each row.
+* We can compute the column sums and averages using the functions ```colSums()``` and ```colMeans()```.
+* The **matrixStats** package adds functions that performs operations on each row or column very efficiently, including the functions ```rowSds()``` and ```colSds()```.
+* The ```apply()``` function lets you apply any function to a matrix. The first argument is the **matrix**, the second is the **dimension** (1 for rows, 2 for columns), and the third is the **function**. 
+
+*Code*
+
+```{r}
+sums <- rowSums(x)
+avg <- rowMeans(x)
+
+data_frame(labels = as.factor(y), row_averages = avg) %>%
+    qplot(labels, row_averages, data = ., geom = "boxplot")
+
+avgs <- apply(x, 1, mean)
+sds <- apply(x, 2, sd)
+```
+
+## Filtering Columns Based on Summaries
+
+There is a link to the relevant section of the textbook: [Filtering columns based on summaries](https://rafalab.github.io/dsbook/large-datasets.html#filtering-columns-based-on-summaries){target="_blank"}
+
+**Key points**
+
+* The operations used to extract columns: ```x[,c(351,352)]```.
+* The operations used to extract rows: ```x[c(2,3),]```.
+* We can also use logical indexes to determine which columns or rows to keep:  ```new_x <- x[ ,colSds(x) > 60]```.
+* **Important note:** if you select only one column or only one row, the result is no longer a matrix but a **vector**. We can **preserve the matrix class** by using the argument ```drop=FALSE```. 
+
+*Code*
+
+```{r}
+if(!require(matrixStats)) install.packages("matrixStats")
+
+library(matrixStats)
+
+sds <- colSds(x)
+qplot(sds, bins = "30", color = I("black"))
+image(1:28, 1:28, matrix(sds, 28, 28)[, 28:1])
+
+#extract columns and rows
+x[ ,c(351,352)]
+x[c(2,3),]
+new_x <- x[ ,colSds(x) > 60]
+dim(new_x)
+class(x[,1])
+dim(x[1,])
+
+#preserve the matrix class
+class(x[ , 1, drop=FALSE])
+dim(x[, 1, drop=FALSE])
+```
+
+## Indexing with Matrices and Binarizing the Data
+
+There is a link to the relevant sections of the textbook: [Indexing with matrices](https://rafalab.github.io/dsbook/large-datasets.html#indexing-with-matrices){target="_blank"} and [Binarizing the data](https://rafalab.github.io/dsbook/large-datasets.html#binarizing-the-data){target="_blank"}
+
+**Key points**
+
+* We can use logical operations with matrices:
+
+```{r, include=TRUE, eval=FALSE}
+mat <- matrix(1:15, 5, 3)
+mat[mat > 6 & mat < 12] <- 0
+```
+
+* We can also binarize the data using just matrix operations:
+
+```{r, include=TRUE, eval=FALSE}
+bin_x <- x
+bin_x[bin_x < 255/2] <- 0 
+bin_x[bin_x > 255/2] <- 1
+```
+
+*Code*
+
+```{r}
+#index with matrices
+mat <- matrix(1:15, 5, 3)
+as.vector(mat)
+qplot(as.vector(x), bins = 30, color = I("black"))
+new_x <- x
+new_x[new_x < 50] <- 0
+
+mat <- matrix(1:15, 5, 3)
+mat[mat < 3] <- 0
+mat
+
+mat <- matrix(1:15, 5, 3)
+mat[mat > 6 & mat < 12] <- 0
+mat
+
+#binarize the data
+bin_x <- x
+bin_x[bin_x < 255/2] <- 0
+bin_x[bin_x > 255/2] <- 1
+bin_X <- (x > 255/2)*1
+```
+
+## Vectorization for Matrices and Matrix Algebra Operations
+
+There is a link to the relevant sections of the textbook: [Vectorization for matrices](https://rafalab.github.io/dsbook/large-datasets.html#vectorization-for-matrices){target="_blank"} and [Matrix algebra operations](https://rafalab.github.io/dsbook/large-datasets.html#matrix-algebra-operations){target="_blank"}
+
+**Key points**
+
+* We can scale each row of a matrix using this line of code:
+
+```{r, include=TRUE, eval=FALSE}
+(x - rowMeans(x)) / rowSds(x)
+```
+
+* To scale each column of a matrix, we use this code:
+
+```{r, include=TRUE, eval=FALSE}
+t(t(X) - colMeans(X))
+```
+
+* We can also use a function called ```sweep()``` that works similarly to ```apply()```. It takes each entry of a vector and subtracts it from the corresponding row or column:
+
+```{r, include=TRUE, eval=FALSE}
+X_mean_0 <- sweep(x, 2, colMeans(x))
+```
+
+* Matrix multiplication: ```t(x) %*% x```
+* The cross product: ```crossprod(x)```
+* The inverse of a function: ```solve(crossprod(x))```
+* The QR decomposition: ```qr(x)```
+
+*Code*
+
+```{r}
+#scale each row of a matrix
+(x - rowMeans(x)) / rowSds(x)
+
+#scale each column
+t(t(x) - colMeans(x))
+
+#take each entry of a vector and subtracts it from the corresponding row or column
+x_mean_0 <- sweep(x, 2, colMeans(x))
+
+#divide by the standard deviation
+x_mean_0 <- sweep(x, 2, colMeans(x))
+x_standardized <- sweep(x_mean_0, 2, colSds(x), FUN = "/")
+```
+
+## Comprehension Check - Working with Matrices
+

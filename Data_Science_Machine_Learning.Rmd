@@ -1958,3 +1958,5 @@ d_492 <- as.matrix(d)[492,]
 image(1:28, 1:28, matrix(d_492, 28, 28))
 ```
 
+## Comprehension Check - Distance
+

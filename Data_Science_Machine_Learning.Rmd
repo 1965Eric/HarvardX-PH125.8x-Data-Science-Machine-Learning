@@ -1896,7 +1896,7 @@ There is a link to the relevant section of the textbook: [Distance](https://rafa
 * Most clustering and machine learning techniques rely on being able to define distance between observations, using features or predictors.
 * With high dimensional data, a quick way to compute all the distances at once is to use the function ```dist()```, which computes the distance between each row and produces an object of class ```dist()```:
 
-```{r.include=TRUE, eval=FALSE)
+```{r, include=TRUE, eval=FALSE}
 d <- dist(x)
 ```
 
@@ -1906,7 +1906,7 @@ $\text{dist}(1,2) = \sqrt{\sum_{i=1}^N (x_{i,1} - x_{i,2})^2}$
 
 * To compute the distance between all pairs of the 784 predictors, we can transpose the matrix first and then use dist():
 
-```{r.include=TRUE, eval=FALSE)
+```{r, include=TRUE, eval=FALSE}
 d <- dist(t(x))
 ```
 

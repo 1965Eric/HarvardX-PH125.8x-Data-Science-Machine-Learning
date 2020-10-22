@@ -2022,7 +2022,6 @@ image(as.matrix(d))
 
 - [ ] D. ```image()```
 
-        
 ## Knn
 
 There is a link to the relevant section of the textbook: [k-nearest neighbors](https://rafalab.github.io/dsbook/examples-of-algorithms.html#k-nearest-neighbors){target="_blank"}
@@ -2112,7 +2111,7 @@ accuracy <- map_df(ks, function(k){
     
 tibble(train = train_error, test = test_error)
     })
-})
+
 
 #pick the k that maximizes accuracy using the estimates built on the test data
 ks[which.max(accuracy$test)]

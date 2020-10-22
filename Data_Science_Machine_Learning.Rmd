@@ -1960,3 +1960,98 @@ image(1:28, 1:28, matrix(d_492, 28, 28))
 
 ## Comprehension Check - Distance
 
+1. Load the following dataset:
+
+```{r}
+data(tissue_gene_expression)
+```
+
+This dataset includes a matrix ```x```:
+ 
+```{r}
+dim(tissue_gene_expression$x)
+```
+    
+This matrix has the gene expression levels of 500 genes from 189 biological samples representing seven different tissues. The tissue type is stored in ```y```:
+
+```{r}
+table(tissue_gene_expression$y)
+```
+    
+Which of the following lines of code computes the Euclidean distance between each observation and stores it in the object ```d```?
+
+```{r}
+d <- dist(tissue_gene_expression$x)
+```
+
+- [ ] A.
+
+```{r, include=TRUE, eval=FALSE}
+d <- dist(tissue_gene_expression$x, distance='maximum')
+```      
+
+- [ ] B.
+
+```{r, include=TRUE, eval=FALSE}
+d <- dist(tissue_gene_expression)
+```        
+
+- [X] C.
+
+```{r, include=TRUE, eval=FALSE}
+d <- dist(tissue_gene_expression$x)
+```        
+
+- [ ] D.
+
+```{r, include=TRUE, eval=FALSE}
+d <- cor(tissue_gene_expression$x)
+```
+
+2. Using the dataset from Q1, compare the distances between observations 1 and 2 (both cerebellum), observations 39 and 40 (both colon), and observations 73 and 74 (both endometrium).
+
+Distance-wise, are samples from tissues of the same type closer to each other than tissues of different type?
+
+```{r}
+ind <- c(1, 2, 39, 40, 73, 74)
+as.matrix(d)[ind,ind]
+```
+
+- [ ] A. No, the samples from the same tissue type are not necessarily closer.
+- [ ] B. The two colon samples are close to each other, but the samples from the other two tissues are not.
+- [ ] C. The two cerebellum samples are close to each other, but the samples from the other two tissues are not.
+- [X] D. Yes, the samples from the same tissue type are closer to each other.
+
+3. Make a plot of all the distances using the image() function to see if the pattern you observed in Q2 is general.
+
+Which code would correctly make the desired plot?
+
+```{r}
+image(as.matrix(d))
+```
+
+- [ ] A.
+
+```{r, include=TRUE, eval=FALSE}
+image(d)
+```      
+
+- [X] B.
+
+```{r, include=TRUE, eval=FALSE}
+image(as.matrix(d))
+```       
+
+- [ ] C.
+
+```{r, include=TRUE, eval=FALSE}
+d
+```
+
+- [ ] D.
+
+```{r, include=TRUE, eval=FALSE}
+image()
+```
+
+        

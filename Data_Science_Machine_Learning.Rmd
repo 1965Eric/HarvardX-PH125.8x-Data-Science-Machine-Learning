@@ -1984,29 +1984,13 @@ Which of the following lines of code computes the Euclidean distance between eac
 d <- dist(tissue_gene_expression$x)
 ```
 
-- [ ] A.
+- [ ] A. ```d <- dist(tissue_gene_expression$x, distance='maximum')```      
 
-```{r, include=TRUE, eval=FALSE}
-d <- dist(tissue_gene_expression$x, distance='maximum')
-```      
+- [ ] B. ```d <- dist(tissue_gene_expression)```        
 
-- [ ] B.
+- [X] C. ```d <- dist(tissue_gene_expression$x)```        
 
-```{r, include=TRUE, eval=FALSE}
-d <- dist(tissue_gene_expression)
-```        
-
-- [X] C.
-
-```{r, include=TRUE, eval=FALSE}
-d <- dist(tissue_gene_expression$x)
-```        
-
-- [ ] D.
-
-```{r, include=TRUE, eval=FALSE}
-d <- cor(tissue_gene_expression$x)
-```
+- [ ] D. ```d <- cor(tissue_gene_expression$x)```
 
 2. Using the dataset from Q1, compare the distances between observations 1 and 2 (both cerebellum), observations 39 and 40 (both colon), and observations 73 and 74 (both endometrium).
 
@@ -2030,28 +2014,12 @@ Which code would correctly make the desired plot?
 image(as.matrix(d))
 ```
 
-- [ ] A.
+- [ ] A. ```image(d)```      
 
-```{r, include=TRUE, eval=FALSE}
-image(d)
-```      
+- [X] B. ```image(as.matrix(d))```       
 
-- [X] B.
+- [ ] C. ```d```
 
-```{r, include=TRUE, eval=FALSE}
-image(as.matrix(d))
-```       
-
-- [ ] C.
-
-```{r, include=TRUE, eval=FALSE}
-d
-```
-
-- [ ] D.
-
-```{r, include=TRUE, eval=FALSE}
-image()
-```
+- [ ] D. ```image()```
 
         

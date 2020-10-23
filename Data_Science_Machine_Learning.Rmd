@@ -2171,3 +2171,91 @@ mean(y_hat == y[test_index])
 })
 ```
 
+## K-fold cross validation
+
+There is a link to the relevant section of the textbook: [K-fold cross validation](https://rafalab.github.io/dsbook/cross-validation.html#k-fold-cross-validation){target="_blank"}
+
+**Key points**
+
+* For **$k$-fold cross validation**, we divide the dataset into a training set and a test set. We train our algorithm exclusively on the training set and use the test set only for evaluation purposes. 
+* For each set of algorithm parameters being considered, we want an **estimate of the MSE and then we will choose the parameters with the smallest MSE**. In  $k$-fold cross validation, we randomly split the observations into $k$ non-overlapping sets, and repeat the calculation for MSE for each of these sets. Then, we compute the average MSE and obtain an estimate of our loss. Finally, we can select the optimal parameter that minimized the MSE.
+* In terms of how to select $k$ for cross validation, **larger values of $k$ are preferable but they will also take much more** computational time. For this reason, the choices of $k=5$ and $k=10$ are common.
+
+
+## Comprehension Check - Cross-validation
+
+1. Generate a set of random predictors and outcomes using the following code:
+
+```{r}     
+# set.seed(1996) #if you are using R 3.5 or earlier
+set.seed(1996, sample.kind="Rounding") #if you are using R 3.6 or later
+n <- 1000
+p <- 10000
+x <- matrix(rnorm(n*p), n, p)
+colnames(x) <- paste("x", 1:ncol(x), sep = "_")
+y <- rbinom(n, 1, 0.5) %>% factor()
+
+x_subset <- x[ ,sample(p, 100)]
+```
+    
+Because ```x``` and ```y``` are completely independent, you should not be able to predict ```y``` using x with accuracy greater than 0.5. Confirm this by running cross-validation using logistic regression to fit the model. Because we have so many predictors, we selected a random sample ```x_subset```. Use the subset when training the model.
+
+Which code correctly performs this cross-validation?
+
+```{r}
+fit <- train(x_subset, y, method = "glm")
+fit$results
+```
+
+- [ ] A.
+
+```{r, include=TRUE, eval=FALSE}
+fit <- train(x_subset, y)
+fit$results
+```
+
+- [X] B.
+
+```{r, include=TRUE, eval=FALSE}
+fit <- train(x_subset, y, method = "glm")
+fit$results
+```     
+ 
+- [ ] C.
+
+```{r, include=TRUE, eval=FALSE}         
+fit <- train(y, x_subset, method = "glm")
+fit$results
+```       
+ 
+- [ ] D.
+
+```{r, include=TRUE, eval=FALSE}       
+fit <- test(x_subset, y, method = "glm")
+fit$results
+```
+
+2. Now, instead of using a random selection of predictors, we are going to search for those that are most predictive of the outcome. We can do this by comparing the values for the $y=1$ group to those in the $y=0$ group, for each predictor, using a t-test. You can do perform this step like this:
+
+```{r}
+if(!require(BiocManager)) install.packages("BiocManager")
+
+BiocManager::install("genefilter")
+library(genefilter)
+tt <- colttests(x, y)
+```
+    
+Which of the following lines of code correctly creates a vector of the p-values called pvals?
+
+```{r}
+pvals <- tt$p.value
+```
+
+- [ ] A. ```pvals <- tt$dm```
+ 
+- [ ] B. ```pvals <- tt$statistic```
+ 
+- [ ] C. ```pvals <- tt```
+ 
+- [X] D. ```pvals <- tt$p.value```
+

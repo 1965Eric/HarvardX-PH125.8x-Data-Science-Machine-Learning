@@ -2324,3 +2324,16 @@ What is it?
 - [X] C. We used the entire dataset to select the columns used in the model.
 - [ ] D. The high accuracy is just due to random variability.
 
+7. Use the ```train()``` function with kNN to select the best ```k``` for predicting tissue from gene expression on the ```tissue_gene_expression``` dataset from **dslabs**. Try ```k = seq(1,7,2)``` for tuning parameters. For this question, do not split the data into test and train sets (understand this can lead to overfitting, but ignore this for now).
+
+What value of ```k``` results in the highest accuracy?
+
+```{r}
+data("tissue_gene_expression")
+fit <- with(tissue_gene_expression, train(x, y, method = "knn", tuneGrid = data.frame( k = seq(1, 7, 2))))
+ggplot(fit)
+fit$results
+```
+
+## Bootstrap
+

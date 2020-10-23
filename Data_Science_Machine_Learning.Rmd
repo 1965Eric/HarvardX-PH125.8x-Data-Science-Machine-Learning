@@ -2147,3 +2147,27 @@ max(F_1)
 ks[which.max(F_1)]
 ```
 
+2. Next we will use the same gene expression example used in the Comprehension Check: Distance exercises. You can load it like this:
+
+```{r, include=TRUE, eval=FALSE}
+library(dslabs)
+library(caret)
+data("tissue_gene_expression")
+```
+    
+First, set the seed to 1 and split the data into training and test sets with ```p = 0.5```. Then, report the accuracy you obtain from predicting tissue type using KNN with ```k = seq(1, 11, 2)``` using ```sapply()``` or ```map_df()```. Note: use the ```createDataPartition()``` function outside of ```sapply()``` or ```map_df()```.
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
+y <- tissue_gene_expression$y
+x <- tissue_gene_expression$x
+test_index <- createDataPartition(y, list = FALSE)
+sapply(seq(1, 11, 2), function(k){
+	fit <- knn3(x[-test_index,], y[-test_index], k = k)
+	y_hat <- predict(fit, newdata = data.frame(x=x[test_index,]),
+				type = "class")
+mean(y_hat == y[test_index])
+})
+```
+

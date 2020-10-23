@@ -2110,11 +2110,40 @@ accuracy <- map_df(ks, function(k){
     test_error <- cm_test$overall["Accuracy"]
     
 tibble(train = train_error, test = test_error)
-    })
+})
 
 
 #pick the k that maximizes accuracy using the estimates built on the test data
 ks[which.max(accuracy$test)]
 max(accuracy$test)
+```
+
+## Comprehension Check - Nearest Neighbors
+
+1. Previously, we used logistic regression to predict sex based on height. Now we are going to use knn to do the same. Set the seed to 1, then use the **caret** package to partition the **dslabs** ```heights``` data into a training and test set of equal size. Use the ```sapply()``` function to perform knn with ```k``` values of ```seq(1, 101, 3)``` and calculate F1 scores with the ```F_meas()``` function using the default value of the relevant argument.
+
+What is the max value of ```F_1```?
+
+At what value of ```k``` does the max occur?
+
+```{r}
+data("heights")
+
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
+test_index <- createDataPartition(heights$sex, times = 1, p = 0.5, list = FALSE)
+test_set <- heights[test_index, ]
+train_set <- heights[-test_index, ]     
+                
+ks <- seq(1, 101, 3)
+F_1 <- sapply(ks, function(k){
+	fit <- knn3(sex ~ height, data = train_set, k = k)
+	y_hat <- predict(fit, test_set, type = "class") %>% 
+		factor(levels = levels(train_set$sex))
+	F_meas(data = y_hat, reference = test_set$sex)
+})
+plot(ks, F_1)
+max(F_1)
+ks[which.max(F_1)]
 ```
 

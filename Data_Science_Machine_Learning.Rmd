@@ -2548,3 +2548,36 @@ f1 <- dnorm(x, params$avg[1], params$sd[1])
 p_hat_bayes <- f1*pi / (f1*pi + f0*(1 - pi))
 ```
 
+## Controlling Prevalence
+
+There is a link to the relevant section of the textbook: [Controlling prevalence](https://rafalab.github.io/dsbook/examples-of-algorithms.html#controlling-prevalence){target="_blank"}
+
+**Key points**
+
+* The Naive Bayes approach includes a **parameter to account for differences in prevalence** $\pi = Pr(Y = 1)$. If we use hats to denote the estimates, we can write $\hat{p(x)}$ as: 
+
+$\hat{p}(x) = Pr(Y = 1|X = x) = \frac{\hat{f}_{X|Y=1}(x)\hat{\pi}}{\hat{f}_{X|Y=0}(x)(1-\hat{\pi}) + \hat{f}_{X|Y=1}(x)Pr(Y = 1)}$
+
+* The Naive Bayes approach gives us a direct way to correct the imbalance between sensitivity and specificity by simply forcing $\hat{\pi}$ to be whatever value we want it to be in order to better **balance specificity and sensitivity**. 
+
+*Code*
+
+```{r}
+# Computing sensitivity
+y_hat_bayes <- ifelse(p_hat_bayes > 0.5, "Female", "Male")
+sensitivity(data = factor(y_hat_bayes), reference = factor(test_set$sex))
+
+# Computing specificity
+specificity(data = factor(y_hat_bayes), reference = factor(test_set$sex))
+
+# Changing the cutoff of the decision rule
+p_hat_bayes_unbiased <- f1 * 0.5 / (f1 * 0.5 + f0 * (1 - 0.5))
+y_hat_bayes_unbiased <- ifelse(p_hat_bayes_unbiased > 0.5, "Female", "Male")
+sensitivity(data = factor(y_hat_bayes_unbiased), reference = factor(test_set$sex))
+specificity(data = factor(y_hat_bayes_unbiased), reference = factor(test_set$sex))
+
+# Draw plot
+qplot(x, p_hat_bayes_unbiased, geom = "line") +
+ geom_hline(yintercept = 0.5, lty = 2) +
+ geom_vline(xintercept = 67, lty = 2)
+```

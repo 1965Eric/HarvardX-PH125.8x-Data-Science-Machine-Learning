@@ -2496,3 +2496,55 @@ True or False: The bootstrap is particularly useful in situations when we do not
 
 - [X] A. True
 - [ ] B. False
+
+## Generative Models
+
+There is a link to the relevant section of the textbook: [Generative models](https://rafalab.github.io/dsbook/examples-of-algorithms.html#generative-models){target="_blank"}
+
+**Key points
+
+* **Discriminative approaches** estimate the conditional probability directly and do not consider the distribution of the predictors. 
+* **Generative models** are methods that model the joint distribution and $X$ (we model how the entire data, $X$ and $Y$, are generated).
+
+## Naive Bayes
+
+There is a link to the relevant section of the textbook: [Naive Bayes](https://rafalab.github.io/dsbook/examples-of-algorithms.html#naive-bayes){target="_blank"}
+
+**Key points**
+
+* Bayes' rule: 
+
+$p(x) = Pr(Y = 1|X = x) = \frac{f_{X|Y=1}(X)Pr(Y = 1)}{f_{X|Y=0}(X)Pr(Y = 0) + f_{X|Y=1}(X)Pr(Y = 1)}$
+
+with $f_{X|Y=1}$ and $f_{X|Y=0}$ representing the distribution functions of the predictor $X$ for the two classes $Y=1$ and $Y=0$. 
+
+* The **Naive Bayes** approach is similar to the logistic regression prediction mathematically. However, we leave the demonstration to a more advanced text, such as [The Elements of Statistical Learning by Hastie, Tibshirani, and Friedman](https://web.stanford.edu/~hastie/Papers/ESLII.pdf){target="_blank"}.
+
+*Code*
+
+```{r}
+# Generating train and test set
+data("heights")
+y <- heights$height
+set.seed(2)
+test_index <- createDataPartition(y, times = 1, p = 0.5, list = FALSE)
+train_set <- heights %>% slice(-test_index)
+test_set <- heights %>% slice(test_index)
+
+# Estimating averages and standard deviations
+params <- train_set %>%
+ group_by(sex) %>%
+ summarize(avg = mean(height), sd = sd(height))
+params
+
+# Estimating the prevalence
+pi <- train_set %>% summarize(pi=mean(sex=="Female")) %>% pull(pi)
+pi
+
+# Getting an actual rule
+x <- test_set$height
+f0 <- dnorm(x, params$avg[2], params$sd[2])
+f1 <- dnorm(x, params$avg[1], params$sd[1])
+p_hat_bayes <- f1*pi / (f1*pi + f0*(1 - pi))
+```
+

@@ -1,12 +1,12 @@
 ---
 title: "Data Science Machine Learning"
 output:
-  html_document: default
+  pdf_document:
+    latex_engine: xelatex
   word_document: default
   bookdown::epub_book:
       number_sections: true
-  pdf_document:
-    latex_engine: xelatex
+  html_document: default
 urlcolor: blue
 ---
 
@@ -2556,7 +2556,7 @@ There is a link to the relevant section of the textbook: [Controlling prevalence
 
 * The Naive Bayes approach includes a **parameter to account for differences in prevalence** $\pi = Pr(Y = 1)$. If we use hats to denote the estimates, we can write $\hat{p(x)}$ as: 
 
-$\hat{p}(x) = Pr(Y = 1|X = x) = \frac{\hat{f}_{X|Y=1}(x)\hat{\pi}}{\hat{f}_{X|Y=0}(x)(1-\hat{\pi}) + \hat{f}_{X|Y=1}(x)Pr(Y = 1)}$
+$\hat{p}(x)= \frac{\hat{f}_{X|Y=1}(x) \hat{\pi}}{ \hat{f}_{X|Y=0}(x)(1-\hat{\pi}) + \hat{f}_{X|Y=1}(x)\hat{\pi} }$
 
 * The Naive Bayes approach gives us a direct way to correct the imbalance between sensitivity and specificity by simply forcing $\hat{\pi}$ to be whatever value we want it to be in order to better **balance specificity and sensitivity**. 
 

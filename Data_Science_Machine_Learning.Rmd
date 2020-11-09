@@ -2701,4 +2701,48 @@ train_set %>% mutate(y = factor(y)) %>% ggplot(aes(x_1, x_2, fill = y, color=y))
 
 ## Comprehension Check - Generative Models
 
-1. 
+In the following exercises, we are going to apply LDA and QDA to the ```tissue_gene_expression``` dataset from **dslabs**. We will start with simple examples based on this dataset and then develop a realistic example.
+
+1. Create a dataset of samples from just cerebellum and hippocampus, two parts of the brain, and a predictor matrix with 10 randomly selected columns using the following code:
+
+```{r}
+data("tissue_gene_expression")
+      
+# set.seed(1993) #if using R 3.5 or earlier
+set.seed(1993, sample.kind="Rounding") # if using R 3.6 or later
+ind <- which(tissue_gene_expression$y %in% c("cerebellum", "hippocampus"))
+y <- droplevels(tissue_gene_expression$y[ind])
+x <- tissue_gene_expression$x[ind, ]
+x <- x[, sample(ncol(x), 10)]
+```
+    
+Use the ```train()``` function to estimate the accuracy of LDA. For this question, use the version of ```x``` and ```y``` created with the code above: do not split them or ```tissue_gene_expression``` into training and test sets (understand this can lead to overfitting). Report the accuracy from the ```train()``` results (do not make predictions).
+
+What is the accuracy? Enter your answer as a percentage or decimal (eg "50%" or "0.50") to at least the thousandths place.
+
+```{r}
+fit_lda <- train(x, y, method = "lda")
+fit_lda$results["Accuracy"]
+```
+
+2. In this case, LDA fits two 10-dimensional normal distributions. Look at the fitted model by looking at the ```finalModel``` component of the result of ```train()```. Notice there is a component called ```means``` that includes the estimated means of both distributions. Plot the mean vectors against each other and determine which predictors (genes) appear to be driving the algorithm.
+
+Which TWO genes appear to be driving the algorithm (i.e. the two genes with the highest means)?
+
+```{r}
+t(fit_lda$finalModel$means) %>% data.frame() %>%
+	mutate(predictor_name = rownames(.)) %>%
+	ggplot(aes(cerebellum, hippocampus, label = predictor_name)) +
+	geom_point() +
+	geom_text() +
+	geom_abline()
+```
+
+- [ ] A. PLCB1
+- [X] B. RAB1B
+- [ ] C. MSH4
+- [X] D. OAZ2
+- [ ] E. SPI1
+- [ ] F. SAPCD1
+- [ ] G. HEMK1
+

@@ -2746,3 +2746,97 @@ t(fit_lda$finalModel$means) %>% data.frame() %>%
 - [ ] F. SAPCD1
 - [ ] G. HEMK1
 
+3. Repeat the exercise in Q1 with QDA.
+
+Create a dataset of samples from just cerebellum and hippocampus, two parts of the brain, and a predictor matrix with 10 randomly selected columns using the following code:
+
+```{r}
+data("tissue_gene_expression")
+      
+set.seed(1993) #set.seed(1993, sample.kind="Rounding") if using R 3.6 or later
+ind <- which(tissue_gene_expression$y %in% c("cerebellum", "hippocampus"))
+y <- droplevels(tissue_gene_expression$y[ind])
+x <- tissue_gene_expression$x[ind, ]
+x <- x[, sample(ncol(x), 10)]
+```
+    
+Use the ```train()``` function to estimate the accuracy of QDA. For this question, use the version of ```x``` and ```y``` created above instead of the default from ```tissue_gene_expression```. Do not split them into training and test sets (understand this can lead to overfitting).
+
+What is the accuracy?
+
+```{r}
+fit_qda <- train(x, y, method = "qda")
+fit_qda$results["Accuracy"]
+```
+
+4. Which TWO genes drive the algorithm when using QDA instead of LDA (i.e. the two genes with the highest means)?
+
+```{r}
+t(fit_qda$finalModel$means) %>% data.frame() %>%
+	mutate(predictor_name = rownames(.)) %>%
+	ggplot(aes(cerebellum, hippocampus, label = predictor_name)) +
+	geom_point() +
+	geom_text() +
+	geom_abline()
+```
+
+- [ ] A. PLCB1
+- [X] B. RAB1B
+- [ ] C. MSH4
+- [X] D. OAZ2
+- [ ] E. SPI1
+- [ ] F. SAPCD1
+- [ ] G. HEMK1
+
+5. One thing we saw in the previous plots is that the values of the predictors correlate in both groups: some predictors are low in both groups and others high in both groups. The mean value of each predictor found in ```colMeans(x)``` is not informative or useful for prediction and often for purposes of interpretation, it is useful to center or scale each column. This can be achieved with the ```preProcess``` argument in ```train()```. Re-run LDA with ```preProcess = "center"```. Note that accuracy does not change, but it is now easier to identify the predictors that differ more between groups than based on the plot made in Q2.
+
+Which TWO genes drive the algorithm after performing the scaling?
+
+```{r}
+fit_lda <- train(x, y, method = "lda", preProcess = "center")
+fit_lda$results["Accuracy"]
+t(fit_lda$finalModel$means) %>% data.frame() %>%
+	mutate(predictor_name = rownames(.)) %>%
+	ggplot(aes(predictor_name, hippocampus)) +
+	geom_point() +
+	coord_flip()
+```
+
+- [ ] A. C21orf62
+- [ ] B. PLCB1
+- [ ] C. RAB1B
+- [ ] D. MSH4
+- [X] E. OAZ2
+- [X] F. SPI1
+- [ ] G. SAPCD1
+- [ ] H. IL18R1
+
+You can see that it is different genes driving the algorithm now. This is because the predictor means change.
+In the previous exercises we saw that both LDA and QDA approaches worked well. For further exploration of the data, you can plot the predictor values for the two genes with the largest differences between the two groups in a scatter plot to see how they appear to follow a bivariate distribution as assumed by the LDA and QDA approaches, coloring the points by the outcome, using the following code:
+
+```{r}
+d <- apply(fit_lda$finalModel$means, 2, diff)
+ind <- order(abs(d), decreasing = TRUE)[1:2]
+plot(x[, ind], col = y)
+```
+
+6. Now we are going to increase the complexity of the challenge slightly. Repeat the LDA analysis from Q5 but using all tissue types. Use the following code to create your dataset:
+
+```{r}
+data("tissue_gene_expression")
+           
+# set.seed(1993) # if using R 3.5 or earlier
+set.seed(1993, sample.kind="Rounding") # if using R 3.6 or later
+y <- tissue_gene_expression$y
+x <- tissue_gene_expression$x
+x <- x[, sample(ncol(x), 10)]
+```
+
+What is the accuracy using LDA?
+
+```{r}
+fit_lda <- train(x, y, method = "lda", preProcess = c("center"))
+fit_lda$results["Accuracy"]
+```
+
+# Section 5 - Classification with More than Two Classes and the Caret Package

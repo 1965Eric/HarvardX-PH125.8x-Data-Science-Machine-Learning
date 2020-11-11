@@ -2840,3 +2840,116 @@ fit_lda$results["Accuracy"]
 ```
 
 # Section 5 - Classification with More than Two Classes and the Caret Package
+
+In the **Classification with More than Two Classes and the Caret Package** section, you will learn how to overcome the curse of dimensionality using methods that adapt to higher dimensions and how to use the caret package to implement many different machine learning algorithms.
+
+After completing this section, you will be able to:
+
+* Use **classification and regression trees**.
+* Use **classification (decision) trees**.
+* Apply **random forests** to address the shortcomings of decision trees. 
+* Use the **caret** package to implement a variety of machine learning algorithms.
+
+This section has three parts: **classification with more than two classes, caret package**, and a **set of exercises** on the Titanic.
+
+## Trees Motivation
+
+There is a link to the relevant section of the textbook: [The curse of dimensionality](https://rafalab.github.io/dsbook/examples-of-algorithms.html#the-curse-of-dimensionality){target="_blank"}
+
+**Key points**
+
+* LDA and QDA are not **meant to be used with many predictors $p$** because the number of parameters needed to be estimated becomes too large.
+* **Curse of dimensionality:** For kernel methods such as kNN or local regression, when they have multiple predictors used,  the span/neighborhood/window made to include a given percentage of the data become large. With larger neighborhoods, our methods lose flexibility. The dimension here refers to the fact that when we have $p$ predictors, the distance between two observations is computed in $p$-dimensional space.
+
+## Classification and Regression Trees (CART)
+
+There is a link to the relevant sections of the textbook: [CART motivation](https://rafalab.github.io/dsbook/examples-of-algorithms.html#cart-motivation){target="_blank"} and [Regression trees](https://rafalab.github.io/dsbook/examples-of-algorithms.html#regression-trees){target="_blank"}
+
+**Key points**
+
+* A tree is basically a **flow chart of yes or no questions**. The general idea of the methods we are describing is to define an algorithm that uses data to create these trees with predictions at the ends, referred to as nodes.
+* When the outcome is continuous, we call the decision tree method a **regression tree**.
+* Regression and decision trees operate by predicting an outcome variable $Y$ by **partitioning the predictors**.
+* The general idea here is to **build a decision tree** and, at end of each node, obtain a predictor $\hat{y}$. Mathematically, we are **partitioning the predictor space** into $J$ non-overlapping regions, $R_{1}$, $R_{2}$, ..., $R_{J}$ and then for any predictor $x$ that falls within region $R_{j}$, estimate $f(x)$ with the average of the training observations $y_{i}$ for which the associated predictor $x_{i}$ in also in $R_{j}$.
+* To pick $j$ and its value $s$, we find the pair that **minimizes the residual sum of squares (RSS)**:
+
+$\sum_{i: x_{i}R_{1}(j,s)}(y_{i} - \hat{y}_{R_{1}})^2 + \sum_{i: x_{i}R_{2}(j,s)}(y_{i} - \hat{y}_{R_{2}})^2$
+
+* To fit the regression tree model, we can use the ```rpart()``` function in the **rpart** package.
+* Two common parameters used for partition decision are the **complexity parameter** (```cp```) and the **minimum number of observations required in a partition** before partitioning it further (```minsplit``` in the **rpart** package). 
+* If we already have a tree and want to apply a higher ```cp``` value, we can use the ```prune()``` function. We call this pruning a tree because we are snipping off partitions that do not meet a cp criterion. 
+
+*Code*
+
+```{r}
+# Load data
+data("olive")
+olive %>% as_tibble()
+table(olive$region)
+olive <- select(olive, -area)
+
+# Predict region using KNN
+fit <- train(region ~ .,  method = "knn", 
+             tuneGrid = data.frame(k = seq(1, 15, 2)), 
+             data = olive)
+ggplot(fit)
+
+# Plot distribution of each predictor stratified by region
+olive %>% gather(fatty_acid, percentage, -region) %>%
+  ggplot(aes(region, percentage, fill = region)) +
+  geom_boxplot() +
+  facet_wrap(~fatty_acid, scales = "free") +
+  theme(axis.text.x = element_blank())
+
+# plot values for eicosenoic and linoleic
+p <- olive %>% 
+  ggplot(aes(eicosenoic, linoleic, color = region)) + 
+  geom_point()
+p + geom_vline(xintercept = 0.065, lty = 2) + 
+  geom_segment(x = -0.2, y = 10.54, xend = 0.065, yend = 10.54, color = "black", lty = 2)
+
+# load data for regression tree
+data("polls_2008")
+qplot(day, margin, data = polls_2008)
+
+if(!require(rpart)) install.packages("rpart")
+
+library(rpart)
+fit <- rpart(margin ~ ., data = polls_2008)
+
+# visualize the splits 
+plot(fit, margin = 0.1)
+text(fit, cex = 0.75)
+polls_2008 %>% 
+  mutate(y_hat = predict(fit)) %>% 
+  ggplot() +
+  geom_point(aes(day, margin)) +
+  geom_step(aes(day, y_hat), col="red")
+
+# change parameters
+fit <- rpart(margin ~ ., data = polls_2008, control = rpart.control(cp = 0, minsplit = 2))
+polls_2008 %>% 
+  mutate(y_hat = predict(fit)) %>% 
+  ggplot() +
+  geom_point(aes(day, margin)) +
+  geom_step(aes(day, y_hat), col="red")
+
+# use cross validation to choose cp
+train_rpart <- train(margin ~ ., method = "rpart", tuneGrid = data.frame(cp = seq(0, 0.05, len = 25)), data = polls_2008)
+ggplot(train_rpart)
+
+# access the final model and plot it
+plot(train_rpart$finalModel, margin = 0.1)
+text(train_rpart$finalModel, cex = 0.75)
+polls_2008 %>% 
+  mutate(y_hat = predict(train_rpart)) %>% 
+  ggplot() +
+  geom_point(aes(day, margin)) +
+  geom_step(aes(day, y_hat), col="red")
+
+# prune the tree 
+pruned_fit <- prune(fit, cp = 0.01)
+```
+
+## Classification (Decision) Trees
+

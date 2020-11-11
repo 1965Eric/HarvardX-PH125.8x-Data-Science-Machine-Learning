@@ -2953,3 +2953,72 @@ pruned_fit <- prune(fit, cp = 0.01)
 
 ## Classification (Decision) Trees
 
+There is a link to the relevant section of the textbook: [Classification (decision) trees](https://rafalab.github.io/dsbook/examples-of-algorithms.html#classification-decision-trees){target="_blank"}
+
+**Key points**
+
+* **Classification trees**, or decision trees, are used in prediction problems where the **outcome is categorical**. 
+* Decision trees form predictions by calculating **which class is the most common** among the training set observations within the partition, rather than taking the average in each partition.
+* Two of the more popular metrics to choose the partitions are the **Gini index** and **entropy**.
+
+$\text{Gini}(j) = \sum_{k=1}^K\hat{p}_{j,k}(1 - \hat{p}_{j,k})$
+
+$\text{entropy}(j) = - \sum_{k=1}^K\hat{p}_{j,k}log(\hat{p}_{j,k}), \text{with } 0 \times \log(0) \text{defined as } 0$
+
+* Pros: Classification trees are highly interpretable and easy to visualize.They can model human decision processes and don’t require use of dummy predictors for categorical variables.
+* Cons: The approach via recursive partitioning can easily over-train and is therefore a bit harder to train than. Furthermore, in terms of accuracy, it is rarely the best performing method since it is not very flexible and is highly unstable to changes in training data. 
+
+*Code*
+
+```{r}
+# fit a classification tree and plot it
+train_rpart <- train(y ~ .,
+              method = "rpart",
+              tuneGrid = data.frame(cp = seq(0.0, 0.1, len = 25)),
+              data = mnist_27$train)
+plot(train_rpart)
+
+# compute accuracy
+confusionMatrix(predict(train_rpart, mnist_27$test), mnist_27$test$y)$overall["Accuracy"]
+```
+
+## Random Forests
+
+There is a link to the relevant section of the textbook: [Random forests](https://rafalab.github.io/dsbook/examples-of-algorithms.html#random-forests){target="_blank"}
+
+**Key points**
+
+* **Random forests** are a very popular machine learning approach that addresses the shortcomings of decision trees. The goal is to improve prediction performance and reduce instability by **averaging multiple decision trees** (a forest of trees constructed with randomness).
+* The general idea of random forests is to generate many predictors, each using regression or classification trees, and then **forming a final prediction based on the average prediction of all these trees**. To assure that the individual trees are not the same, we use the **bootstrap to induce randomness**. 
+* A **disadvantage** of random forests is that we **lose interpretability**.
+* An approach that helps with interpretability is to examine **variable importance**. To define variable importance we **count how often a predictor is used in the individual trees**. The **caret** package includes the function ```varImp``` that extracts variable importance from any model in which the calculation is implemented. 
+
+*Code*
+
+```{r}
+if(!require(randomForest)) install.packages("randomForest")
+
+library(randomForest)
+fit <- randomForest(margin~., data = polls_2008) 
+plot(fit)
+
+polls_2008 %>%
+  mutate(y_hat = predict(fit, newdata = polls_2008)) %>% 
+  ggplot() +
+  geom_point(aes(day, margin)) +
+  geom_line(aes(day, y_hat), col="red")
+
+train_rf <- randomForest(y ~ ., data=mnist_27$train)
+confusionMatrix(predict(train_rf, mnist_27$test), mnist_27$test$y)$overall["Accuracy"]
+
+# use cross validation to choose parameter
+train_rf_2 <- train(y ~ .,
+      method = "Rborist",
+      tuneGrid = data.frame(predFixed = 2, minNode = c(3, 50)),
+      data = mnist_27$train)
+confusionMatrix(predict(train_rf_2, mnist_27$test), mnist_27$test$y)$overall["Accuracy"]
+```
+
+## Comprehension Check - Trees and Random Forests
+
+1. 

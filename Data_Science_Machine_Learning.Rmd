@@ -2997,6 +2997,7 @@ There is a link to the relevant section of the textbook: [Random forests](https:
 
 ```{r}
 if(!require(randomForest)) install.packages("randomForest")
+if(!require(Rborist)) install.packages("Rborist")
 
 library(randomForest)
 fit <- randomForest(margin~., data = polls_2008) 

@@ -2886,7 +2886,7 @@ $\sum_{i: x_{i}R_{1}(j,s)}(y_{i} - \hat{y}_{R_{1}})^2 + \sum_{i: x_{i}R_{2}(j,s)
 data("olive")
 olive %>% as_tibble()
 table(olive$region)
-olive <- select(olive, -area)
+olive <- dplyr::select(olive, -area)
 
 # Predict region using KNN
 fit <- train(region ~ .,  method = "knn", 

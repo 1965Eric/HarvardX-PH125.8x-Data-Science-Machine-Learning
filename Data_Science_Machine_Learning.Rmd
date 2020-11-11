@@ -3047,6 +3047,7 @@ Which code correctly uses rpart() to fit a regression tree and saves the result 
 2. Which of the following plots has the same tree shape obtained in Q1?
 
 ```{r}
+fit <- rpart(y ~ ., data = dat)
 plot(fit)
 text(fit)
 ```

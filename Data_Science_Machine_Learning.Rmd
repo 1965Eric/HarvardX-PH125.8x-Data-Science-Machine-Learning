@@ -3022,4 +3022,48 @@ confusionMatrix(predict(train_rf_2, mnist_27$test), mnist_27$test$y)$overall["Ac
 
 ## Comprehension Check - Trees and Random Forests
 
-1. 
+1. Create a simple dataset where the outcome grows 0.75 units on average for every increase in a predictor, using this code:
+
+```{r}
+n <- 1000
+sigma <- 0.25
+# set.seed(1) # if using R 3.5 or ealier
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
+x <- rnorm(n, 0, 1)
+y <- 0.75 * x + rnorm(n, 0, sigma)
+dat <- data.frame(x = x, y = y)
+```
+
+Which code correctly uses rpart() to fit a regression tree and saves the result to fit?
+
+- [ ] A. ```fit <- rpart(y ~ .)```
+
+- [ ] B. ```fit <- rpart(y, ., data = dat)``` 
+        
+- [ ] C. ```fit <- rpart(x ~ ., data = dat)``` 
+        
+- [X] D. ```fit <- rpart(y ~ ., data = dat)```
+
+2. Which of the following plots has the same tree shape obtained in Q1?
+
+```{r}
+plot(fit)
+text(fit)
+```
+
+- [ ] A.
+
+![](images/Trees_1.png)
+
+- [ ] B.
+
+![](images/Trees_2.png)
+
+- [ ] C.
+
+![](images/Trees_3.png)
+
+- [X] D.
+
+![](images/Trees_4.png)
+

@@ -3188,3 +3188,34 @@ dat %>%
         
 - [ ] E. ```randomForest(x ~ y, data = dat, nodesize = 50, maxnodes = 25)```
 
+## Caret Package
+
+There is a link to the relevant section of the textbook: [The caret package](https://rafalab.github.io/dsbook/caret.html){target="_blank"}
+
+**Caret package links**
+
+[http://topepo.github.io/caret/available-models.html](http://topepo.github.io/caret/available-models.html){target="_blank"}
+
+[http://topepo.github.io/caret/train-models-by-tag.html](http://topepo.github.io/caret/train-models-by-tag.html){target="_blank"}
+
+**Key points**
+
+* The **caret** package helps provides a uniform interface and standardized syntax for the many different machine learning packages in R. Note that **caret** does not automatically install the packages needed.
+
+*Code*
+
+```{r}
+data("mnist_27")
+
+train_glm <- train(y ~ ., method = "glm", data = mnist_27$train)
+train_knn <- train(y ~ ., method = "knn", data = mnist_27$train)
+
+y_hat_glm <- predict(train_glm, mnist_27$test, type = "raw")
+y_hat_knn <- predict(train_knn, mnist_27$test, type = "raw")
+
+confusionMatrix(y_hat_glm, mnist_27$test$y)$overall[["Accuracy"]]
+confusionMatrix(y_hat_knn, mnist_27$test$y)$overall[["Accuracy"]]
+```
+
+## Tuning Parameters with Caret
+

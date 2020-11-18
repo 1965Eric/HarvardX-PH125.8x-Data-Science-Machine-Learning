@@ -3277,7 +3277,9 @@ plot_cond_prob(predict(train_knn, mnist_27$true_p, type = "prob")[,2])
 
 if(!require(gam)) install.packages("gam")
 modelLookup("gamLoess")
+```
 
+```{r, include=TRUE, eval=FALSE}
 grid <- expand.grid(span = seq(0.15, 0.65, len = 10), degree = 1)
 
 train_loess <- train(y ~ ., 

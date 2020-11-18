@@ -3420,7 +3420,7 @@ titanic_clean <- titanic_train %>%
            Embarked = factor(Embarked),
            Age = ifelse(is.na(Age), median(Age, na.rm = TRUE), Age), # NA age to median age
            FamilySize = SibSp + Parch + 1) %>%    # count family members
-    select(Survived,  Sex, Pclass, Age, Fare, SibSp, Parch, FamilySize, Embarked)
+    dplyr::select(Survived,  Sex, Pclass, Age, Fare, SibSp, Parch, FamilySize, Embarked)
 ```
 
 1. Training and test sets
@@ -3508,17 +3508,17 @@ mean(sex_model == test_set$Survived)    # calculate accuracy
 
 In the training set, which class(es) (Pclass) were passengers more likely to survive than die?
 
-Select ALL that apply.
-
-- [X] A. 1
-- [ ] B. 2
-- [ ] C. 3
-
 ```{r}          
 train_set %>%
     group_by(Pclass) %>%
     summarize(Survived = mean(Survived == 1))
 ```
+
+Select ALL that apply.
+
+- [X] A. 1
+- [ ] B. 2
+- [ ] C. 3
 
 4b. Predicting survival by passenger class
 

@@ -3564,3 +3564,60 @@ sex_class_model <- ifelse(test_set$Sex == "female" & test_set$Pclass != 3, 1, 0)
 mean(sex_class_model == test_set$Survived)
 ```
 
+5a. Confusion matrix
+
+Use the ```confusionMatrix()``` function to create confusion matrices for the sex model, class model, and combined sex and class model. You will need to convert predictions and survival status to factors to use this function.
+
+```{r}
+confusionMatrix(data = factor(sex_model), reference = factor(test_set$Survived))
+confusionMatrix(data = factor(class_model), reference = factor(test_set$Survived))
+confusionMatrix(data = factor(sex_class_model), reference = factor(test_set$Survived))
+```
+
+What is the "positive" class used to calculate confusion matrix metrics?
+
+- [X] A. 0
+- [ ] B. 1
+
+Which model has the highest sensitivity?
+
+- [ ] A. sex only
+- [ ] B. class only
+- [X] C. sex and class combined
+
+Which model has the highest specificity?
+
+- [X] A. sex only
+- [ ] B. class only
+- [ ] C. sex and class combined
+
+Which model has the highest balanced accuracy?
+
+- [X] A. sex only
+- [ ] B. class only
+- [ ] C. sex and class combined
+
+5b. Confusion matrix
+
+What is the maximum value of balanced accuracy? ```0.806``` 
+
+6. F1 scores
+
+Use the ```F_meas()`` function to calculate $F_1$ scores for the sex model, class model, and combined sex and class model. You will need to convert predictions to factors to use this function.
+
+Which model has the highest $F_1$ score?
+
+```{r}
+F_meas(data = factor(sex_model), reference = test_set$Survived)
+F_meas(data = factor(class_model), reference = test_set$Survived)
+F_meas(data = factor(sex_class_model), reference = test_set$Survived)
+```
+
+- [ ] A. sex only
+- [ ] B. class only
+- [X] C. sex and class combined
+
+What is the maximum value of the $F_1$ score? ```0.872``` 
+
+## Titanic Exercises - Part 2
+

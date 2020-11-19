@@ -3603,7 +3603,7 @@ What is the maximum value of balanced accuracy? ```0.806```
 
 6. F1 scores
 
-Use the ```F_meas()`` function to calculate $F_1$ scores for the sex model, class model, and combined sex and class model. You will need to convert predictions to factors to use this function.
+Use the ```F_meas()``` function to calculate $F_1$ scores for the sex model, class model, and combined sex and class model. You will need to convert predictions to factors to use this function.
 
 Which model has the highest $F_1$ score?
 

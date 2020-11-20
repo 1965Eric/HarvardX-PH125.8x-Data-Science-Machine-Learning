@@ -3629,7 +3629,7 @@ What is the accuracy on the test set for the LDA model?
 
 ```{r}
 #set.seed(1) # if using R 3.5 or earlier
-set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
 train_lda <- train(Survived ~ Fare, method = "lda", data = train_set)
 lda_preds <- predict(train_lda, test_set)
 mean(lda_preds == test_set$Survived)
@@ -3641,7 +3641,7 @@ What is the accuracy on the test set for the QDA model?
 
 ```{r}
 #set.seed(1) # if using R 3.5 or earlier
-set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
 train_qda <- train(Survived ~ Fare, method = "qda", data = train_set)
 qda_preds <- predict(train_qda, test_set)
 mean(qda_preds == test_set$Survived)
@@ -3657,7 +3657,7 @@ What is the accuracy of your model (using age as the only predictor) on the test
 
 ```{r}
 #set.seed(1) # if using R 3.5 or earlier
-set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
 train_glm_age <- train(Survived ~ Age, method = "glm", data = train_set)
 glm_preds_age <- predict(train_glm_age, test_set)
 mean(glm_preds_age == test_set$Survived)
@@ -3669,7 +3669,7 @@ What is the accuracy of your model (using these four predictors) on the test set
 
 ```{r}
 #set.seed(1) # if using R 3.5 or earlier
-set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
 train_glm <- train(Survived ~ Sex + Pclass + Fare + Age, method = "glm", data = train_set)
 glm_preds <- predict(train_glm, test_set)
 mean(glm_preds == test_set$Survived)
@@ -3681,7 +3681,7 @@ What is the accuracy of your model (using all predictors) on the test set?
 
 ```{r}
 #set.seed(1) # if using R 3.5 or earlier
-set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+set.seed(1, sample.kind = "Rounding") # if using R 3.6 or later
 train_glm_all <- train(Survived ~ ., method = "glm", data = train_set)
 glm_all_preds <- predict(train_glm_all, test_set)
 mean(glm_all_preds == test_set$Survived)

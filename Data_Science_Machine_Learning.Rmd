@@ -3621,3 +3621,111 @@ What is the maximum value of the $F_1$ score? ```0.872```
 
 ## Titanic Exercises - Part 2
 
+7. Survival by fare - LDA and QDA
+
+Set the seed to 1. Train a model using linear discriminant analysis (LDA) with the **caret** ```lda``` method using fare as the only predictor.
+
+What is the accuracy on the test set for the LDA model?
+
+```{r}
+#set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+train_lda <- train(Survived ~ Fare, method = "lda", data = train_set)
+lda_preds <- predict(train_lda, test_set)
+mean(lda_preds == test_set$Survived)
+```
+
+Set the seed to 1. Train a model using quadratic discriminant analysis (QDA) with the **caret** ```qda``` method using fare as the only predictor.
+
+What is the accuracy on the test set for the QDA model?
+
+```{r}
+#set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+train_qda <- train(Survived ~ Fare, method = "qda", data = train_set)
+qda_preds <- predict(train_qda, test_set)
+mean(qda_preds == test_set$Survived)
+```
+
+Note: when training models for Titanic Exercises Part 2, please use the S3 method for class formula rather than the default S3 method of **caret** ```train()``` (see ```?caret::train``` for details).
+
+8. Logistic regression models
+
+Set the seed to 1. Train a logistic regression model with the **caret** ```glm``` method using age as the only predictor.
+
+What is the accuracy of your model (using age as the only predictor) on the test set ?
+
+```{r}
+#set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+train_glm_age <- train(Survived ~ Age, method = "glm", data = train_set)
+glm_preds_age <- predict(train_glm_age, test_set)
+mean(glm_preds_age == test_set$Survived)
+```
+
+Set the seed to 1. Train a logistic regression model with the **caret** ```glm``` method using four predictors: sex, class, fare, and age.
+
+What is the accuracy of your model (using these four predictors) on the test set?
+
+```{r}
+#set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+train_glm <- train(Survived ~ Sex + Pclass + Fare + Age, method = "glm", data = train_set)
+glm_preds <- predict(train_glm, test_set)
+mean(glm_preds == test_set$Survived)
+```
+
+Set the seed to 1. Train a logistic regression model with the **caret** ```glm``` method using all predictors. Ignore warnings about rank-deficient fit.
+
+What is the accuracy of your model (using all predictors) on the test set?
+
+```{r}
+#set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind = "Rounding") if using R 3.6 or later
+train_glm_all <- train(Survived ~ ., method = "glm", data = train_set)
+glm_all_preds <- predict(train_glm_all, test_set)
+mean(glm_all_preds == test_set$Survived)
+```
+
+9a. kNN model
+
+Set the seed to 6. Train a kNN model on the training set using the **caret** ```train``` function. Try tuning with ```k = seq(3, 51, 2)```.
+
+What is the optimal value of the number of neighbors ```k```?
+
+```{r}
+#set.seed(6)
+set.seed(6, sample.kind = "Rounding") # if using R 3.6 or later
+train_knn <- train(Survived ~ .,
+                   method = "knn",
+                   data = train_set,
+                   tuneGrid = data.frame(k = seq(3, 51, 2)))
+train_knn$bestTune
+```
+
+9b. kNN model
+
+Plot the kNN model to investigate the relationship between the number of neighbors and accuracy on the training set.
+
+Of these values of $k$, which yields the highest accuracy?
+
+```{r}
+ggplot(train_knn)
+```
+
+- [ ] A. 7
+- [X] B. 11
+- [ ] C. 17
+- [ ] D. 21
+
+9c. kNN model
+
+What is the accuracy of the kNN model on the test set?
+
+```{r}
+knn_preds <- predict(train_knn, test_set)
+mean(knn_preds == test_set$Survived)
+```
+
+10. Cross-validation
+

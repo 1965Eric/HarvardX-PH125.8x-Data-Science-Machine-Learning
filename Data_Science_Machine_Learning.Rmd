@@ -3844,3 +3844,201 @@ varImp(train_rf)    # first row
 
 # Section 6 - Model Fitting and Recommendation Systems Overview
 
+In the **Model Fitting and Recommendation Systems** section, you will learn how to apply the machine learning algorithms you have learned.
+
+After completing this section, you will be able to:
+
+* Apply the methods we have learned to an example, the **MNIST digits**.
+* Build a **movie recommendation system** using machine learning.
+* Penalize large estimates that come from small sample sizes using **regularization**.
+
+This section has three parts: **case study: MNIST, recommendation systems**, and **regularization**.
+
+## Case Study: MNIST
+
+There is a link to the relevant section of the textbook: [Machine learning in practice](https://rafalab.github.io/dsbook/machine-learning-in-practice.html){target="_blank"}
+
+**Key points**
+
+* We will apply what we have learned in the course on the Modified National Institute of Standards and Technology database (MNIST) digits, a popular dataset used in machine learning competitions. 
+
+*Code*
+
+```{r}
+mnist <- read_mnist()
+
+names(mnist)
+dim(mnist$train$images)
+
+class(mnist$train$labels)
+table(mnist$train$labels)
+
+# sample 10k rows from training set, 1k rows from test set
+set.seed(123)
+index <- sample(nrow(mnist$train$images), 10000)
+x <- mnist$train$images[index,]
+y <- factor(mnist$train$labels[index])
+
+index <- sample(nrow(mnist$test$images), 1000)
+#note that the line above is the corrected code - code in video at 0:52 is incorrect
+x_test <- mnist$test$images[index,]
+y_test <- factor(mnist$test$labels[index])
+```
+
+## Preprocessing MNIST Data
+
+There is a link to the relevant section of the textbook: [Preprocessing](https://rafalab.github.io/dsbook/machine-learning-in-practice.html#preprocessing){target="_blank"}
+
+**Key points**
+
+* Common **preprocessing steps include:
+1. standardizing or transforming predictors and
+2. removing predictors that are not useful, are highly correlated with others, have very few non-unique values, or have close to zero variation. 
+
+*Code*
+
+```{r}
+sds <- colSds(x)
+qplot(sds, bins = 256, color = I("black"))
+
+nzv <- nearZeroVar(x)
+image(matrix(1:784 %in% nzv, 28, 28))
+
+col_index <- setdiff(1:ncol(x), nzv)
+length(col_index)
+```
+
+## Model Fitting for MNIST Data
+
+There is a link to the relevant section of the textbook: [k-nearest neighbor and random forest](https://rafalab.github.io/dsbook/machine-learning-in-practice.html#k-nearest-neighbor-and-random-forest){target="_blank"}
+
+**Key points**
+
+* The **caret** package requires that we **add column names** to the feature matrices.
+* In general, it is a good idea to **test out a small subset of the data** first to get an idea of how long your code will take to run.
+
+*Code*
+
+```{r}
+colnames(x) <- 1:ncol(mnist$train$images)
+colnames(x_test) <- colnames(x)
+
+control <- trainControl(method = "cv", number = 10, p = .9)
+train_knn <- train(x[,col_index], y,
+                                method = "knn", 
+                                tuneGrid = data.frame(k = c(1,3,5,7)),
+                                trControl = control)
+ggplot(train_knn)
+
+n <- 1000
+b <- 2
+index <- sample(nrow(x), n)
+control <- trainControl(method = "cv", number = b, p = .9)
+train_knn <- train(x[index ,col_index], y[index],
+                   method = "knn",
+                   tuneGrid = data.frame(k = c(3,5,7)),
+                   trControl = control)
+fit_knn <- knn3(x[ ,col_index], y,  k = 3)
+
+y_hat_knn <- predict(fit_knn,
+                     x_test[, col_index],
+                     type="class")
+cm <- confusionMatrix(y_hat_knn, factor(y_test))
+cm$overall["Accuracy"]
+
+cm$byClass[,1:2]
+
+control <- trainControl(method="cv", number = 5, p = 0.8)
+grid <- expand.grid(minNode = c(1,5) , predFixed = c(10, 15, 25, 35, 50))
+train_rf <-  train(x[, col_index], y,
+                   method = "Rborist",
+                   nTree = 50,
+                   trControl = control,
+                   tuneGrid = grid,
+                   nSamp = 5000)
+ggplot(train_rf)
+train_rf$bestTune
+
+fit_rf <- Rborist(x[, col_index], y,
+                  nTree = 1000,
+                  minNode = train_rf$bestTune$minNode,
+                  predFixed = train_rf$bestTune$predFixed)
+
+y_hat_rf <- factor(levels(y)[predict(fit_rf, x_test[ ,col_index])$yPred])
+cm <- confusionMatrix(y_hat_rf, y_test)
+cm$overall["Accuracy"]
+
+rafalib::mypar(3,4)
+for(i in 1:12){
+     image(matrix(x_test[i,], 28, 28)[, 28:1], 
+           main = paste("Our prediction:", y_hat_rf[i]),
+           xaxt="n", yaxt="n")
+}
+```
+
+## Variable Importance
+
+There is a link to the relevant sections of the textbook: [Variable importance](https://rafalab.github.io/dsbook/machine-learning-in-practice.html#variable-importance){target="_blank"} and [Visual assessments](https://rafalab.github.io/dsbook/machine-learning-in-practice.html#visual-assessments){target="_blank"}
+
+**Key points**
+
+* The **Rborist** package does not currently support variable importance calculations, but the **randomForest** package does.
+* An important part of data science is visualizing results to determine why we are failing.
+
+*Code*
+
+```{r}
+x <- mnist$train$images[index,]
+y <- factor(mnist$train$labels[index])
+rf <- randomForest(x, y,  ntree = 50)
+imp <- importance(rf)
+imp
+
+image(matrix(imp, 28, 28))
+
+p_max <- predict(fit_knn, x_test[,col_index])
+p_max <- apply(p_max, 1, max)
+ind  <- which(y_hat_knn != y_test)
+ind <- ind[order(p_max[ind], decreasing = TRUE)]
+rafalib::mypar(3,4)
+for(i in ind[1:12]){
+    image(matrix(x_test[i,], 28, 28)[, 28:1],
+                 main = paste0("Pr(",y_hat_knn[i],")=",round(p_max[i], 2),
+                                                                        " but is a ",y_test[i]),
+                 xaxt="n", yaxt="n")
+}
+
+p_max <- predict(fit_rf, x_test[,col_index])$census  
+p_max <- p_max / rowSums(p_max)
+p_max <- apply(p_max, 1, max)
+ind  <- which(y_hat_rf != y_test)
+ind <- ind[order(p_max[ind], decreasing = TRUE)]
+rafalib::mypar(3,4)
+for(i in ind[1:12]){
+    image(matrix(x_test[i,], 28, 28)[, 28:1], 
+                 main = paste0("Pr(",y_hat_rf[i],")=",round(p_max[i], 2),
+                               " but is a ",y_test[i]),
+                 xaxt="n", yaxt="n")
+}
+```
+
+## Ensembles
+
+There is a link to the relevant sections of the textbook: [Ensembles](https://rafalab.github.io/dsbook/machine-learning-in-practice.html#ensembles){target="_blank"}
+
+**Key points**
+
+* **Ensembles** combine multiple machine learning algorithms into one model to improve predictions.
+
+*Code*
+
+```{r}
+p_rf <- predict(fit_rf, x_test[,col_index])$census
+p_rf <- p_rf / rowSums(p_rf)
+p_knn <- predict(fit_knn, x_test[,col_index])
+p <- (p_rf + p_knn)/2
+y_pred <- factor(apply(p, 1, which.max)-1)
+confusionMatrix(y_pred, y_test)
+```
+
+## Comprehension Check - Ensembles

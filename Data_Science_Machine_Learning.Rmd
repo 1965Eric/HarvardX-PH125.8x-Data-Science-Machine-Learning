@@ -1,12 +1,12 @@
 ---
 title: "Data Science Machine Learning"
 output:
-  word_document: default
   pdf_document:
     latex_engine: xelatex
+  html_document: default
   bookdown::epub_book:
       number_sections: true
-  html_document: default
+  word_document: default
 urlcolor: blue
 ---
 
@@ -4182,16 +4182,16 @@ keep <- movielens %>%
 tab <- movielens %>%
      filter(userId %in% c(13:20)) %>% 
      filter(movieId %in% keep) %>% 
-     select(userId, title, rating) %>% 
+     dplyr::select(userId, title, rating) %>% 
      spread(title, rating)
 tab %>% knitr::kable()
 
 users <- sample(unique(movielens$userId), 100)
 rafalib::mypar()
 movielens %>% filter(userId %in% users) %>% 
-     select(userId, movieId, rating) %>%
+     dplyr::select(userId, movieId, rating) %>%
      mutate(rating = 1) %>%
-     spread(movieId, rating) %>% select(sample(ncol(.), 100)) %>% 
+     spread(movieId, rating) %>% dplyr::select(sample(ncol(.), 100)) %>% 
      as.matrix() %>% t(.) %>%
      image(1:100, 1:100,. , xlab="Movies", ylab="Users")
 abline(h=0:100+0.5, v=0:100+0.5, col = "grey")

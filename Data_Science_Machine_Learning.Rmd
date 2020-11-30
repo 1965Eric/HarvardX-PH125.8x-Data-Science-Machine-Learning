@@ -4310,3 +4310,22 @@ rmse_results %>% knitr::kable()
 
 ## Comprehension Check - Recommendation Systems
 
+The following exercises all work with the movielens data, which can be loaded using the following code:
+
+```{r}
+data("movielens")
+```
+
+1. Compute the number of ratings for each movie and then plot it against the year the movie came out using a boxplot for each year. Use the square root transformation on the y-axis (number of ratings) when creating your plot.
+
+What year has the highest median number of ratings? ```1995```
+
+```{r}
+movielens %>% group_by(movieId) %>%
+	summarize(n = n(), year = as.character(first(year))) %>%
+	qplot(year, n, data = ., geom = "boxplot") +
+	coord_trans(y = "sqrt") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+2. 

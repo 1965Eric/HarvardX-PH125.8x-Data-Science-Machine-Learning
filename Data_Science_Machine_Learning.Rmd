@@ -1,12 +1,12 @@
 ---
 title: "Data Science Machine Learning"
 output:
-  pdf_document:
-    latex_engine: xelatex
+  word_document: default
   html_document: default
   bookdown::epub_book:
       number_sections: true
-  word_document: default
+  pdf_document:
+    latex_engine: xelatex
 urlcolor: blue
 ---
 
@@ -4383,6 +4383,10 @@ Given your observations in the exercise in Q3, which of the following strategies
 5. The ```movielens``` dataset also includes a time stamp. This variable represents the time and data in which the rating was provided. The units are seconds since January 1, 1970. Create a new column ```date``` with the date.
 
 Which code correctly creates this new column?
+
+````{r}
+movielens <- mutate(movielens, date = as_datetime(timestamp))
+```
 
 - [ ] A. ```movielens <- mutate(movielens, date = as.date(timestamp))```
         

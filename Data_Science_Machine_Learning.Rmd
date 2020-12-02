@@ -4384,7 +4384,7 @@ Given your observations in the exercise in Q3, which of the following strategies
 
 Which code correctly creates this new column?
 
-````{r}
+```{r}
 movielens <- mutate(movielens, date = as_datetime(timestamp))
 ```
 
@@ -4446,3 +4446,192 @@ If we define $g_{u,i}$ as the genre for user $u$'s rating of movie $i$, which of
 - [X] C. $Y_{u,i} = \mu + b_i + b_u + \sum_{k=1}^{K} x_{u,i}^{k} \beta_k + \varepsilon_{u,i}$, with $x^k_{u,i} = 1$ if $g_{u,i}$ is genre $k$
 - [ ] D. $Y_{u,i} = \mu + b_i + b_u + f(g_{u,i}) + \varepsilon_{u,i}$, with $f$ a smooth function of $g_{u,i}$
 
+## Regularization
+
+There is a link to the relevant section of the textbook: [Regularization](https://rafalab.github.io/dsbook/large-datasets.html#regularization){target="_blank"}
+
+**Notes**
+
+* To improve our results, we will use **regularization**. Regularization constrains the total variability of the effect sizes by penalizing large estimates that come from small sample sizes.
+* To estimate the $b$’s, we will now **minimize this equation**, which contains a penalty term:
+
+$\frac{1}{N}\sum_{u, i}(y_{u, i}-\mu-b_i)^2 + \lambda\sum_i b_{i}^2$
+
+The first term is the mean squared error and the second is a penalty term that gets larger when many $b$’s are large.
+
+The values of $b$ that minimize this equation are given by:
+
+$\hat{b}_{i}(\lambda) = \frac{1}{\lambda+n_i}\sum_{u=1}^{n_i}(Y_{u, i} - \hat{\mu}),$ 
+
+where $n_i$ is a number of ratings $b$ for movie $i$.
+
+* The **larger $\lambda$ is, the more we shrink**. $\lambda$ is a tuning parameter, so we can use cross-validation to choose it. We should be using full cross-validation on just the training set, without using the test set until the final assessment.
+* We can also use regularization to estimate the **user effect**. We will now minimize this equation:
+
+$\frac{1}{N}\sum_{u, i}(y_{u, i}-\mu-b_i-b_u)^2 + \lambda(\sum_i b_{i}^2 + \sum_u b_{u}^2)$
+
+*Code*
+
+```{r}
+data("movielens")
+set.seed(755)
+test_index <- createDataPartition(y = movielens$rating, times = 1,
+                                  p = 0.2, list = FALSE)
+train_set <- movielens[-test_index,]
+test_set <- movielens[test_index,]
+test_set <- test_set %>% 
+     semi_join(train_set, by = "movieId") %>%
+     semi_join(train_set, by = "userId")
+RMSE <- function(true_ratings, predicted_ratings){
+     sqrt(mean((true_ratings - predicted_ratings)^2))
+}
+mu_hat <- mean(train_set$rating)
+naive_rmse <- RMSE(test_set$rating, mu_hat)
+rmse_results <- data_frame(method = "Just the average", RMSE = naive_rmse)
+mu <- mean(train_set$rating) 
+movie_avgs <- train_set %>% 
+     group_by(movieId) %>% 
+     summarize(b_i = mean(rating - mu))
+predicted_ratings <- mu + test_set %>% 
+     left_join(movie_avgs, by='movieId') %>%
+     .$b_i
+model_1_rmse <- RMSE(predicted_ratings, test_set$rating)
+rmse_results <- bind_rows(rmse_results,
+                          data_frame(method="Movie Effect Model",
+                                     RMSE = model_1_rmse ))
+user_avgs <- test_set %>% 
+     left_join(movie_avgs, by='movieId') %>%
+     group_by(userId) %>%
+     summarize(b_u = mean(rating - mu - b_i))
+predicted_ratings <- test_set %>% 
+     left_join(movie_avgs, by='movieId') %>%
+     left_join(user_avgs, by='userId') %>%
+     mutate(pred = mu + b_i + b_u) %>%
+     .$pred
+model_2_rmse <- RMSE(predicted_ratings, test_set$rating)
+rmse_results <- bind_rows(rmse_results,
+                          data_frame(method="Movie + User Effects Model",  
+                                     RMSE = model_2_rmse ))
+
+test_set %>% 
+     left_join(movie_avgs, by='movieId') %>%
+     mutate(residual = rating - (mu + b_i)) %>%
+     arrange(desc(abs(residual))) %>% 
+     dplyr::select(title,  residual) %>% slice(1:10) %>% knitr::kable()
+
+movie_titles <- movielens %>% 
+     dplyr::select(movieId, title) %>%
+     distinct()
+movie_avgs %>% left_join(movie_titles, by="movieId") %>%
+     arrange(desc(b_i)) %>% 
+     dplyr::select(title, b_i) %>% 
+     slice(1:10) %>%  
+     knitr::kable()
+
+movie_avgs %>% left_join(movie_titles, by="movieId") %>%
+     arrange(b_i) %>% 
+     dplyr::select(title, b_i) %>% 
+     slice(1:10) %>%  
+     knitr::kable()
+
+train_set %>% dplyr::count(movieId) %>% 
+     left_join(movie_avgs) %>%
+     left_join(movie_titles, by="movieId") %>%
+     arrange(desc(b_i)) %>% 
+     dplyr::select(title, b_i, n) %>% 
+     slice(1:10) %>% 
+     knitr::kable()
+
+train_set %>% dplyr::count(movieId) %>% 
+     left_join(movie_avgs) %>%
+     left_join(movie_titles, by="movieId") %>%
+     arrange(b_i) %>% 
+     dplyr::select(title, b_i, n) %>% 
+     slice(1:10) %>% 
+     knitr::kable()
+lambda <- 3
+mu <- mean(train_set$rating)
+movie_reg_avgs <- train_set %>% 
+     group_by(movieId) %>% 
+     summarize(b_i = sum(rating - mu)/(n()+lambda), n_i = n()) 
+
+data_frame(original = movie_avgs$b_i, 
+           regularlized = movie_reg_avgs$b_i, 
+           n = movie_reg_avgs$n_i) %>%
+     ggplot(aes(original, regularlized, size=sqrt(n))) + 
+     geom_point(shape=1, alpha=0.5)
+
+train_set %>%
+     dplyr::count(movieId) %>% 
+     left_join(movie_reg_avgs) %>%
+     left_join(movie_titles, by="movieId") %>%
+     arrange(desc(b_i)) %>% 
+     dplyr::select(title, b_i, n) %>% 
+     slice(1:10) %>% 
+     knitr::kable()
+
+train_set %>%
+     dplyr::count(movieId) %>% 
+     left_join(movie_reg_avgs) %>%
+     left_join(movie_titles, by="movieId") %>%
+     arrange(b_i) %>% 
+     dplyr::select(title, b_i, n) %>% 
+     slice(1:10) %>% 
+     knitr::kable()
+
+predicted_ratings <- test_set %>% 
+     left_join(movie_reg_avgs, by='movieId') %>%
+     mutate(pred = mu + b_i) %>%
+     .$pred
+
+model_3_rmse <- RMSE(predicted_ratings, test_set$rating)
+rmse_results <- bind_rows(rmse_results,
+                          data_frame(method="Regularized Movie Effect Model",  
+                                     RMSE = model_3_rmse ))
+rmse_results %>% knitr::kable()
+
+lambdas <- seq(0, 10, 0.25)
+mu <- mean(train_set$rating)
+just_the_sum <- train_set %>% 
+     group_by(movieId) %>% 
+     summarize(s = sum(rating - mu), n_i = n())
+rmses <- sapply(lambdas, function(l){
+     predicted_ratings <- test_set %>% 
+          left_join(just_the_sum, by='movieId') %>% 
+          mutate(b_i = s/(n_i+l)) %>%
+          mutate(pred = mu + b_i) %>%
+          .$pred
+     return(RMSE(predicted_ratings, test_set$rating))
+})
+qplot(lambdas, rmses)  
+lambdas[which.min(rmses)]
+
+lambdas <- seq(0, 10, 0.25)
+rmses <- sapply(lambdas, function(l){
+     mu <- mean(train_set$rating)
+     b_i <- train_set %>%
+          group_by(movieId) %>%
+          summarize(b_i = sum(rating - mu)/(n()+l))
+     b_u <- train_set %>% 
+          left_join(b_i, by="movieId") %>%
+          group_by(userId) %>%
+          summarize(b_u = sum(rating - b_i - mu)/(n()+l))
+     predicted_ratings <- 
+          test_set %>% 
+          left_join(b_i, by = "movieId") %>%
+          left_join(b_u, by = "userId") %>%
+          mutate(pred = mu + b_i + b_u) %>%
+          .$pred
+     return(RMSE(predicted_ratings, test_set$rating))
+})
+
+qplot(lambdas, rmses)  
+
+lambda <- lambdas[which.min(rmses)]
+lambda
+
+rmse_results <- bind_rows(rmse_results,
+                          data_frame(method="Regularized Movie + User Effect Model",  
+                                     RMSE = min(rmses)))
+rmse_results %>% knitr::kable()
+```

@@ -4635,3 +4635,137 @@ rmse_results <- bind_rows(rmse_results,
                                      RMSE = min(rmses)))
 rmse_results %>% knitr::kable()
 ```
+
+## Comprehension Check - Regularization
+
+The exercises in Q1-Q8 work with a simulated dataset for 1000 schools. This pre-exercise setup walks you through the code needed to simulate the dataset.
+
+If you have not done so already since the Titanic Exercises, please restart R or reset the number of digits that are printed with ```options(digits=7)```.
+
+An education expert is advocating for smaller schools. The expert bases this recommendation on the fact that among the best performing schools, many are small schools. Let's simulate a dataset for 1000 schools. First, let's simulate the number of students in each school, using the following code:
+
+```{r}
+# set.seed(1986) # if using R 3.5 or earlier
+set.seed(1986, sample.kind="Rounding") # if using R 3.6 or later
+n <- round(2^rnorm(1000, 8, 1))
+```
+
+Now let's assign a **true** quality for each school that is completely independent from size. This is the parameter we want to estimate in our analysis. The true quality can be assigned using the following code:
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+mu <- round(80 + 2*rt(1000, 5))
+range(mu)
+schools <- data.frame(id = paste("PS",1:1000),
+                      size = n,
+                      quality = mu,
+                      rank = rank(-mu))
+```
+
+We can see the top 10 schools using this code: 
+
+```{r}
+schools %>% top_n(10, quality) %>% arrange(desc(quality))
+```
+
+Now let's have the students in the school take a test. There is random variability in test taking, so we will simulate the test scores as normally distributed with the average determined by the school quality with a standard deviation of 30 percentage points. This code will simulate the test scores:
+
+```{r}
+# set.seed(1) # if using R 3.5 or earlier
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+mu <- round(80 + 2*rt(1000, 5))
+
+scores <- sapply(1:nrow(schools), function(i){
+       scores <- rnorm(schools$size[i], schools$quality[i], 30)
+       scores
+})
+schools <- schools %>% mutate(score = sapply(scores, mean))
+```
+
+1. What are the top schools based on the average score? Show just the ID, size, and the average score.
+
+Report the ID of the top school and average score of the 10th school.
+
+What is the ID of the top school?
+
+What is the average score of the 10th school (after sorting from highest to lowest average score)?
+
+```{r}
+schools %>% top_n(10, score) %>% arrange(desc(score)) %>% select(id, size, score)
+```
+
+2. Compare the median school size to the median school size of the top 10 schools based on the score.
+
+What is the median school size overall?
+
+What is the median school size of the of the top 10 schools based on the score?
+
+```{r}
+median(schools$size)
+schools %>% top_n(10, score) %>% .$size %>% median()
+```
+
+3. According to this analysis, it appears that small schools produce better test scores than large schools. Four out of the top 10 schools have 100 or fewer students. But how can this be? We constructed the simulation so that quality and size were independent. Repeat the exercise for the worst 10 schools.
+
+What is the median school size of the bottom 10 schools based on the score?
+
+```{r}
+median(schools$size)
+schools %>% top_n(-10, score) %>% .$size %>% median()
+```
+
+4. From this analysis, we see that the worst schools are also small. Plot the average score versus school size to see what's going on. Highlight the top 10 schools based on the **true** quality.
+
+What do you observe?
+
+```{r}
+schools %>% ggplot(aes(size, score)) +
+	geom_point(alpha = 0.5) +
+	geom_point(data = filter(schools, rank<=10), col = 2)
+```
+
+- [ ] A. There is no difference in the standard error of the score based on school size; there must be an error in how we generated our data.
+- [X] B. The standard error of the score has larger variability when the school is smaller, which is why both the best and the worst schools are more likely to be small.
+- [ ] C. The standard error of the score has smaller variability when the school is smaller, which is why both the best and the worst schools are more likely to be small.
+- [ ] D. The standard error of the score has larger variability when the school is very small or very large, which is why both the best and the worst schools are more likely to be small.
+- [ ] E. The standard error of the score has smaller variability when the school is very small or very large, which is why both the best and the worst schools are more likely to be small.
+
+5. Let's use regularization to pick the best schools. Remember regularization **shrinks** deviations from the average towards 0. To apply regularization here, we first need to define the overall average for all schools, using the following code:
+
+```{r}  
+overall <- mean(sapply(scores, mean))
+```
+   
+Then, we need to define, for each school, how it deviates from that average.
+
+Write code that estimates the score above the average for each school but dividing by $n + \alpha$ instead of $n$, with $n$ the school size and $\alpha$ a regularization parameter. Try $\alpha = 25$.
+
+What is the ID of the top school with regularization?
+
+What is the regularized score of the 10th school?
+
+```{r}
+alpha <- 25
+score_reg <- sapply(scores, function(x)  overall + sum(x-overall)/(length(x)+alpha))
+schools %>% mutate(score_reg = score_reg) %>%
+	top_n(10, score_reg) %>% arrange(desc(score_reg))
+```
+
+6. Notice that this improves things a bit. The number of small schools that are not highly ranked is now lower. Is there a better $\alpha$? Using values of $\alpha$ from 10 to 250, find the $\alpha$ that minimizes the RMSE.
+
+$\text{RMSE} = \sqrt{\frac{1}{1000} \sum_{i=1}^{1000} (\mbox{quality} - \mbox{estimate})^2}$
+
+What value of $\alpha$ gives the minimum RMSE?
+
+```{r}
+alphas <- seq(10,250)
+rmse <- sapply(alphas, function(alpha){
+	score_reg <- sapply(scores, function(x) overall+sum(x-overall)/(length(x)+alpha))
+	sqrt(mean((score_reg - schools$quality)^2))
+})
+plot(alphas, rmse)
+alphas[which.min(rmse)]
+```
+
+7. 

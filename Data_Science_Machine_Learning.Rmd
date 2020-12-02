@@ -1,12 +1,12 @@
 ---
 title: "Data Science Machine Learning"
 output:
-  word_document: default
+  html_document: default
   pdf_document:
     latex_engine: xelatex
   bookdown::epub_book:
       number_sections: true
-  html_document: default
+  word_document: default
 urlcolor: blue
 ---
 
@@ -4692,7 +4692,7 @@ What is the ID of the top school?
 What is the average score of the 10th school (after sorting from highest to lowest average score)?
 
 ```{r}
-schools %>% top_n(10, score) %>% arrange(desc(score)) %>% select(id, size, score)
+schools %>% top_n(10, score) %>% arrange(desc(score)) %>% dplyr::select(id, size, score)
 ```
 
 2. Compare the median school size to the median school size of the top 10 schools based on the score.

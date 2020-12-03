@@ -4768,4 +4768,31 @@ plot(alphas, rmse)
 alphas[which.min(rmse)]
 ```
 
-7. 
+7. Rank the schools based on the average obtained with the best $\alpha$ from Q6. Note that no small school is incorrectly included.
+
+What is the ID of the top school now?
+
+What is the regularized average score of the 10th school now?
+
+```{r}
+alpha <- alphas[which.min(rmse)]  
+score_reg <- sapply(scores, function(x)
+	overall+sum(x-overall)/(length(x)+alpha))
+schools %>% mutate(score_reg = score_reg) %>%
+	top_n(10, score_reg) %>% arrange(desc(score_reg))
+```
+
+8. A common mistake made when using regularization is shrinking values towards 0 that are not centered around 0. For example, if we don't subtract the overall average before shrinking, we actually obtain a very similar result. Confirm this by re-running the code from the exercise in Q6 but without removing the overall mean.
+
+What value of $\alpha$ gives the minimum RMSE here?
+
+```{r}
+alphas <- seq(10,250)
+rmse <- sapply(alphas, function(alpha){
+	score_reg <- sapply(scores, function(x) sum(x)/(length(x)+alpha))
+	sqrt(mean((score_reg - schools$quality)^2))
+})
+plot(alphas, rmse)
+alphas[which.min(rmse)]
+```
+

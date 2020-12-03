@@ -2,11 +2,11 @@
 title: "Data Science Machine Learning"
 output:
   word_document: default
-  html_document: default
-  bookdown::epub_book:
-      number_sections: true
   pdf_document:
     latex_engine: xelatex
+  bookdown::epub_book:
+      number_sections: true
+  html_document: default
 urlcolor: blue
 ---
 
@@ -4806,7 +4806,8 @@ There is a link to the relevant section of the textbook: [Matrix factorization](
 
 $r_{u, i} = y_{u, i} - \hat{b}_i - \hat{b}_u,$
 
-where $y_{u, i} is the entry in row $u$ and column $i$.
+where $y_{u, i}$ is the entry in row $u$ and column $i$.
+
 * We can **factorize the matrix of residuals $r$** into a vector $p$ and vector $q$, $r_{u, i} \approx p_u q_i$, allowing us to explain more of the variance using a model like this:
 
 $Y_{u, i} = \mu + b_i + b_u + p_u q_i + \epsilon_{i, j}$

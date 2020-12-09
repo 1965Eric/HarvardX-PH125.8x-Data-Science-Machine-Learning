@@ -5009,3 +5009,169 @@ Which of the following best describes what you see?
 - [ ] C. There is high correlation between tests in the same subject but no correlation across subjects.
 - [X] D. There is correlation among all tests, but higher if the tests are in science and math and even higher within each subject.
 
+3. Remember that orthogonality means that $U^{\top}U$ and $V^{\top}V$ are equal to the identity matrix. This implies that we can also rewrite the decomposition as
+
+$Y V = U D \mbox{ or } U^{\top}Y = D V^{\top}$
+
+We can think of $YV$ and $U^{\top}V$ as two transformations of $Y$ that preserve the total variability of $Y$ since $U$ and $V$ are orthogonal.
+
+Use the function ```svd()``` to compute the SVD of ```y```. This function will return $U$, $V$, and the diagonal entries of $D$.
+
+```{r}
+s <- svd(y)
+names(s)
+```
+    
+You can check that the SVD works by typing:
+
+```{r}
+y_svd <- s$u %*% diag(s$d) %*% t(s$v)
+max(abs(y - y_svd))
+```
+    
+Compute the sum of squares of the columns of $Y$ and store them in ```ss_y```. Then compute the sum of squares of columns of the transformed $YV$ and store them in ```ss_yv```. Confirm that ```sum(ss_y)``` is equal to ```sum(ss_yv)```.
+
+What is the value of ```sum(ss_y)``` (and also the value of ```sum(ss_yv))```?
+
+```{r}
+ss_y <- apply(y^2, 2, sum)
+ss_yv <- apply((y%*%s$v)^2, 2, sum)
+sum(ss_y)
+sum(ss_yv)
+```
+
+4. We see that the total sum of squares is preserved. This is because $V$ is orthogonal. Now to start understanding how $YV$ is useful, plot ```ss_y``` against the column number and then do the same for ```ss_yv```.
+
+What do you observe?
+
+```{r}
+plot(ss_y)
+plot(ss_yv)
+```
+
+- [ ] A. ```ss_y``` and ```ss_yv``` are decreasing and close to 0 for the 4th column and beyond.
+- [X] B. ```ss_yv``` is decreasing and close to 0 for the 4th column and beyond.
+- [ ] C. ```ss_y``` is decreasing and close to 0 for the 4th column and beyond.
+- [ ] D. There is no discernible pattern to either ```ss_y``` or ```ss_yv```.
+
+5. Now notice that we didn't have to compute ```ss_yv``` because we already have the answer. How? Remember that $YV = UD$ and because $U$ is orthogonal, we know that the sum of squares of the columns of $UD$ are the diagonal entries of $D$ squared. Confirm this by plotting the square root of ```ss_yv``` versus the diagonal entries of $D$.
+
+```{r}
+data.frame(x = sqrt(ss_yv), y = s$d) %>%
+ggplot(aes(x,y)) +
+geom_point()
+```
+
+Which of these plots is correct?
+
+- [X] A.
+
+![](images/ss_yv versus D_A.png)
+
+- [ ] B.
+
+![](images/ss_yv versus D_B.png)
+
+- [ ] C.
+
+![](images/ss_yv versus D_C.png)
+
+- [ ] D.
+
+![](images/ss_yv versus D_D.png)
+
+6. So from the above we know that the sum of squares of the columns of $Y$ (the total sum of squares) adds up to the sum of ```s$d^2``` and that the transformation $YV$ gives us columns with sums of squares equal to ```s$d^2```. Now compute the percent of the total variability that is explained by just the first three columns of $YV$.
+
+What proportion of the total variability is explained by the first three columns of $YV$?
+
+```{r}
+sum(s$d[1:3]^2) / sum(s$d^2)
+```
+
+7. Before we continue, let's show a useful computational trick to avoid creating the matrix ```diag(s$d)```. To motivate this, we note that if we write $U$ out in its columns $[U_1, U_2, \dots, U_p]$ then $UD$ is equal to
+
+$UD = [U_1 d_{1,1}, U_2 d_{2,2}, \dots, U_p d_{p,p}]$
+
+Use the ```sweep``` function to compute $UD$ without constructing ```diag(s$d)``` or using matrix multiplication.
+
+Which code is correct?
+
+- [ ] A. ```identical(t(s$u %*% diag(s$d)), sweep(s$u, 2, s$d, FUN = "*"))```
+        
+- [X] B. ```identical(s$u %*% diag(s$d), sweep(s$u, 2, s$d, FUN = "*"))```
+        
+- [ ] C. ```identical(s$u %*% t(diag(s$d)), sweep(s$u, 2, s$d, FUN = "*"))```
+        
+- [ ] D. ```identical(s$u %*% diag(s$d), sweep(s$u, 2, s, FUN = "*"))```
+
+8. We know that $U_1 d_{1,1}$, the first column of $UD$, has the most variability of all the columns of $UD$. Earlier we looked at an image of $Y$ using ```my_image(y)```, in which we saw that the student to student variability is quite large and that students that are good in one subject tend to be good in all. This implies that the average (across all subjects) for each student should explain a lot of the variability. Compute the average score for each student, plot it against $U_1 d_{1,1}$, and describe what you find.
+
+What do you observe?
+
+```{r}
+plot(s$u[,1]*s$d[1], rowMeans(y))
+```
+
+- [ ] A. There is no relationship between the average score for each student and $U_1 d_{1,1}$.
+- [ ] B. There is an exponential relationship between the average score for each student and $U_1 d_{1,1}$.
+- [X] C. There is a linear relationship between the average score for each student and $U_1 d_{1,1}$.
+
+9. We note that the signs in SVD are arbitrary because:
+
+$U D V^{\top} = (-U) D (-V)^{\top}$
+
+With this in mind we see that the first column of $UD$ is almost identical to the average score for each student except for the sign.
+
+This implies that multiplying  𝑌  by the first column of  𝑉  must be performing a similar operation to taking the average. Make an image plot of  𝑉  and describe the first column relative to others and how this relates to taking an average.
+
+How does the first column relate to the others, and how does this relate to taking an average?
+
+```{r}
+my_image(s$v)
+```
+
+- [ ] A. The first column is very variable, which implies that the first column of YV is the sum of the rows of Y multiplied by some non-constant function, and is thus not proportional to an average.
+- [ ] B. The first column is very variable, which implies that the first column of YV is the sum of the rows of Y multiplied by some non-constant function, and is thus proportional to an average.
+- [X] C. The first column is very close to being a constant, which implies that the first column of YV is the sum of the rows of Y multiplied by some constant, and is thus proportional to an average.
+- [ ] D. The first three columns are all very close to being a constant, which implies that these columns are the sum of the rows of Y multiplied by some constant, and are thus proportional to an average.
+
+10. We already saw that we can rewrite $UD$ as
+
+$U_1 d_{1,1} + U_2 d_{2,2} + \dots + U_p d_{p,p}$
+
+with $U_j$ the j-th column of $U$. This implies that we can rewrite the entire SVD as:
+
+$Y = U_1 d_{1,1} V_1 ^{\top} + U_2 d_{2,2} V_2 ^{\top} + \dots + U_p d_{p,p} V_p ^{\top}$
+
+with $V_j$ the jth column of $V$. Plot $U_1$, then plot $V_1^{\top}$ using the same range for the y-axis limits, then make an image of $U_1 d_{1,1} V_1 ^{\top}$ and compare it to the image of $Y$. Hint: use the ```my_image()``` function defined above. Use the ```drop=FALSE``` argument to assure the subsets of matrices are matrices.
+
+```{r}
+plot(s$u[,1], ylim = c(-0.25, 0.25))
+plot(s$v[,1], ylim = c(-0.25, 0.25))
+with(s, my_image((u[, 1, drop=FALSE]*d[1]) %*% t(v[, 1, drop=FALSE])))
+my_image(y)
+```
+
+11. We see that with just a vector of length 100, a scalar, and a vector of length 24, we can actually come close to reconstructing the a $100 \times 24$ matrix. This is our first matrix factorization:
+
+$Y \approx d_{1,1} U_1 V_1^{\top}$
+
+In the exercise in Q6, we saw how to calculate the percent of total variability explained. However, our approximation only explains the observation that good students tend to be good in all subjects. Another aspect of the original data that our approximation does not explain was the higher similarity we observed within subjects. We can see this by computing the difference between our approximation and original data and then computing the correlations. You can see this by running this code:
+
+```{r}
+resid <- y - with(s,(u[, 1, drop=FALSE]*d[1]) %*% t(v[, 1, drop=FALSE]))
+my_image(cor(resid), zlim = c(-1,1))
+axis(side = 2, 1:ncol(y), rev(colnames(y)), las = 2)
+```
+
+Now that we have removed the overall student effect, the correlation plot reveals that we have not yet explained the within subject correlation nor the fact that math and science are closer to each other than to the arts. So let's explore the second column of the SVD.
+
+Repeat the previous exercise (Q10) but for the second column: Plot $U_2$, then plot $V_2^{\top}$ using the same range for the y-axis limits, then make an image of $U_2 d_{2,2} V_2 ^{\top}$ and compare it to the image of ```resid```.
+
+```{r}
+plot(s$u[,2], ylim = c(-0.5, 0.5))
+plot(s$v[,2], ylim = c(-0.5, 0.5))
+with(s, my_image((u[, 2, drop=FALSE]*d[2]) %*% t(v[, 2, drop=FALSE])))
+my_image(resid)
+```
+

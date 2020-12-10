@@ -5232,3 +5232,46 @@ my_image(y, zlim = range(y))
 my_image(y_hat, zlim = range(y))
 my_image(y - y_hat, zlim = range(y))
 ```
+
+## Comprehension Check - Dimension Reduction
+
+1. We want to explore the ```tissue_gene_expression``` predictors by plotting them.
+
+```{r}     
+data("tissue_gene_expression")
+dim(tissue_gene_expression$x)
+```
+
+We want to get an idea of which observations are close to each other, but, as you can see from the dimensions, the predictors are 500-dimensional, making plotting difficult. Plot the first two principal components with color representing tissue type.
+
+Which tissue is in a cluster by itself?
+
+```{r}
+pc <- prcomp(tissue_gene_expression$x)
+data.frame(pc_1 = pc$x[,1], pc_2 = pc$x[,2], 
+			tissue = tissue_gene_expression$y) %>%
+	ggplot(aes(pc_1, pc_2, color = tissue)) +
+	geom_point()
+```
+
+- [ ] A. cerebellum
+- [ ] B. colon
+- [ ] C. endometrium
+- [ ] D. hippocampus
+- [ ] E. kidney
+- [X] F. liver
+- [ ] G. placenta
+
+2. The predictors for each observation are measured using the same device and experimental procedure. This introduces biases that can affect all the predictors from one observation. For each observation, compute the average across all predictors, and then plot this against the first PC with color representing tissue. Report the correlation.
+
+What is the correlation?
+
+```{r}
+avgs <- rowMeans(tissue_gene_expression$x)
+data.frame(pc_1 = pc$x[,1], avg = avgs, 
+			tissue = tissue_gene_expression$y) %>%
+ggplot(aes(avgs, pc_1, color = tissue)) +
+	geom_point()
+cor(avgs, pc$x[,1])
+```
+

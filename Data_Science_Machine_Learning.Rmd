@@ -5275,3 +5275,34 @@ ggplot(aes(avgs, pc_1, color = tissue)) +
 cor(avgs, pc$x[,1])
 ```
 
+3. We see an association with the first PC and the observation averages. Redo the PCA but only after removing the center. Part of the code is provided for you.
+
+```{r, include=TRUE, eval=FALSE}    
+#BLANK
+pc <- prcomp(x)
+data.frame(pc_1 = pc$x[,1], pc_2 = pc$x[,2], 
+	   tissue = tissue_gene_expression$y) %>%
+	   ggplot(aes(pc_1, pc_2, color = tissue)) +
+	   geom_point()
+```
+
+Which line of code should be used to replace #BLANK in the code block above?
+
+```{r}    
+x <- with(tissue_gene_expression, sweep(x, 1, rowMeans(x)))
+pc <- prcomp(x)
+data.frame(pc_1 = pc$x[,1], pc_2 = pc$x[,2], 
+	   tissue = tissue_gene_expression$y) %>%
+	   ggplot(aes(pc_1, pc_2, color = tissue)) +
+	   geom_point()
+```
+
+- [ ] A. ```x <- with(tissue_gene_expression, sweep(x, 1, mean(x)))```
+        
+- [ ] B. ```x <- sweep(x, 1, rowMeans(tissue_gene_expression$x))```
+        
+- [ ] C. ```x <- tissue_gene_expression$x - mean(tissue_gene_expression$x)```
+        
+- [X] D. ```x <- with(tissue_gene_expression, sweep(x, 1, rowMeans(x)))```
+
+4. 

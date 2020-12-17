@@ -5305,4 +5305,33 @@ data.frame(pc_1 = pc$x[,1], pc_2 = pc$x[,2],
         
 - [X] D. ```x <- with(tissue_gene_expression, sweep(x, 1, rowMeans(x)))```
 
-4. 
+4. For the first 10 PCs, make a boxplot showing the values for each tissue.
+
+For the 7th PC, which two tissues have the greatest median difference?
+
+```{r}
+for(i in 1:10){
+	boxplot(pc$x[,i] ~ tissue_gene_expression$y, main = paste("PC", i))
+}
+```
+
+Select the TWO tissues that have the greatest difference between their medians.
+
+- [ ] A. cerebellum
+- [X] B. colon
+- [ ] C. endometrium
+- [ ] D. hippocampus
+- [ ] E. kidney
+- [ ] F. liver
+- [X] G. placenta
+
+5. Plot the percent variance explained by PC number. Hint: use the ```summary``` function.
+
+How many PCs are required to reach a cumulative percent variance explained greater than 50%? ```3```
+
+```{r}
+plot(summary(pc)$importance[3,])
+```
+
+## Comprehension Check - Clustering
+

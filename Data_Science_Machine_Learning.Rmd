@@ -5368,6 +5368,10 @@ plot(h)
 - [X] F. liver
 - [ ] G. placenta
 
+3. Select the 50 most variable genes. Make sure the observations show up in the columns, that the predictor are centered, and add a color bar to show the different tissue types. Hint: use the ```ColSideColors``` argument to assign colors. Also, use ```col = RColorBrewer::brewer.pal(11, "RdBu")``` for a better use of colors.
+
+Part of the code is provided for you here:
+
 ```{r, include=TRUE, eval=FALSE}
 library(RColorBrewer)
 sds <- matrixStats::colSds(tissue_gene_expression$x)

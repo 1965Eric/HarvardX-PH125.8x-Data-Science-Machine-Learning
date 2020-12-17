@@ -2,11 +2,11 @@
 title: "Data Science Machine Learning"
 output:
   word_document: default
-  pdf_document:
-    latex_engine: xelatex
+  html_document: default
   bookdown::epub_book:
       number_sections: true
-  html_document: default
+  pdf_document:
+    latex_engine: xelatex
 urlcolor: blue
 ---
 
@@ -5340,6 +5340,10 @@ These exercises will work with the ```tissue_gene_expression``` dataset, which i
 1. Load the ```tissue_gene_expression``` dataset. Remove the row means and compute the distance between each observation. Store the result in ```d```.
 
 Which of the following lines of code correctly does this computation?
+
+```{r}
+d <- dist(tissue_gene_expression$x - rowMeans(tissue_gene_expression$x))
+```
 
 - [ ] A. ```d <- dist(tissue_gene_expression$x)```
         

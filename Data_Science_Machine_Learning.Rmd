@@ -5335,3 +5335,66 @@ plot(summary(pc)$importance[3,])
 
 ## Comprehension Check - Clustering
 
+These exercises will work with the ```tissue_gene_expression``` dataset, which is part of the **dslabs** package.
+
+1. Load the ```tissue_gene_expression``` dataset. Remove the row means and compute the distance between each observation. Store the result in ```d```.
+
+Which of the following lines of code correctly does this computation?
+
+- [ ] A. ```d <- dist(tissue_gene_expression$x)```
+        
+- [ ] B. ```d <- dist(rowMeans(tissue_gene_expression$x))```
+ 
+- [ ] C. ```d <- dist(rowMeans(tissue_gene_expression$y))```
+
+- [X] D. ```d <- dist(tissue_gene_expression$x - rowMeans(tissue_gene_expression$x))```
+
+2. Make a hierarchical clustering plot and add the tissue types as labels.
+
+You will observe multiple branches.
+
+Which tissue type is in the branch farthest to the left?
+
+```{r}
+h <- hclust(d)
+plot(h)
+```
+
+- [ ] A. cerebellum
+- [ ] B. colon
+- [ ] C. endometrium
+- [ ] D. hippocampus
+- [ ] E. kidney
+- [X] F. liver
+- [ ] G. placenta
+
+```{r, include=TRUE, eval=FALSE}
+library(RColorBrewer)
+sds <- matrixStats::colSds(tissue_gene_expression$x)
+ind <- order(sds, decreasing = TRUE)[1:50]
+colors <- brewer.pal(7, "Dark2")[as.numeric(tissue_gene_expression$y)]
+#BLANK
+```
+
+Which line of code should replace #BLANK in the code above?
+
+```{r}
+if(!require(RColorBrewer)) install.packages("RColorBrewer")
+
+library(RColorBrewer)
+sds <- matrixStats::colSds(tissue_gene_expression$x)
+ind <- order(sds, decreasing = TRUE)[1:50]
+colors <- brewer.pal(7, "Dark2")[as.numeric(tissue_gene_expression$y)]
+heatmap(t(tissue_gene_expression$x[,ind]), col = brewer.pal(11, "RdBu"), scale = "row", ColSideColors = colors)
+```
+
+- [X] A. ```heatmap(t(tissue_gene_expression$x[,ind]), col = brewer.pal(11, "RdBu"), scale = "row", ColSideColors = colors)```
+        
+- [ ] B. ```heatmap(t(tissue_gene_expression$x[,ind]), col = brewer.pal(11, "RdBu"), scale = "row", ColSideColors = rev(colors))```
+        
+- [ ] C. ```heatmap(t(tissue_gene_expression$x[,ind]), col = brewer.pal(11, "RdBu"), scale = "row", ColSideColors = sample(colors))```
+        
+- [ ] D. ```heatmap(t(tissue_gene_expression$x[,ind]), col = brewer.pal(11, "RdBu"), scale = "row", ColSideColors = sample(colors))```
+
+## Breast Cancer Project - Part 1
+

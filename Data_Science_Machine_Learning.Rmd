@@ -5406,3 +5406,38 @@ heatmap(t(tissue_gene_expression$x[,ind]), col = brewer.pal(11, "RdBu"), scale =
 
 ## Breast Cancer Project - Part 1
 
+The ```brca``` dataset from the **dslabs** package contains information about breast cancer diagnosis biopsy samples for tumors that were determined to be either benign (not cancer) and malignant (cancer). The brca object is a list consisting of:
+
+* ```brca$y```: a vector of sample classifications ("B" = benign or "M" = malignant)
+* ```brca$x```: a matrix of numeric features describing properties of the shape and size of cell nuclei extracted from biopsy microscope images
+For these exercises, load the data by setting your options and loading the libraries and data as shown in the code here:
+
+```{r}
+options(digits = 3)
+data(brca)
+```
+
+The exercises in this assessment are available to Verified Learners only and are split into four parts, all of which use the data described here.
+
+1. Dimensions and properties
+
+How many samples are in the dataset?
+
+How many predictors are in the matrix?
+
+What proportion of the samples are malignant?
+
+Which column number has the highest mean?
+
+Which column number has the lowest standard deviation?
+  
+```{r}
+dim(brca$x)[1]
+dim(brca$x)[2]
+mean(brca$y == "M")
+which.max(colMeans(brca$x))
+which.min(colSds(brca$x))
+```
+
+2. 
+        

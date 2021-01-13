@@ -5439,5 +5439,95 @@ which.max(colMeans(brca$x))
 which.min(colSds(brca$x))
 ```
 
-2. 
-        
+2. Scaling the matrix
+
+Use ```sweep()``` two times to scale each column: subtract the column means of ```brca$x```, then divide by the column standard deviations of ```brca$x```.
+
+After scaling, what is the standard deviation of the first column?
+
+```{r}
+x_centered <- sweep(brca$x, 2, colMeans(brca$x))
+x_scaled <- sweep(x_centered, 2, colSds(brca$x), FUN = "/")
+
+sd(x_scaled[,1])
+```
+
+After scaling, what is the median value of the first column?
+
+```{r}
+median(x_scaled[,1])
+```
+
+3. Distance
+
+Calculate the distance between all samples using the scaled matrix.
+
+What is the average distance between the first sample, which is benign, and other benign samples?
+
+```{r}
+d_samples <- dist(x_scaled)
+dist_BtoB <- as.matrix(d_samples)[1, brca$y == "B"]
+mean(dist_BtoB[2:length(dist_BtoB)])
+```
+
+What is the average distance between the first sample and malignant samples?
+
+```{r}
+dist_BtoM <- as.matrix(d_samples)[1, brca$y == "M"]
+mean(dist_BtoM)
+```
+
+4. Heatmap of features
+
+Make a heatmap of the relationship between features using the scaled matrix.
+
+Which of these heatmaps is correct?
+To remove column and row labels like the images below, use ```labRow = NA``` and ```labCol = NA```.
+
+```{r}
+d_features <- dist(t(x_scaled))
+heatmap(as.matrix(d_features), labRow = NA, labCol = NA)
+```
+
+- [X] A.
+
+![](images/Heatmap_A.png)
+
+- [ ] B.
+
+![](images/Heatmap_B.png)
+
+- [ ] C.
+
+![](images/Heatmap_C.png)
+
+- [ ] D.
+
+![](images/Heatmap_D.png)
+
+- [ ] E.
+
+![](images/Heatmap_E.png)
+
+5. Hierarchical clustering
+
+Perform hierarchical clustering on the 30 features. Cut the tree into 5 groups.
+
+All but one of the answer options are in the same group.
+
+Which is in a different group?
+
+```{r}
+h <- hclust(d_features)
+groups <- cutree(h, k = 5)
+split(names(groups), groups)
+```
+
+- [ ] A. smoothness_mean
+- [ ] B. smoothness_worst
+- [ ] C. compactness_mean
+- [ ] D. compactness_worst
+- [X] E. concavity_mean
+- [ ] F. concavity_worst
+
+

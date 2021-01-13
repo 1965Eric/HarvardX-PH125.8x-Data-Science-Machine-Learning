@@ -1,8 +1,8 @@
 ---
 title: "Data Science Machine Learning"
 output:
-  word_document: default
   html_document: default
+  word_document: default
   bookdown::epub_book:
       number_sections: true
   pdf_document:
@@ -5410,6 +5410,7 @@ The ```brca``` dataset from the **dslabs** package contains information about br
 
 * ```brca$y```: a vector of sample classifications ("B" = benign or "M" = malignant)
 * ```brca$x```: a matrix of numeric features describing properties of the shape and size of cell nuclei extracted from biopsy microscope images
+
 For these exercises, load the data by setting your options and loading the libraries and data as shown in the code here:
 
 ```{r}

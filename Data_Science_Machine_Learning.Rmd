@@ -5531,4 +5531,63 @@ split(names(groups), groups)
 - [X] E. concavity_mean
 - [ ] F. concavity_worst
 
+## Breast Cancer Project - Part 2
 
+6. PCA: proportion of variance
+
+Perform a principal component analysis of the scaled matrix.
+
+What proportion of variance is explained by the first principal component?
+
+How many principal components are required to explain at least 90% of the variance?
+
+```{r}
+pca <- prcomp(x_scaled)
+summary(pca)
+```
+
+7. PCA: plotting PCs
+
+Plot the first two principal components with color representing tumor type (benign/malignant).
+
+```{r}
+data.frame(pca$x[,1:2], type = brca$y) %>%
+  ggplot(aes(PC1, PC2, color = type)) +
+  geom_point()
+```
+
+Which of the following is true?
+
+- [ ] A. Malignant tumors tend to have smaller values of PC1 than benign tumors.
+- [X] B. Malignant tumors tend to have larger values of PC1 than benign tumors.
+- [ ] C. Malignant tumors tend to have smaller values of PC2 than benign tumors.
+- [ ] D. Malignant tumors tend to have larger values of PC2 than benign tumors.
+- [ ] E. There is no relationship between the first two principal components and tumor type.
+
+8. PCA: PC boxplot
+
+Make a boxplot of the first 10 PCs grouped by tumor type.
+
+```{r}
+data.frame(type = brca$y, pca$x[,1:10]) %>%
+    gather(key = "PC", value = "value", -type) %>%
+    ggplot(aes(PC, value, fill = type)) +
+    geom_boxplot()
+```
+
+Which PCs are significantly different enough by tumor type that there is no overlap in the interquartile ranges (IQRs) for benign and malignant samples?
+
+Select ALL that apply.
+
+- [X] A. PC1
+- [ ] B. PC2
+- [ ] C. PC3
+- [ ] D. PC4
+- [ ] E. PC5
+- [ ] F. PC6
+- [ ] G. PC7
+- [ ] H. PC8
+- [ ] I. PC9
+- [ ] J. PC10
+
+## Breast Cancer Project - Part 3

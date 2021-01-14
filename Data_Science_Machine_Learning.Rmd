@@ -5404,6 +5404,8 @@ heatmap(t(tissue_gene_expression$x[,ind]), col = brewer.pal(11, "RdBu"), scale =
         
 - [ ] D. ```heatmap(t(tissue_gene_expression$x[,ind]), col = brewer.pal(11, "RdBu"), scale = "row", ColSideColors = sample(colors))```
 
+# Section 7 - Final Assessment
+
 ## Breast Cancer Project - Part 1
 
 The ```brca``` dataset from the **dslabs** package contains information about breast cancer diagnosis biopsy samples for tumors that were determined to be either benign (not cancer) and malignant (cancer). The brca object is a list consisting of:
@@ -5699,9 +5701,9 @@ mean(qda_preds == test_y)
 
 Set the seed to 5, then fit a loess model on the training set with the **caret** package. You will need to install the **gam** package if you have not yet done so. Use the default tuning grid. This may take several minutes; ignore warnings. Generate predictions on the test set.
 
-What is the accuracy of the loess model on the test set?
+What is the accuracy of the loess model on the test set? ```0.983```
 
-```{r}
+```{r, include=TRUE, eval=FALSE}
 # set.seed(5)
 set.seed(5, sample.kind = "Rounding") # simulate R 3.5
 train_loess <- train(train_x, train_y, method = "gamLoess")

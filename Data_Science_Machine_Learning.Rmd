@@ -5711,3 +5711,105 @@ loess_preds <- predict(train_loess, test_x)
 mean(loess_preds == test_y)
 ```
 
+14. K-nearest neighbors model
+
+Set the seed to 7, then train a k-nearest neighbors model on the training set using the **caret** package. Try odd values of $k$ from 3 to 21. Use the final model to generate predictions on the test set.
+
+What is the final value of $k$ used in the model?
+
+```{r}
+# set.seed(7)
+set.seed(7, sample.kind = "Rounding") # simulate R 3.5
+tuning <- data.frame(k = seq(3, 21, 2))
+train_knn <- train(train_x, train_y,
+      method = "knn", 
+      tuneGrid = tuning)
+train_knn$bestTune
+```
+
+What is the accuracy of the kNN model on the test set?
+
+```{r}
+knn_preds <- predict(train_knn, test_x)
+mean(knn_preds == test_y)
+```
+
+15a. Random forest model
+
+Set the seed to 9, then train a random forest model on the training set using the **caret** package. Test ```mtry``` values of ```c(3, 5, 7, 9)```. Use the argument ```importance = TRUE``` so that feature importance can be extracted. Generate predictions on the test set.
+
+Note: please use ```c(3, 5, 7, 9)``` instead of ```seq(3, 9, 2)``` in tuneGrid.
+
+What value of mtry gives the highest accuracy?
+
+```{r}
+# set.seed(9)
+set.seed(9, sample.kind = "Rounding") # simulate R 3.5
+tuning <- data.frame(mtry = c(3, 5, 7, 9))
+train_rf <- train(train_x, train_y,
+                  method = "rf",
+                  tuneGrid = tuning,
+                  importance = TRUE)
+train_rf$bestTune
+```
+What is the accuracy of the random forest model on the test set?
+
+```{r}
+rf_preds <- predict(train_rf, test_x)
+mean(rf_preds == test_y)
+```
+
+What is the most important variable in the random forest model?
+Be sure to enter the variable name exactly as it appears in the dataset.
+
+```{r}
+varImp(train_rf)
+```
+
+15b. Random forest model
+
+Consider the top 10 most important variables in the random forest model.
+
+Which set of features is most important for determining tumor type?
+
+- [ ] A. mean values
+- [ ] B. standard errors
+- [X] C. worst values
+
+16a. Creating an ensemble
+
+Create an ensemble using the predictions from the 7 models created in the previous exercises: k-means, logistic regression, LDA, QDA, loess, k-nearest neighbors, and random forest. Use the ensemble to generate a majority prediction of the tumor type (if most models suggest the tumor is malignant, predict malignant).
+
+What is the accuracy of the ensemble prediction?
+
+```{r}
+ensemble <- cbind(glm = glm_preds == "B", lda = lda_preds == "B", qda = qda_preds == "B", loess = loess_preds == "B", rf = rf_preds == "B", knn = knn_preds == "B", kmeans = kmeans_preds == "B")
+
+ensemble_preds <- ifelse(rowMeans(ensemble) > 0.5, "B", "M")
+mean(ensemble_preds == test_y)
+```
+
+16b. Creating an ensemble
+
+Make a table of the accuracies of the 7 models and the accuracy of the ensemble model.
+
+Which of these models has the highest accuracy?
+
+```{r}
+models <- c("K means", "Logistic regression", "LDA", "QDA", "Loess", "K nearest neighbors", "Random forest", "Ensemble")
+accuracy <- c(mean(kmeans_preds == test_y),
+              mean(glm_preds == test_y),
+              mean(lda_preds == test_y),
+              mean(qda_preds == test_y),
+              mean(loess_preds == test_y),
+              mean(knn_preds == test_y),
+              mean(rf_preds == test_y),
+              mean(ensemble_preds == test_y))
+data.frame(Model = models, Accuracy = accuracy)
+```
+
+- [ ] A. Logistic regression
+- [X] B. LDA
+- [ ] C. Loess
+- [ ] D. Random forest
+- [ ] E. Ensemble

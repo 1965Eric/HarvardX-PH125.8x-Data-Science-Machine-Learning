@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Section 2 - Machine Learning Basics Overview | Data Science Machine Learning</title>
+  <meta name="description" content="3 Section 2 - Machine Learning Basics Overview | Data Science Machine Learning" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Section 2 - Machine Learning Basics Overview | Data Science Machine Learning" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Section 2 - Machine Learning Basics Overview | Data Science Machine Learning" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-1-introduction-to-machine-learning-overview.html"/>
+<link rel="next" href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>1</b> Learning Objectives</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="learning-objectives.html"><a href="learning-objectives.html#course-overview"><i class="fa fa-check"></i><b>1.1</b> Course Overview</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="learning-objectives.html"><a href="learning-objectives.html#introduction-to-machine-learning"><i class="fa fa-check"></i><b>1.1.1</b> Introduction to Machine Learning</a></li>
+<li class="chapter" data-level="1.1.2" data-path="learning-objectives.html"><a href="learning-objectives.html#machine-learning-basics"><i class="fa fa-check"></i><b>1.1.2</b> Machine Learning Basics</a></li>
+<li class="chapter" data-level="1.1.3" data-path="learning-objectives.html"><a href="learning-objectives.html#linear-regression-for-prediction-smoothing-and-working-with-matrices"><i class="fa fa-check"></i><b>1.1.3</b> Linear Regression for Prediction, Smoothing, and Working with Matrices</a></li>
+<li class="chapter" data-level="1.1.4" data-path="learning-objectives.html"><a href="learning-objectives.html#distance-knn-cross-validation-and-generative-models"><i class="fa fa-check"></i><b>1.1.4</b> Distance, Knn, Cross Validation, and Generative Models</a></li>
+<li class="chapter" data-level="1.1.5" data-path="learning-objectives.html"><a href="learning-objectives.html#classification-with-more-than-two-classes-and-the-caret-package"><i class="fa fa-check"></i><b>1.1.5</b> Classification with More than Two Classes and the Caret Package</a></li>
+<li class="chapter" data-level="1.1.6" data-path="learning-objectives.html"><a href="learning-objectives.html#model-fitting-and-recommendation-systems"><i class="fa fa-check"></i><b>1.1.6</b> Model Fitting and Recommendation Systems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="section-1-introduction-to-machine-learning-overview.html"><a href="section-1-introduction-to-machine-learning-overview.html"><i class="fa fa-check"></i><b>2</b> Section 1 - Introduction to Machine Learning Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="section-1-introduction-to-machine-learning-overview.html"><a href="section-1-introduction-to-machine-learning-overview.html#notation"><i class="fa fa-check"></i><b>2.1</b> Notation</a></li>
+<li class="chapter" data-level="2.2" data-path="section-1-introduction-to-machine-learning-overview.html"><a href="section-1-introduction-to-machine-learning-overview.html#an-example"><i class="fa fa-check"></i><b>2.2</b> An Example</a></li>
+<li class="chapter" data-level="2.3" data-path="section-1-introduction-to-machine-learning-overview.html"><a href="section-1-introduction-to-machine-learning-overview.html#comprehension-check---introduction-to-machine-learning"><i class="fa fa-check"></i><b>2.3</b> Comprehension Check - Introduction to Machine Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html"><i class="fa fa-check"></i><b>3</b> Section 2 - Machine Learning Basics Overview</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#caret-package-training-and-test-sets-and-overall-accuracy"><i class="fa fa-check"></i><b>3.1</b> Caret package, training and test sets, and overall accuracy</a></li>
+<li class="chapter" data-level="3.2" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#comprehension-check---basics-of-evaluating-machine-learning-algorithms"><i class="fa fa-check"></i><b>3.2</b> Comprehension Check - Basics of Evaluating Machine Learning Algorithms</a></li>
+<li class="chapter" data-level="3.3" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#confusion-matrix"><i class="fa fa-check"></i><b>3.3</b> Confusion matrix</a></li>
+<li class="chapter" data-level="3.4" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#balanced-accuracy-and-f1-score"><i class="fa fa-check"></i><b>3.4</b> Balanced accuracy and F1 score</a></li>
+<li class="chapter" data-level="3.5" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#prevalence-matters-in-practice"><i class="fa fa-check"></i><b>3.5</b> Prevalence matters in practice</a></li>
+<li class="chapter" data-level="3.6" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#roc-and-precision-recall-curves"><i class="fa fa-check"></i><b>3.6</b> ROC and precision-recall curves</a></li>
+<li class="chapter" data-level="3.7" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#comprehension-check---practice-with-machine-learning-part-1"><i class="fa fa-check"></i><b>3.7</b> Comprehension Check - Practice with Machine Learning, Part 1</a></li>
+<li class="chapter" data-level="3.8" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#comprehension-check---practice-with-machine-learning-part-2"><i class="fa fa-check"></i><b>3.8</b> Comprehension Check - Practice with Machine Learning, Part 2</a></li>
+<li class="chapter" data-level="3.9" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#conditional-probabilities"><i class="fa fa-check"></i><b>3.9</b> Conditional probabilities</a></li>
+<li class="chapter" data-level="3.10" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#conditional-expectations-and-loss-function"><i class="fa fa-check"></i><b>3.10</b> Conditional expectations and loss function</a></li>
+<li class="chapter" data-level="3.11" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#comprehension-check---conditional-probabilities-part-1"><i class="fa fa-check"></i><b>3.11</b> Comprehension Check - Conditional Probabilities, Part 1</a></li>
+<li class="chapter" data-level="3.12" data-path="section-2-machine-learning-basics-overview.html"><a href="section-2-machine-learning-basics-overview.html#comprehension-check---conditional-probabilities-part-2"><i class="fa fa-check"></i><b>3.12</b> Comprehension Check - Conditional Probabilities, Part 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><i class="fa fa-check"></i><b>4</b> Section 3 - Linear Regression for Prediction, Smoothing, and Working with Matrices Overview</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#linear-regression-for-prediction"><i class="fa fa-check"></i><b>4.1</b> Linear Regression for Prediction</a></li>
+<li class="chapter" data-level="4.2" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#predict-function"><i class="fa fa-check"></i><b>4.2</b> Predict Function</a></li>
+<li class="chapter" data-level="4.3" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#comprehension-check---linear-regression"><i class="fa fa-check"></i><b>4.3</b> Comprehension Check - Linear Regression</a></li>
+<li class="chapter" data-level="4.4" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#regression-for-a-categorical-outcome"><i class="fa fa-check"></i><b>4.4</b> Regression for a Categorical Outcome</a></li>
+<li class="chapter" data-level="4.5" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#logistic-regression"><i class="fa fa-check"></i><b>4.5</b> Logistic Regression</a></li>
+<li class="chapter" data-level="4.6" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#case-study-2-or-7"><i class="fa fa-check"></i><b>4.6</b> Case Study: 2 or 7</a></li>
+<li class="chapter" data-level="4.7" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#comprehension-check---logistic-regression"><i class="fa fa-check"></i><b>4.7</b> Comprehension Check - Logistic Regression</a></li>
+<li class="chapter" data-level="4.8" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#introduction-to-smoothing"><i class="fa fa-check"></i><b>4.8</b> Introduction to Smoothing</a></li>
+<li class="chapter" data-level="4.9" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#bin-smoothing-and-kernels"><i class="fa fa-check"></i><b>4.9</b> Bin Smoothing and Kernels</a></li>
+<li class="chapter" data-level="4.10" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#local-weighted-regression-loess"><i class="fa fa-check"></i><b>4.10</b> Local Weighted Regression (loess)</a></li>
+<li class="chapter" data-level="4.11" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#comprehension-check---smoothing"><i class="fa fa-check"></i><b>4.11</b> Comprehension Check - Smoothing</a></li>
+<li class="chapter" data-level="4.12" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#matrices"><i class="fa fa-check"></i><b>4.12</b> Matrices</a></li>
+<li class="chapter" data-level="4.13" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#matrix-notation"><i class="fa fa-check"></i><b>4.13</b> Matrix Notation</a></li>
+<li class="chapter" data-level="4.14" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#converting-a-vector-to-a-matrix"><i class="fa fa-check"></i><b>4.14</b> Converting a Vector to a Matrix</a></li>
+<li class="chapter" data-level="4.15" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#row-and-column-summaries-and-apply"><i class="fa fa-check"></i><b>4.15</b> Row and Column Summaries and Apply</a></li>
+<li class="chapter" data-level="4.16" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#filtering-columns-based-on-summaries"><i class="fa fa-check"></i><b>4.16</b> Filtering Columns Based on Summaries</a></li>
+<li class="chapter" data-level="4.17" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#indexing-with-matrices-and-binarizing-the-data"><i class="fa fa-check"></i><b>4.17</b> Indexing with Matrices and Binarizing the Data</a></li>
+<li class="chapter" data-level="4.18" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#vectorization-for-matrices-and-matrix-algebra-operations"><i class="fa fa-check"></i><b>4.18</b> Vectorization for Matrices and Matrix Algebra Operations</a></li>
+<li class="chapter" data-level="4.19" data-path="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html"><a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html#comprehension-check---working-with-matrices"><i class="fa fa-check"></i><b>4.19</b> Comprehension Check - Working with Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html"><i class="fa fa-check"></i><b>5</b> Section 4 - Distance, Knn, Cross Validation, and Generative Models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#distance"><i class="fa fa-check"></i><b>5.1</b> Distance</a></li>
+<li class="chapter" data-level="5.2" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#comprehension-check---distance"><i class="fa fa-check"></i><b>5.2</b> Comprehension Check - Distance</a></li>
+<li class="chapter" data-level="5.3" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#knn"><i class="fa fa-check"></i><b>5.3</b> Knn</a></li>
+<li class="chapter" data-level="5.4" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#over-training-and-over-smoothing"><i class="fa fa-check"></i><b>5.4</b> Over-training and Over-smoothing</a></li>
+<li class="chapter" data-level="5.5" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#comprehension-check---nearest-neighbors"><i class="fa fa-check"></i><b>5.5</b> Comprehension Check - Nearest Neighbors</a></li>
+<li class="chapter" data-level="5.6" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>5.6</b> K-fold cross validation</a></li>
+<li class="chapter" data-level="5.7" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#comprehension-check---cross-validation"><i class="fa fa-check"></i><b>5.7</b> Comprehension Check - Cross-validation</a></li>
+<li class="chapter" data-level="5.8" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#bootstrap"><i class="fa fa-check"></i><b>5.8</b> Bootstrap</a></li>
+<li class="chapter" data-level="5.9" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#comprehension-check---bootstrap"><i class="fa fa-check"></i><b>5.9</b> Comprehension Check - Bootstrap</a></li>
+<li class="chapter" data-level="5.10" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#generative-models"><i class="fa fa-check"></i><b>5.10</b> Generative Models</a></li>
+<li class="chapter" data-level="5.11" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#naive-bayes"><i class="fa fa-check"></i><b>5.11</b> Naive Bayes</a></li>
+<li class="chapter" data-level="5.12" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#controlling-prevalence"><i class="fa fa-check"></i><b>5.12</b> Controlling Prevalence</a></li>
+<li class="chapter" data-level="5.13" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#qda-and-lda"><i class="fa fa-check"></i><b>5.13</b> qda and lda</a></li>
+<li class="chapter" data-level="5.14" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#case-study---more-than-three-classes"><i class="fa fa-check"></i><b>5.14</b> Case Study - More than Three Classes</a></li>
+<li class="chapter" data-level="5.15" data-path="section-4-distance-knn-cross-validation-and-generative-models.html"><a href="section-4-distance-knn-cross-validation-and-generative-models.html#comprehension-check---generative-models"><i class="fa fa-check"></i><b>5.15</b> Comprehension Check - Generative Models</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><i class="fa fa-check"></i><b>6</b> Section 5 - Classification with More than Two Classes and the Caret Package</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#trees-motivation"><i class="fa fa-check"></i><b>6.1</b> Trees Motivation</a></li>
+<li class="chapter" data-level="6.2" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>6.2</b> Classification and Regression Trees (CART)</a></li>
+<li class="chapter" data-level="6.3" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#classification-decision-trees"><i class="fa fa-check"></i><b>6.3</b> Classification (Decision) Trees</a></li>
+<li class="chapter" data-level="6.4" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#random-forests"><i class="fa fa-check"></i><b>6.4</b> Random Forests</a></li>
+<li class="chapter" data-level="6.5" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#comprehension-check---trees-and-random-forests"><i class="fa fa-check"></i><b>6.5</b> Comprehension Check - Trees and Random Forests</a></li>
+<li class="chapter" data-level="6.6" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#caret-package"><i class="fa fa-check"></i><b>6.6</b> Caret Package</a></li>
+<li class="chapter" data-level="6.7" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#tuning-parameters-with-caret"><i class="fa fa-check"></i><b>6.7</b> Tuning Parameters with Caret</a></li>
+<li class="chapter" data-level="6.8" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#comprehension-check---caret-package"><i class="fa fa-check"></i><b>6.8</b> Comprehension Check - Caret Package</a></li>
+<li class="chapter" data-level="6.9" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#titanic-exercises---part-1"><i class="fa fa-check"></i><b>6.9</b> Titanic Exercises - Part 1</a></li>
+<li class="chapter" data-level="6.10" data-path="section-5-classification-with-more-than-two-classes-and-the-caret-package.html"><a href="section-5-classification-with-more-than-two-classes-and-the-caret-package.html#titanic-exercises---part-2"><i class="fa fa-check"></i><b>6.10</b> Titanic Exercises - Part 2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html"><i class="fa fa-check"></i><b>7</b> Section 6 - Model Fitting and Recommendation Systems Overview</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#case-study-mnist"><i class="fa fa-check"></i><b>7.1</b> Case Study: MNIST</a></li>
+<li class="chapter" data-level="7.2" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#preprocessing-mnist-data"><i class="fa fa-check"></i><b>7.2</b> Preprocessing MNIST Data</a></li>
+<li class="chapter" data-level="7.3" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#model-fitting-for-mnist-data"><i class="fa fa-check"></i><b>7.3</b> Model Fitting for MNIST Data</a></li>
+<li class="chapter" data-level="7.4" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#variable-importance"><i class="fa fa-check"></i><b>7.4</b> Variable Importance</a></li>
+<li class="chapter" data-level="7.5" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#ensembles"><i class="fa fa-check"></i><b>7.5</b> Ensembles</a></li>
+<li class="chapter" data-level="7.6" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#comprehension-check---ensembles"><i class="fa fa-check"></i><b>7.6</b> Comprehension Check - Ensembles</a></li>
+<li class="chapter" data-level="7.7" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#recommendation-systems"><i class="fa fa-check"></i><b>7.7</b> Recommendation Systems</a></li>
+<li class="chapter" data-level="7.8" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#building-the-recommendation-system"><i class="fa fa-check"></i><b>7.8</b> Building the Recommendation System</a></li>
+<li class="chapter" data-level="7.9" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#comprehension-check---recommendation-systems"><i class="fa fa-check"></i><b>7.9</b> Comprehension Check - Recommendation Systems</a></li>
+<li class="chapter" data-level="7.10" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#regularization"><i class="fa fa-check"></i><b>7.10</b> Regularization</a></li>
+<li class="chapter" data-level="7.11" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#comprehension-check---regularization"><i class="fa fa-check"></i><b>7.11</b> Comprehension Check - Regularization</a></li>
+<li class="chapter" data-level="7.12" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#matrix-factorization"><i class="fa fa-check"></i><b>7.12</b> Matrix Factorization</a></li>
+<li class="chapter" data-level="7.13" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#svd-and-pca"><i class="fa fa-check"></i><b>7.13</b> SVD and PCA</a></li>
+<li class="chapter" data-level="7.14" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#comprehension-check---matrix-factorization"><i class="fa fa-check"></i><b>7.14</b> Comprehension Check - Matrix Factorization</a></li>
+<li class="chapter" data-level="7.15" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#comprehension-check---dimension-reduction"><i class="fa fa-check"></i><b>7.15</b> Comprehension Check - Dimension Reduction</a></li>
+<li class="chapter" data-level="7.16" data-path="section-6-model-fitting-and-recommendation-systems-overview.html"><a href="section-6-model-fitting-and-recommendation-systems-overview.html#comprehension-check---clustering"><i class="fa fa-check"></i><b>7.16</b> Comprehension Check - Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-7-final-assessment.html"><a href="section-7-final-assessment.html"><i class="fa fa-check"></i><b>8</b> Section 7 - Final Assessment</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="section-7-final-assessment.html"><a href="section-7-final-assessment.html#breast-cancer-project---part-1"><i class="fa fa-check"></i><b>8.1</b> Breast Cancer Project - Part 1</a></li>
+<li class="chapter" data-level="8.2" data-path="section-7-final-assessment.html"><a href="section-7-final-assessment.html#breast-cancer-project---part-2"><i class="fa fa-check"></i><b>8.2</b> Breast Cancer Project - Part 2</a></li>
+<li class="chapter" data-level="8.3" data-path="section-7-final-assessment.html"><a href="section-7-final-assessment.html#breast-cancer-project---part-3"><i class="fa fa-check"></i><b>8.3</b> Breast Cancer Project - Part 3</a></li>
+<li class="chapter" data-level="8.4" data-path="section-7-final-assessment.html"><a href="section-7-final-assessment.html#breast-cancer-project---part-4"><i class="fa fa-check"></i><b>8.4</b> Breast Cancer Project - Part 4</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science Machine Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-2---machine-learning-basics-overview" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Section 2 - Machine Learning Basics Overview</h1>
+<p>In the <strong>Machine Learning Basics</strong> section, you will learn the basics of machine learning.</p>
+<p>After completing this section, you will be able to:</p>
+<ul>
+<li>Start to use the <strong>caret</strong> package.</li>
+<li>Construct and interpret a <strong>confusion matrix</strong>.</li>
+<li>Use <strong>conditional probabilities</strong> in the context of machine learning.</li>
+</ul>
+<p>This section has two parts: <strong>basics of evaluating machine learning algorithms</strong> and <strong>conditional probabilities</strong>.</p>
+<div id="caret-package-training-and-test-sets-and-overall-accuracy" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Caret package, training and test sets, and overall accuracy</h2>
+<p>There is a link to the relevant sections of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#training-and-test-sets" target="_blank">Training and test sets</a> and <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#overall-accuracy" target="_blank">Overall accuracy</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>Note: the <code>set.seed()</code> function is used to obtain reproducible results. If you have R 3.6 or later, please use the <code>sample.kind = "Rounding"</code> argument whenever you set the seed for this course.</li>
+<li>To mimic the ultimate evaluation process, we randomly split our data into two — a training set and a test set — and act as if we don’t know the outcome of the test set. We develop algorithms using only the training set; the test set is used only for evaluation.</li>
+<li>The <code>createDataPartition()</code> function from the <strong>caret</strong> package can be used to generate indexes for randomly splitting data.</li>
+<li>Note: contrary to what the documentation says, this course will use the argument p as the percentage of data that goes to testing. The indexes made from <code>createDataPartition()</code> should be used to create the test set. Indexes should be created on the outcome and not a predictor.</li>
+<li>The simplest evaluation metric for categorical outcomes is overall accuracy: the proportion of cases that were correctly predicted in the test set.</li>
+</ul>
+<p><em>Code</em></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="section-2-machine-learning-basics-overview.html#cb1-1" aria-hidden="true"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(tidyverse)) <span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: tidyverse</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="section-2-machine-learning-basics-overview.html#cb6-1" aria-hidden="true"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(caret)) <span class="kw">install.packages</span>(<span class="st">&quot;caret&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: caret</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## 
+## Attaching package: &#39;caret&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     lift</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="section-2-machine-learning-basics-overview.html#cb11-1" aria-hidden="true"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(dslabs)) <span class="kw">install.packages</span>(<span class="st">&quot;dslabs&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: dslabs</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="section-2-machine-learning-basics-overview.html#cb13-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb13-2"><a href="section-2-machine-learning-basics-overview.html#cb13-2" aria-hidden="true"></a><span class="kw">library</span>(caret)</span>
+<span id="cb13-3"><a href="section-2-machine-learning-basics-overview.html#cb13-3" aria-hidden="true"></a><span class="kw">library</span>(dslabs)</span>
+<span id="cb13-4"><a href="section-2-machine-learning-basics-overview.html#cb13-4" aria-hidden="true"></a><span class="kw">data</span>(heights)</span>
+<span id="cb13-5"><a href="section-2-machine-learning-basics-overview.html#cb13-5" aria-hidden="true"></a></span>
+<span id="cb13-6"><a href="section-2-machine-learning-basics-overview.html#cb13-6" aria-hidden="true"></a><span class="co"># define the outcome and predictors</span></span>
+<span id="cb13-7"><a href="section-2-machine-learning-basics-overview.html#cb13-7" aria-hidden="true"></a>y &lt;-<span class="st"> </span>heights<span class="op">$</span>sex</span>
+<span id="cb13-8"><a href="section-2-machine-learning-basics-overview.html#cb13-8" aria-hidden="true"></a>x &lt;-<span class="st"> </span>heights<span class="op">$</span>height</span>
+<span id="cb13-9"><a href="section-2-machine-learning-basics-overview.html#cb13-9" aria-hidden="true"></a></span>
+<span id="cb13-10"><a href="section-2-machine-learning-basics-overview.html#cb13-10" aria-hidden="true"></a><span class="co"># generate training and test sets</span></span>
+<span id="cb13-11"><a href="section-2-machine-learning-basics-overview.html#cb13-11" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">2</span>, <span class="dt">sample.kind =</span> <span class="st">&quot;Rounding&quot;</span>) <span class="co"># if using R 3.5 or earlier, remove the sample.kind argument</span></span></code></pre></div>
+<pre><code>## Warning in set.seed(2, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler used</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="section-2-machine-learning-basics-overview.html#cb15-1" aria-hidden="true"></a>test_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(y, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">p =</span> <span class="fl">0.5</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb15-2"><a href="section-2-machine-learning-basics-overview.html#cb15-2" aria-hidden="true"></a>test_set &lt;-<span class="st"> </span>heights[test_index, ]</span>
+<span id="cb15-3"><a href="section-2-machine-learning-basics-overview.html#cb15-3" aria-hidden="true"></a>train_set &lt;-<span class="st"> </span>heights[<span class="op">-</span>test_index, ]</span>
+<span id="cb15-4"><a href="section-2-machine-learning-basics-overview.html#cb15-4" aria-hidden="true"></a></span>
+<span id="cb15-5"><a href="section-2-machine-learning-basics-overview.html#cb15-5" aria-hidden="true"></a><span class="co"># guess the outcome</span></span>
+<span id="cb15-6"><a href="section-2-machine-learning-basics-overview.html#cb15-6" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>), <span class="kw">length</span>(test_index), <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb15-7"><a href="section-2-machine-learning-basics-overview.html#cb15-7" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>), <span class="kw">length</span>(test_index), <span class="dt">replace =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb15-8"><a href="section-2-machine-learning-basics-overview.html#cb15-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">levels</span>(test_set<span class="op">$</span>sex))</span>
+<span id="cb15-9"><a href="section-2-machine-learning-basics-overview.html#cb15-9" aria-hidden="true"></a></span>
+<span id="cb15-10"><a href="section-2-machine-learning-basics-overview.html#cb15-10" aria-hidden="true"></a><span class="co"># compute accuracy</span></span>
+<span id="cb15-11"><a href="section-2-machine-learning-basics-overview.html#cb15-11" aria-hidden="true"></a><span class="kw">mean</span>(y_hat <span class="op">==</span><span class="st"> </span>test_set<span class="op">$</span>sex)</span></code></pre></div>
+<pre><code>## [1] 0.5238095</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="section-2-machine-learning-basics-overview.html#cb17-1" aria-hidden="true"></a>heights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(sex) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="kw">mean</span>(height), <span class="kw">sd</span>(height))</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##   sex    `mean(height)` `sd(height)`
+##   &lt;fct&gt;           &lt;dbl&gt;        &lt;dbl&gt;
+## 1 Female           64.9         3.76
+## 2 Male             69.3         3.61</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="section-2-machine-learning-basics-overview.html#cb20-1" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">62</span>, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">levels</span>(test_set<span class="op">$</span>sex))</span>
+<span id="cb20-2"><a href="section-2-machine-learning-basics-overview.html#cb20-2" aria-hidden="true"></a><span class="kw">mean</span>(y <span class="op">==</span><span class="st"> </span>y_hat)</span></code></pre></div>
+<pre><code>## [1] 0.7933333</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="section-2-machine-learning-basics-overview.html#cb22-1" aria-hidden="true"></a><span class="co"># examine the accuracy of 10 cutoffs</span></span>
+<span id="cb22-2"><a href="section-2-machine-learning-basics-overview.html#cb22-2" aria-hidden="true"></a>cutoff &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">61</span>, <span class="dv">70</span>)</span>
+<span id="cb22-3"><a href="section-2-machine-learning-basics-overview.html#cb22-3" aria-hidden="true"></a>accuracy &lt;-<span class="st"> </span><span class="kw">map_dbl</span>(cutoff, <span class="cf">function</span>(x){</span>
+<span id="cb22-4"><a href="section-2-machine-learning-basics-overview.html#cb22-4" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(train_set<span class="op">$</span>height <span class="op">&gt;</span><span class="st"> </span>x, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-5"><a href="section-2-machine-learning-basics-overview.html#cb22-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">levels</span>(test_set<span class="op">$</span>sex))</span>
+<span id="cb22-6"><a href="section-2-machine-learning-basics-overview.html#cb22-6" aria-hidden="true"></a>  <span class="kw">mean</span>(y_hat <span class="op">==</span><span class="st"> </span>train_set<span class="op">$</span>sex)</span>
+<span id="cb22-7"><a href="section-2-machine-learning-basics-overview.html#cb22-7" aria-hidden="true"></a>})</span>
+<span id="cb22-8"><a href="section-2-machine-learning-basics-overview.html#cb22-8" aria-hidden="true"></a><span class="kw">data.frame</span>(cutoff, accuracy) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-9"><a href="section-2-machine-learning-basics-overview.html#cb22-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(cutoff, accuracy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb22-10"><a href="section-2-machine-learning-basics-overview.html#cb22-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb22-11"><a href="section-2-machine-learning-basics-overview.html#cb22-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() </span></code></pre></div>
+<p><img src="img/figures/unnamed-chunk-1-1.png" width="672" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="section-2-machine-learning-basics-overview.html#cb23-1" aria-hidden="true"></a><span class="kw">max</span>(accuracy)</span></code></pre></div>
+<pre><code>## [1] 0.8361905</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="section-2-machine-learning-basics-overview.html#cb25-1" aria-hidden="true"></a>best_cutoff &lt;-<span class="st"> </span>cutoff[<span class="kw">which.max</span>(accuracy)]</span>
+<span id="cb25-2"><a href="section-2-machine-learning-basics-overview.html#cb25-2" aria-hidden="true"></a>best_cutoff</span></code></pre></div>
+<pre><code>## [1] 64</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="section-2-machine-learning-basics-overview.html#cb27-1" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(test_set<span class="op">$</span>height <span class="op">&gt;</span><span class="st"> </span>best_cutoff, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb27-2"><a href="section-2-machine-learning-basics-overview.html#cb27-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">levels</span>(test_set<span class="op">$</span>sex))</span>
+<span id="cb27-3"><a href="section-2-machine-learning-basics-overview.html#cb27-3" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">factor</span>(y_hat)</span>
+<span id="cb27-4"><a href="section-2-machine-learning-basics-overview.html#cb27-4" aria-hidden="true"></a><span class="kw">mean</span>(y_hat <span class="op">==</span><span class="st"> </span>test_set<span class="op">$</span>sex)</span></code></pre></div>
+<pre><code>## [1] 0.8171429</code></pre>
+</div>
+<div id="comprehension-check---basics-of-evaluating-machine-learning-algorithms" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Comprehension Check - Basics of Evaluating Machine Learning Algorithms</h2>
+<ol style="list-style-type: decimal">
+<li>For each of the following, indicate whether the outcome is continuous or categorical.</li>
+</ol>
+<ul>
+<li>Digit reader - categorical</li>
+<li>Height - continuous<br />
+</li>
+<li>Spam filter - categorical</li>
+<li>Stock prices - continuous</li>
+<li>Sex - categorical</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>How many features are available to us for prediction in the <code>mnist</code> digits dataset?</li>
+</ol>
+<p>You can download the <code>mnist</code> dataset using the <code>read_mnist()</code> function from the <strong>dslabs</strong> package.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="section-2-machine-learning-basics-overview.html#cb29-1" aria-hidden="true"></a>mnist &lt;-<span class="st"> </span><span class="kw">read_mnist</span>()</span>
+<span id="cb29-2"><a href="section-2-machine-learning-basics-overview.html#cb29-2" aria-hidden="true"></a><span class="kw">ncol</span>(mnist<span class="op">$</span>train<span class="op">$</span>images)</span></code></pre></div>
+<pre><code>## [1] 784</code></pre>
+</div>
+<div id="confusion-matrix" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Confusion matrix</h2>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#the-confusion-matrix" target="_blank">Confusion Matrix</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>Overall accuracy can sometimes be a deceptive measure because of unbalanced classes.</li>
+<li>A general improvement to using overall accuracy is to study sensitivity and specificity separately. <strong>Sensitivity</strong>, also known as the true positive rate or recall, is the proportion of actual positive outcomes correctly identified as such. <strong>Specificity</strong>, also known as the true negative rate, is the proportion of actual negative outcomes that are correctly identified as such.</li>
+<li>A confusion matrix tabulates each combination of prediction and actual value. You can create a confusion matrix in R using the <code>table()</code> function or the <code>confusionMatrix()</code> function from the <strong>caret</strong> package.</li>
+</ul>
+<p><em>Code</em></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="section-2-machine-learning-basics-overview.html#cb31-1" aria-hidden="true"></a><span class="co"># tabulate each combination of prediction and actual value</span></span>
+<span id="cb31-2"><a href="section-2-machine-learning-basics-overview.html#cb31-2" aria-hidden="true"></a><span class="kw">table</span>(<span class="dt">predicted =</span> y_hat, <span class="dt">actual =</span> test_set<span class="op">$</span>sex)</span></code></pre></div>
+<pre><code>##          actual
+## predicted Female Male
+##    Female     50   27
+##    Male       69  379</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="section-2-machine-learning-basics-overview.html#cb33-1" aria-hidden="true"></a>test_set <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb33-2"><a href="section-2-machine-learning-basics-overview.html#cb33-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">y_hat =</span> y_hat) <span class="op">%&gt;%</span></span>
+<span id="cb33-3"><a href="section-2-machine-learning-basics-overview.html#cb33-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(sex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb33-4"><a href="section-2-machine-learning-basics-overview.html#cb33-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">accuracy =</span> <span class="kw">mean</span>(y_hat <span class="op">==</span><span class="st"> </span>sex))</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   sex    accuracy
+##   &lt;fct&gt;     &lt;dbl&gt;
+## 1 Female    0.420
+## 2 Male      0.933</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="section-2-machine-learning-basics-overview.html#cb36-1" aria-hidden="true"></a>prev &lt;-<span class="st"> </span><span class="kw">mean</span>(y <span class="op">==</span><span class="st"> &quot;Male&quot;</span>)</span>
+<span id="cb36-2"><a href="section-2-machine-learning-basics-overview.html#cb36-2" aria-hidden="true"></a></span>
+<span id="cb36-3"><a href="section-2-machine-learning-basics-overview.html#cb36-3" aria-hidden="true"></a><span class="kw">confusionMatrix</span>(<span class="dt">data =</span> y_hat, <span class="dt">reference =</span> test_set<span class="op">$</span>sex)</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction Female Male
+##     Female     50   27
+##     Male       69  379
+##                                           
+##                Accuracy : 0.8171          
+##                  95% CI : (0.7814, 0.8493)
+##     No Information Rate : 0.7733          
+##     P-Value [Acc &gt; NIR] : 0.008354        
+##                                           
+##                   Kappa : 0.4041          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 2.857e-05       
+##                                           
+##             Sensitivity : 0.42017         
+##             Specificity : 0.93350         
+##          Pos Pred Value : 0.64935         
+##          Neg Pred Value : 0.84598         
+##              Prevalence : 0.22667         
+##          Detection Rate : 0.09524         
+##    Detection Prevalence : 0.14667         
+##       Balanced Accuracy : 0.67683         
+##                                           
+##        &#39;Positive&#39; Class : Female          
+## </code></pre>
+</div>
+<div id="balanced-accuracy-and-f1-score" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Balanced accuracy and F1 score</h2>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#balanced-accuracy-and-f_1-score" target="_blank">Balanced accuracy and F1 Score</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>For optimization purposes, sometimes it is more useful to have a one number summary than studying both specificity and sensitivity. One preferred metric is <strong>balanced accuracy</strong>. Because specificity and sensitivity are rates, it is more appropriate to compute the <em>harmonic</em> average. In fact, the <strong>F1-score</strong>, a widely used one-number summary, is the harmonic average of precision and recall.</li>
+<li>Depending on the context, some type of errors are more costly than others. The <strong>F1-score</strong> can be adapted to weigh specificity and sensitivity differently.</li>
+<li>You can compute the <strong>F1-score</strong> using the <code>F_meas()</code> function in the <strong>caret</strong> package.</li>
+</ul>
+<p><em>Code</em></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="section-2-machine-learning-basics-overview.html#cb38-1" aria-hidden="true"></a><span class="co"># maximize F-score</span></span>
+<span id="cb38-2"><a href="section-2-machine-learning-basics-overview.html#cb38-2" aria-hidden="true"></a>cutoff &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">61</span>, <span class="dv">70</span>)</span>
+<span id="cb38-3"><a href="section-2-machine-learning-basics-overview.html#cb38-3" aria-hidden="true"></a>F_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">map_dbl</span>(cutoff, <span class="cf">function</span>(x){</span>
+<span id="cb38-4"><a href="section-2-machine-learning-basics-overview.html#cb38-4" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(train_set<span class="op">$</span>height <span class="op">&gt;</span><span class="st"> </span>x, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-5"><a href="section-2-machine-learning-basics-overview.html#cb38-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">levels</span>(test_set<span class="op">$</span>sex))</span>
+<span id="cb38-6"><a href="section-2-machine-learning-basics-overview.html#cb38-6" aria-hidden="true"></a>  <span class="kw">F_meas</span>(<span class="dt">data =</span> y_hat, <span class="dt">reference =</span> <span class="kw">factor</span>(train_set<span class="op">$</span>sex))</span>
+<span id="cb38-7"><a href="section-2-machine-learning-basics-overview.html#cb38-7" aria-hidden="true"></a>})</span>
+<span id="cb38-8"><a href="section-2-machine-learning-basics-overview.html#cb38-8" aria-hidden="true"></a></span>
+<span id="cb38-9"><a href="section-2-machine-learning-basics-overview.html#cb38-9" aria-hidden="true"></a><span class="kw">data.frame</span>(cutoff, F_<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-10"><a href="section-2-machine-learning-basics-overview.html#cb38-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(cutoff, F_<span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-11"><a href="section-2-machine-learning-basics-overview.html#cb38-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-12"><a href="section-2-machine-learning-basics-overview.html#cb38-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<p><img src="img/figures/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="section-2-machine-learning-basics-overview.html#cb39-1" aria-hidden="true"></a><span class="kw">max</span>(F_<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6142322</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="section-2-machine-learning-basics-overview.html#cb41-1" aria-hidden="true"></a>best_cutoff &lt;-<span class="st"> </span>cutoff[<span class="kw">which.max</span>(F_<span class="dv">1</span>)]</span>
+<span id="cb41-2"><a href="section-2-machine-learning-basics-overview.html#cb41-2" aria-hidden="true"></a>best_cutoff</span></code></pre></div>
+<pre><code>## [1] 66</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="section-2-machine-learning-basics-overview.html#cb43-1" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(test_set<span class="op">$</span>height <span class="op">&gt;</span><span class="st"> </span>best_cutoff, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb43-2"><a href="section-2-machine-learning-basics-overview.html#cb43-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">levels</span>(test_set<span class="op">$</span>sex))</span>
+<span id="cb43-3"><a href="section-2-machine-learning-basics-overview.html#cb43-3" aria-hidden="true"></a><span class="kw">sensitivity</span>(<span class="dt">data =</span> y_hat, <span class="dt">reference =</span> test_set<span class="op">$</span>sex)</span></code></pre></div>
+<pre><code>## [1] 0.6806723</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="section-2-machine-learning-basics-overview.html#cb45-1" aria-hidden="true"></a><span class="kw">specificity</span>(<span class="dt">data =</span> y_hat, <span class="dt">reference =</span> test_set<span class="op">$</span>sex)</span></code></pre></div>
+<pre><code>## [1] 0.8349754</code></pre>
+</div>
+<div id="prevalence-matters-in-practice" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Prevalence matters in practice</h2>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#prevalence-matters-in-practice" target="_blank">Prevalence matters in practice</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>A machine learning algorithm with very high sensitivity and specificity may not be useful in practice when prevalence is close to either 0 or 1. For example, if you develop an algorithm for disease diagnosis with very high sensitivity, but the prevalence of the disease is pretty low, then the precision of your algorithm is probably very low based on Bayes’ theorem.</li>
+</ul>
+</div>
+<div id="roc-and-precision-recall-curves" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> ROC and precision-recall curves</h2>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#roc-and-precision-recall-curves" target="_blank">ROC and precision-recall curves</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>A very common approach to evaluating accuracy and F1-score is to compare them graphically by plotting both. A widely used plot that does this is the <strong>receiver operating characteristic (ROC) curve</strong>. The ROC curve plots sensitivity (TPR) versus 1 - specificity or the false positive rate (FPR).</li>
+<li>However, ROC curves have one weakness and it is that neither of the measures plotted depend on prevalence. In cases in which prevalence matters, we may instead make a <strong>precision-recall plot</strong>, which has a similar idea with ROC curve.</li>
+</ul>
+<p><em>Code</em></p>
+<p>Note: your results and plots may be slightly different.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="section-2-machine-learning-basics-overview.html#cb47-1" aria-hidden="true"></a>p &lt;-<span class="st"> </span><span class="fl">0.9</span></span>
+<span id="cb47-2"><a href="section-2-machine-learning-basics-overview.html#cb47-2" aria-hidden="true"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(test_index)</span>
+<span id="cb47-3"><a href="section-2-machine-learning-basics-overview.html#cb47-3" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>), n, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(p, <span class="dv">1</span><span class="op">-</span>p)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb47-4"><a href="section-2-machine-learning-basics-overview.html#cb47-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">levels</span>(test_set<span class="op">$</span>sex))</span>
+<span id="cb47-5"><a href="section-2-machine-learning-basics-overview.html#cb47-5" aria-hidden="true"></a><span class="kw">mean</span>(y_hat <span class="op">==</span><span class="st"> </span>test_set<span class="op">$</span>sex)</span></code></pre></div>
+<pre><code>## [1] 0.7180952</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="section-2-machine-learning-basics-overview.html#cb49-1" aria-hidden="true"></a><span class="co"># ROC curve</span></span>
+<span id="cb49-2"><a href="section-2-machine-learning-basics-overview.html#cb49-2" aria-hidden="true"></a>probs &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">10</span>)</span>
+<span id="cb49-3"><a href="section-2-machine-learning-basics-overview.html#cb49-3" aria-hidden="true"></a>guessing &lt;-<span class="st"> </span><span class="kw">map_df</span>(probs, <span class="cf">function</span>(p){</span>
+<span id="cb49-4"><a href="section-2-machine-learning-basics-overview.html#cb49-4" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span></span>
+<span id="cb49-5"><a href="section-2-machine-learning-basics-overview.html#cb49-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>), n, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(p, <span class="dv">1</span><span class="op">-</span>p)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb49-6"><a href="section-2-machine-learning-basics-overview.html#cb49-6" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))</span>
+<span id="cb49-7"><a href="section-2-machine-learning-basics-overview.html#cb49-7" aria-hidden="true"></a>  <span class="kw">list</span>(<span class="dt">method =</span> <span class="st">&quot;Guessing&quot;</span>,</span>
+<span id="cb49-8"><a href="section-2-machine-learning-basics-overview.html#cb49-8" aria-hidden="true"></a>       <span class="dt">FPR =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">specificity</span>(y_hat, test_set<span class="op">$</span>sex),</span>
+<span id="cb49-9"><a href="section-2-machine-learning-basics-overview.html#cb49-9" aria-hidden="true"></a>       <span class="dt">TPR =</span> <span class="kw">sensitivity</span>(y_hat, test_set<span class="op">$</span>sex))</span>
+<span id="cb49-10"><a href="section-2-machine-learning-basics-overview.html#cb49-10" aria-hidden="true"></a>})</span>
+<span id="cb49-11"><a href="section-2-machine-learning-basics-overview.html#cb49-11" aria-hidden="true"></a>guessing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">qplot</span>(FPR, TPR, <span class="dt">data =</span>., <span class="dt">xlab =</span> <span class="st">&quot;1 - Specificity&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Sensitivity&quot;</span>)</span></code></pre></div>
+<p><img src="img/figures/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="section-2-machine-learning-basics-overview.html#cb50-1" aria-hidden="true"></a>cutoffs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="kw">seq</span>(<span class="dv">60</span>, <span class="dv">75</span>), <span class="dv">80</span>)</span>
+<span id="cb50-2"><a href="section-2-machine-learning-basics-overview.html#cb50-2" aria-hidden="true"></a>height_cutoff &lt;-<span class="st"> </span><span class="kw">map_df</span>(cutoffs, <span class="cf">function</span>(x){</span>
+<span id="cb50-3"><a href="section-2-machine-learning-basics-overview.html#cb50-3" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(test_set<span class="op">$</span>height <span class="op">&gt;</span><span class="st"> </span>x, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb50-4"><a href="section-2-machine-learning-basics-overview.html#cb50-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))</span>
+<span id="cb50-5"><a href="section-2-machine-learning-basics-overview.html#cb50-5" aria-hidden="true"></a>   <span class="kw">list</span>(<span class="dt">method =</span> <span class="st">&quot;Height cutoff&quot;</span>,</span>
+<span id="cb50-6"><a href="section-2-machine-learning-basics-overview.html#cb50-6" aria-hidden="true"></a>        <span class="dt">FPR =</span> <span class="dv">1</span><span class="op">-</span><span class="kw">specificity</span>(y_hat, test_set<span class="op">$</span>sex),</span>
+<span id="cb50-7"><a href="section-2-machine-learning-basics-overview.html#cb50-7" aria-hidden="true"></a>        <span class="dt">TPR =</span> <span class="kw">sensitivity</span>(y_hat, test_set<span class="op">$</span>sex))</span>
+<span id="cb50-8"><a href="section-2-machine-learning-basics-overview.html#cb50-8" aria-hidden="true"></a>})</span>
+<span id="cb50-9"><a href="section-2-machine-learning-basics-overview.html#cb50-9" aria-hidden="true"></a></span>
+<span id="cb50-10"><a href="section-2-machine-learning-basics-overview.html#cb50-10" aria-hidden="true"></a><span class="co"># plot both curves together</span></span>
+<span id="cb50-11"><a href="section-2-machine-learning-basics-overview.html#cb50-11" aria-hidden="true"></a><span class="kw">bind_rows</span>(guessing, height_cutoff) <span class="op">%&gt;%</span></span>
+<span id="cb50-12"><a href="section-2-machine-learning-basics-overview.html#cb50-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(FPR, TPR, <span class="dt">color =</span> method)) <span class="op">+</span></span>
+<span id="cb50-13"><a href="section-2-machine-learning-basics-overview.html#cb50-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb50-14"><a href="section-2-machine-learning-basics-overview.html#cb50-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb50-15"><a href="section-2-machine-learning-basics-overview.html#cb50-15" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;1 - Specificity&quot;</span>) <span class="op">+</span></span>
+<span id="cb50-16"><a href="section-2-machine-learning-basics-overview.html#cb50-16" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Sensitivity&quot;</span>)</span></code></pre></div>
+<p><img src="img/figures/unnamed-chunk-5-2.png" width="672" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="section-2-machine-learning-basics-overview.html#cb51-1" aria-hidden="true"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(ggrepel)) <span class="kw">install.packages</span>(<span class="st">&quot;ggrepel&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: ggrepel</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="section-2-machine-learning-basics-overview.html#cb53-1" aria-hidden="true"></a><span class="kw">library</span>(ggrepel)</span>
+<span id="cb53-2"><a href="section-2-machine-learning-basics-overview.html#cb53-2" aria-hidden="true"></a><span class="kw">map_df</span>(cutoffs, <span class="cf">function</span>(x){</span>
+<span id="cb53-3"><a href="section-2-machine-learning-basics-overview.html#cb53-3" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(test_set<span class="op">$</span>height <span class="op">&gt;</span><span class="st"> </span>x, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb53-4"><a href="section-2-machine-learning-basics-overview.html#cb53-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))</span>
+<span id="cb53-5"><a href="section-2-machine-learning-basics-overview.html#cb53-5" aria-hidden="true"></a>   <span class="kw">list</span>(<span class="dt">method =</span> <span class="st">&quot;Height cutoff&quot;</span>,</span>
+<span id="cb53-6"><a href="section-2-machine-learning-basics-overview.html#cb53-6" aria-hidden="true"></a>        <span class="dt">cutoff =</span> x, </span>
+<span id="cb53-7"><a href="section-2-machine-learning-basics-overview.html#cb53-7" aria-hidden="true"></a>        <span class="dt">FPR =</span> <span class="dv">1</span><span class="op">-</span><span class="kw">specificity</span>(y_hat, test_set<span class="op">$</span>sex),</span>
+<span id="cb53-8"><a href="section-2-machine-learning-basics-overview.html#cb53-8" aria-hidden="true"></a>        <span class="dt">TPR =</span> <span class="kw">sensitivity</span>(y_hat, test_set<span class="op">$</span>sex))</span>
+<span id="cb53-9"><a href="section-2-machine-learning-basics-overview.html#cb53-9" aria-hidden="true"></a>}) <span class="op">%&gt;%</span></span>
+<span id="cb53-10"><a href="section-2-machine-learning-basics-overview.html#cb53-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(FPR, TPR, <span class="dt">label =</span> cutoff)) <span class="op">+</span></span>
+<span id="cb53-11"><a href="section-2-machine-learning-basics-overview.html#cb53-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb53-12"><a href="section-2-machine-learning-basics-overview.html#cb53-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb53-13"><a href="section-2-machine-learning-basics-overview.html#cb53-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="dt">nudge_x =</span> <span class="fl">0.01</span>, <span class="dt">nudge_y =</span> <span class="fl">-0.01</span>)</span></code></pre></div>
+<p><img src="img/figures/unnamed-chunk-5-3.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="section-2-machine-learning-basics-overview.html#cb54-1" aria-hidden="true"></a><span class="co"># plot precision against recall</span></span>
+<span id="cb54-2"><a href="section-2-machine-learning-basics-overview.html#cb54-2" aria-hidden="true"></a>guessing &lt;-<span class="st"> </span><span class="kw">map_df</span>(probs, <span class="cf">function</span>(p){</span>
+<span id="cb54-3"><a href="section-2-machine-learning-basics-overview.html#cb54-3" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>), <span class="kw">length</span>(test_index), </span>
+<span id="cb54-4"><a href="section-2-machine-learning-basics-overview.html#cb54-4" aria-hidden="true"></a>                  <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(p, <span class="dv">1</span><span class="op">-</span>p)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb54-5"><a href="section-2-machine-learning-basics-overview.html#cb54-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))</span>
+<span id="cb54-6"><a href="section-2-machine-learning-basics-overview.html#cb54-6" aria-hidden="true"></a>  <span class="kw">list</span>(<span class="dt">method =</span> <span class="st">&quot;Guess&quot;</span>,</span>
+<span id="cb54-7"><a href="section-2-machine-learning-basics-overview.html#cb54-7" aria-hidden="true"></a>    <span class="dt">recall =</span> <span class="kw">sensitivity</span>(y_hat, test_set<span class="op">$</span>sex),</span>
+<span id="cb54-8"><a href="section-2-machine-learning-basics-overview.html#cb54-8" aria-hidden="true"></a>    <span class="dt">precision =</span> <span class="kw">precision</span>(y_hat, test_set<span class="op">$</span>sex))</span>
+<span id="cb54-9"><a href="section-2-machine-learning-basics-overview.html#cb54-9" aria-hidden="true"></a>})</span>
+<span id="cb54-10"><a href="section-2-machine-learning-basics-overview.html#cb54-10" aria-hidden="true"></a></span>
+<span id="cb54-11"><a href="section-2-machine-learning-basics-overview.html#cb54-11" aria-hidden="true"></a>height_cutoff &lt;-<span class="st"> </span><span class="kw">map_df</span>(cutoffs, <span class="cf">function</span>(x){</span>
+<span id="cb54-12"><a href="section-2-machine-learning-basics-overview.html#cb54-12" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(test_set<span class="op">$</span>height <span class="op">&gt;</span><span class="st"> </span>x, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb54-13"><a href="section-2-machine-learning-basics-overview.html#cb54-13" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))</span>
+<span id="cb54-14"><a href="section-2-machine-learning-basics-overview.html#cb54-14" aria-hidden="true"></a>  <span class="kw">list</span>(<span class="dt">method =</span> <span class="st">&quot;Height cutoff&quot;</span>,</span>
+<span id="cb54-15"><a href="section-2-machine-learning-basics-overview.html#cb54-15" aria-hidden="true"></a>       <span class="dt">recall =</span> <span class="kw">sensitivity</span>(y_hat, test_set<span class="op">$</span>sex),</span>
+<span id="cb54-16"><a href="section-2-machine-learning-basics-overview.html#cb54-16" aria-hidden="true"></a>    <span class="dt">precision =</span> <span class="kw">precision</span>(y_hat, test_set<span class="op">$</span>sex))</span>
+<span id="cb54-17"><a href="section-2-machine-learning-basics-overview.html#cb54-17" aria-hidden="true"></a>})</span>
+<span id="cb54-18"><a href="section-2-machine-learning-basics-overview.html#cb54-18" aria-hidden="true"></a></span>
+<span id="cb54-19"><a href="section-2-machine-learning-basics-overview.html#cb54-19" aria-hidden="true"></a><span class="kw">bind_rows</span>(guessing, height_cutoff) <span class="op">%&gt;%</span></span>
+<span id="cb54-20"><a href="section-2-machine-learning-basics-overview.html#cb54-20" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(recall, precision, <span class="dt">color =</span> method)) <span class="op">+</span></span>
+<span id="cb54-21"><a href="section-2-machine-learning-basics-overview.html#cb54-21" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb54-22"><a href="section-2-machine-learning-basics-overview.html#cb54-22" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="img/figures/unnamed-chunk-5-4.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="section-2-machine-learning-basics-overview.html#cb57-1" aria-hidden="true"></a>guessing &lt;-<span class="st"> </span><span class="kw">map_df</span>(probs, <span class="cf">function</span>(p){</span>
+<span id="cb57-2"><a href="section-2-machine-learning-basics-overview.html#cb57-2" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>), <span class="kw">length</span>(test_index), <span class="dt">replace =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb57-3"><a href="section-2-machine-learning-basics-overview.html#cb57-3" aria-hidden="true"></a>                  <span class="dt">prob=</span><span class="kw">c</span>(p, <span class="dv">1</span><span class="op">-</span>p)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb57-4"><a href="section-2-machine-learning-basics-overview.html#cb57-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb57-5"><a href="section-2-machine-learning-basics-overview.html#cb57-5" aria-hidden="true"></a>  <span class="kw">list</span>(<span class="dt">method =</span> <span class="st">&quot;Guess&quot;</span>,</span>
+<span id="cb57-6"><a href="section-2-machine-learning-basics-overview.html#cb57-6" aria-hidden="true"></a>    <span class="dt">recall =</span> <span class="kw">sensitivity</span>(y_hat, <span class="kw">relevel</span>(test_set<span class="op">$</span>sex, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>)),</span>
+<span id="cb57-7"><a href="section-2-machine-learning-basics-overview.html#cb57-7" aria-hidden="true"></a>    <span class="dt">precision =</span> <span class="kw">precision</span>(y_hat, <span class="kw">relevel</span>(test_set<span class="op">$</span>sex, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>)))</span>
+<span id="cb57-8"><a href="section-2-machine-learning-basics-overview.html#cb57-8" aria-hidden="true"></a>})</span>
+<span id="cb57-9"><a href="section-2-machine-learning-basics-overview.html#cb57-9" aria-hidden="true"></a></span>
+<span id="cb57-10"><a href="section-2-machine-learning-basics-overview.html#cb57-10" aria-hidden="true"></a>height_cutoff &lt;-<span class="st"> </span><span class="kw">map_df</span>(cutoffs, <span class="cf">function</span>(x){</span>
+<span id="cb57-11"><a href="section-2-machine-learning-basics-overview.html#cb57-11" aria-hidden="true"></a>  y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(test_set<span class="op">$</span>height <span class="op">&gt;</span><span class="st"> </span>x, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb57-12"><a href="section-2-machine-learning-basics-overview.html#cb57-12" aria-hidden="true"></a><span class="st">    </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb57-13"><a href="section-2-machine-learning-basics-overview.html#cb57-13" aria-hidden="true"></a>  <span class="kw">list</span>(<span class="dt">method =</span> <span class="st">&quot;Height cutoff&quot;</span>,</span>
+<span id="cb57-14"><a href="section-2-machine-learning-basics-overview.html#cb57-14" aria-hidden="true"></a>       <span class="dt">recall =</span> <span class="kw">sensitivity</span>(y_hat, <span class="kw">relevel</span>(test_set<span class="op">$</span>sex, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>)),</span>
+<span id="cb57-15"><a href="section-2-machine-learning-basics-overview.html#cb57-15" aria-hidden="true"></a>    <span class="dt">precision =</span> <span class="kw">precision</span>(y_hat, <span class="kw">relevel</span>(test_set<span class="op">$</span>sex, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>)))</span>
+<span id="cb57-16"><a href="section-2-machine-learning-basics-overview.html#cb57-16" aria-hidden="true"></a>})</span>
+<span id="cb57-17"><a href="section-2-machine-learning-basics-overview.html#cb57-17" aria-hidden="true"></a><span class="kw">bind_rows</span>(guessing, height_cutoff) <span class="op">%&gt;%</span></span>
+<span id="cb57-18"><a href="section-2-machine-learning-basics-overview.html#cb57-18" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(recall, precision, <span class="dt">color =</span> method)) <span class="op">+</span></span>
+<span id="cb57-19"><a href="section-2-machine-learning-basics-overview.html#cb57-19" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb57-20"><a href="section-2-machine-learning-basics-overview.html#cb57-20" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).
+
+## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="img/figures/unnamed-chunk-5-5.png" width="672" /></p>
+</div>
+<div id="comprehension-check---practice-with-machine-learning-part-1" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Comprehension Check - Practice with Machine Learning, Part 1</h2>
+<p>The following questions all ask you to work with the dataset described below.</p>
+<p>The <code>reported_heights</code> and <code>heights</code> datasets were collected from three classes taught in the Departments of Computer Science and Biostatistics, as well as remotely through the Extension School. The Biostatistics class was taught in 2016 along with an online version offered by the Extension School. On 2016-01-25 at 8:15 AM, during one of the lectures, the instructors asked student to fill in the sex and height questionnaire that populated the <code>reported_heights</code> dataset. The online students filled out the survey during the next few days, after the lecture was posted online. We can use this insight to define a variable which we will call <code>type</code>, to denote the type of student, <code>inclass</code> or <code>online</code>.</p>
+<p>The code below sets up the dataset for you to analyze in the following exercises:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="section-2-machine-learning-basics-overview.html#cb59-1" aria-hidden="true"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(dplyr)) <span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb59-2"><a href="section-2-machine-learning-basics-overview.html#cb59-2" aria-hidden="true"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(lubridate)) <span class="kw">install.packages</span>(<span class="st">&quot;lubridate&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: lubridate</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="section-2-machine-learning-basics-overview.html#cb63-1" aria-hidden="true"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb63-2"><a href="section-2-machine-learning-basics-overview.html#cb63-2" aria-hidden="true"></a><span class="kw">library</span>(lubridate)</span>
+<span id="cb63-3"><a href="section-2-machine-learning-basics-overview.html#cb63-3" aria-hidden="true"></a><span class="kw">data</span>(reported_heights)</span>
+<span id="cb63-4"><a href="section-2-machine-learning-basics-overview.html#cb63-4" aria-hidden="true"></a></span>
+<span id="cb63-5"><a href="section-2-machine-learning-basics-overview.html#cb63-5" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">mutate</span>(reported_heights, <span class="dt">date_time =</span> <span class="kw">ymd_hms</span>(time_stamp)) <span class="op">%&gt;%</span></span>
+<span id="cb63-6"><a href="section-2-machine-learning-basics-overview.html#cb63-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date_time <span class="op">&gt;=</span><span class="st"> </span><span class="kw">make_date</span>(<span class="dv">2016</span>, <span class="dv">01</span>, <span class="dv">25</span>) <span class="op">&amp;</span><span class="st"> </span>date_time <span class="op">&lt;</span><span class="st"> </span><span class="kw">make_date</span>(<span class="dv">2016</span>, <span class="dv">02</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb63-7"><a href="section-2-machine-learning-basics-overview.html#cb63-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="kw">ifelse</span>(<span class="kw">day</span>(date_time) <span class="op">==</span><span class="st"> </span><span class="dv">25</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">hour</span>(date_time) <span class="op">==</span><span class="st"> </span><span class="dv">8</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">between</span>(<span class="kw">minute</span>(date_time), <span class="dv">15</span>, <span class="dv">30</span>), <span class="st">&quot;inclass&quot;</span>,<span class="st">&quot;online&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb63-8"><a href="section-2-machine-learning-basics-overview.html#cb63-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(sex, type)</span>
+<span id="cb63-9"><a href="section-2-machine-learning-basics-overview.html#cb63-9" aria-hidden="true"></a></span>
+<span id="cb63-10"><a href="section-2-machine-learning-basics-overview.html#cb63-10" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">factor</span>(dat<span class="op">$</span>sex, <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))</span>
+<span id="cb63-11"><a href="section-2-machine-learning-basics-overview.html#cb63-11" aria-hidden="true"></a>x &lt;-<span class="st"> </span>dat<span class="op">$</span>type</span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li>The <code>type</code> column of <code>dat</code> indicates whether students took classes in person (“inclass”) or online (“online”). What proportion of the inclass group is female? What proportion of the online group is female?</li>
+</ol>
+<p>Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="section-2-machine-learning-basics-overview.html#cb64-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">prop_female =</span> <span class="kw">mean</span>(sex <span class="op">==</span><span class="st"> &quot;Female&quot;</span>))</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   type    prop_female
+##   &lt;chr&gt;         &lt;dbl&gt;
+## 1 inclass       0.667
+## 2 online        0.378</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>In the course videos, height cutoffs were used to predict sex. Instead of height, use the <code>type</code> variable to predict sex. Assume that for each class type the students are either all male or all female, based on the most prevalent sex in each class type you calculated in Q1. Report the accuracy of your prediction of sex based on type. You do not need to split the data into training and test sets.</li>
+</ol>
+<p>Enter your accuracy as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="section-2-machine-learning-basics-overview.html#cb67-1" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(x <span class="op">==</span><span class="st"> &quot;online&quot;</span>, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb67-2"><a href="section-2-machine-learning-basics-overview.html#cb67-2" aria-hidden="true"></a><span class="st">      </span><span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">levels</span>(y))</span>
+<span id="cb67-3"><a href="section-2-machine-learning-basics-overview.html#cb67-3" aria-hidden="true"></a><span class="kw">mean</span>(y_hat<span class="op">==</span>y)</span></code></pre></div>
+<pre><code>## [1] 0.6333333</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Write a line of code using the <code>table()</code> function to show the confusion matrix between <code>y_hat</code> and <code>y</code>. Use the <strong>exact</strong> format <code>function(a, b)</code> for your answer and do not name the columns and rows. Your answer should have exactly one space.</li>
+</ol>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="section-2-machine-learning-basics-overview.html#cb69-1" aria-hidden="true"></a><span class="kw">table</span>(y_hat, y)</span></code></pre></div>
+<pre><code>##         y
+## y_hat    Female Male
+##   Female     26   13
+##   Male       42   69</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>What is the sensitivity of this prediction? You can use the <code>sensitivity()</code> function from the <strong>caret</strong> package. Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</li>
+</ol>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="section-2-machine-learning-basics-overview.html#cb71-1" aria-hidden="true"></a><span class="kw">sensitivity</span>(y_hat, y)</span></code></pre></div>
+<pre><code>## [1] 0.3823529</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>What is the specificity of this prediction? You can use the <code>specificity()</code> function from the <strong>caret</strong> package. Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</li>
+</ol>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="section-2-machine-learning-basics-overview.html#cb73-1" aria-hidden="true"></a><span class="kw">specificity</span>(y_hat, y)</span></code></pre></div>
+<pre><code>## [1] 0.8414634</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>What is the prevalence (% of females) in the <code>dat</code> dataset defined above? Enter your answer as a percentage or decimal (eg “50%” or “0.50”) to at least the hundredths place.</li>
+</ol>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="section-2-machine-learning-basics-overview.html#cb75-1" aria-hidden="true"></a><span class="kw">mean</span>(y <span class="op">==</span><span class="st"> &quot;Female&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4533333</code></pre>
+</div>
+<div id="comprehension-check---practice-with-machine-learning-part-2" class="section level2" number="3.8">
+<h2><span class="header-section-number">3.8</span> Comprehension Check - Practice with Machine Learning, Part 2</h2>
+<p>We will practice building a machine learning algorithm using a new dataset, <code>iris</code>, that provides multiple predictors for us to use to train. To start, we will remove the <code>setosa</code> species and we will focus on the <code>versicolor</code> and <code>virginica</code> iris species using the following code:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="section-2-machine-learning-basics-overview.html#cb77-1" aria-hidden="true"></a><span class="kw">data</span>(iris)</span>
+<span id="cb77-2"><a href="section-2-machine-learning-basics-overview.html#cb77-2" aria-hidden="true"></a>iris &lt;-<span class="st"> </span>iris[<span class="op">-</span><span class="kw">which</span>(iris<span class="op">$</span>Species<span class="op">==</span><span class="st">&#39;setosa&#39;</span>),]</span>
+<span id="cb77-3"><a href="section-2-machine-learning-basics-overview.html#cb77-3" aria-hidden="true"></a>y &lt;-<span class="st"> </span>iris<span class="op">$</span>Species</span></code></pre></div>
+<p>The following questions all involve work with this dataset.</p>
+<ol start="7" style="list-style-type: decimal">
+<li>First let us create an even split of the data into <code>train</code> and <code>test</code> partitions using <code>createDataPartition()</code> from the <strong>caret</strong> package. The code with a missing line is given below:</li>
+</ol>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="section-2-machine-learning-basics-overview.html#cb78-1" aria-hidden="true"></a><span class="co"># set.seed(2) # if using R 3.5 or earlier</span></span>
+<span id="cb78-2"><a href="section-2-machine-learning-basics-overview.html#cb78-2" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">2</span>, <span class="dt">sample.kind=</span><span class="st">&quot;Rounding&quot;</span>) <span class="co"># if using R 3.6 or later</span></span>
+<span id="cb78-3"><a href="section-2-machine-learning-basics-overview.html#cb78-3" aria-hidden="true"></a><span class="co"># line of code</span></span>
+<span id="cb78-4"><a href="section-2-machine-learning-basics-overview.html#cb78-4" aria-hidden="true"></a>test &lt;-<span class="st"> </span>iris[test_index,]</span>
+<span id="cb78-5"><a href="section-2-machine-learning-basics-overview.html#cb78-5" aria-hidden="true"></a>train &lt;-<span class="st"> </span>iris[<span class="op">-</span>test_index,]</span></code></pre></div>
+<p>Which code should be used in place of # line of code above?</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+A. test_index &lt;- createDataPartition(y,times=1,p=0.5)</li>
+<li><input type="checkbox" disabled="" />
+B. test_index &lt;- sample(2,length(y),replace=FALSE)</li>
+<li><input type="checkbox" disabled="" checked="" />
+C. test_index &lt;- createDataPartition(y,times=1,p=0.5,list=FALSE)</li>
+<li><input type="checkbox" disabled="" />
+D. test_index &lt;- rep(1,length(y))</li>
+</ul>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="section-2-machine-learning-basics-overview.html#cb79-1" aria-hidden="true"></a><span class="co"># set.seed(2) # if using R 3.5 or earlier</span></span>
+<span id="cb79-2"><a href="section-2-machine-learning-basics-overview.html#cb79-2" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">2</span>, <span class="dt">sample.kind=</span><span class="st">&quot;Rounding&quot;</span>) <span class="co"># if using R 3.6 or later</span></span></code></pre></div>
+<pre><code>## Warning in set.seed(2, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler used</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="section-2-machine-learning-basics-overview.html#cb81-1" aria-hidden="true"></a>test_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(y,<span class="dt">times=</span><span class="dv">1</span>,<span class="dt">p=</span><span class="fl">0.5</span>,<span class="dt">list=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## Warning in createDataPartition(y, times = 1, p = 0.5, list = FALSE): Some classes have no records ( setosa ) and these will be ignored</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="section-2-machine-learning-basics-overview.html#cb83-1" aria-hidden="true"></a>test &lt;-<span class="st"> </span>iris[test_index,]</span>
+<span id="cb83-2"><a href="section-2-machine-learning-basics-overview.html#cb83-2" aria-hidden="true"></a>train &lt;-<span class="st"> </span>iris[<span class="op">-</span>test_index,]</span></code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>Next we will figure out the singular feature in the dataset that yields the greatest overall accuracy when predicting species. You can use the code from the introduction and from Q7 to start your analysis.</li>
+</ol>
+<p>Using only the <code>train</code> iris dataset, for each feature, perform a simple search to find the cutoff that produces the highest accuracy, predicting virginica if greater than the cutoff and versicolor otherwise. Use the <code>seq</code> function over the range of each feature by intervals of 0.1 for this search.</p>
+<p>Which feature produces the highest accuracy?</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="section-2-machine-learning-basics-overview.html#cb84-1" aria-hidden="true"></a>foo &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb84-2"><a href="section-2-machine-learning-basics-overview.html#cb84-2" aria-hidden="true"></a>    rangedValues &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">range</span>(x)[<span class="dv">1</span>],<span class="kw">range</span>(x)[<span class="dv">2</span>],<span class="dt">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb84-3"><a href="section-2-machine-learning-basics-overview.html#cb84-3" aria-hidden="true"></a>    <span class="kw">sapply</span>(rangedValues,<span class="cf">function</span>(i){</span>
+<span id="cb84-4"><a href="section-2-machine-learning-basics-overview.html#cb84-4" aria-hidden="true"></a>        y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(x<span class="op">&gt;</span>i,<span class="st">&#39;virginica&#39;</span>,<span class="st">&#39;versicolor&#39;</span>)</span>
+<span id="cb84-5"><a href="section-2-machine-learning-basics-overview.html#cb84-5" aria-hidden="true"></a>        <span class="kw">mean</span>(y_hat<span class="op">==</span>train<span class="op">$</span>Species)</span>
+<span id="cb84-6"><a href="section-2-machine-learning-basics-overview.html#cb84-6" aria-hidden="true"></a>    })</span>
+<span id="cb84-7"><a href="section-2-machine-learning-basics-overview.html#cb84-7" aria-hidden="true"></a>}</span>
+<span id="cb84-8"><a href="section-2-machine-learning-basics-overview.html#cb84-8" aria-hidden="true"></a>predictions &lt;-<span class="st"> </span><span class="kw">apply</span>(train[,<span class="op">-</span><span class="dv">5</span>],<span class="dv">2</span>,foo)</span>
+<span id="cb84-9"><a href="section-2-machine-learning-basics-overview.html#cb84-9" aria-hidden="true"></a><span class="kw">sapply</span>(predictions,max) </span></code></pre></div>
+<pre><code>## Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+##         0.70         0.62         0.96         0.94</code></pre>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+A. Sepal.Length</li>
+<li><input type="checkbox" disabled="" />
+B. Sepal.Width</li>
+<li><input type="checkbox" disabled="" checked="" />
+C. Petal.Length</li>
+<li><input type="checkbox" disabled="" />
+D. Petal.Width</li>
+</ul>
+<ol start="9" style="list-style-type: decimal">
+<li>For the feature selected in Q8, use the smart cutoff value from the training data to calculate overall accuracy in the test data. What is the overall accuracy?</li>
+</ol>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="section-2-machine-learning-basics-overview.html#cb86-1" aria-hidden="true"></a>predictions &lt;-<span class="st"> </span><span class="kw">foo</span>(train[,<span class="dv">3</span>])</span>
+<span id="cb86-2"><a href="section-2-machine-learning-basics-overview.html#cb86-2" aria-hidden="true"></a>rangedValues &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">range</span>(train[,<span class="dv">3</span>])[<span class="dv">1</span>],<span class="kw">range</span>(train[,<span class="dv">3</span>])[<span class="dv">2</span>],<span class="dt">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb86-3"><a href="section-2-machine-learning-basics-overview.html#cb86-3" aria-hidden="true"></a>cutoffs &lt;-rangedValues[<span class="kw">which</span>(predictions<span class="op">==</span><span class="kw">max</span>(predictions))]</span>
+<span id="cb86-4"><a href="section-2-machine-learning-basics-overview.html#cb86-4" aria-hidden="true"></a></span>
+<span id="cb86-5"><a href="section-2-machine-learning-basics-overview.html#cb86-5" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(test[,<span class="dv">3</span>]<span class="op">&gt;</span>cutoffs[<span class="dv">1</span>],<span class="st">&#39;virginica&#39;</span>,<span class="st">&#39;versicolor&#39;</span>)</span>
+<span id="cb86-6"><a href="section-2-machine-learning-basics-overview.html#cb86-6" aria-hidden="true"></a><span class="kw">mean</span>(y_hat<span class="op">==</span>test<span class="op">$</span>Species)</span></code></pre></div>
+<pre><code>## [1] 0.9</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Notice that we had an overall accuracy greater than 96% in the training data, but the overall accuracy was lower in the test data. This can happen often if we overtrain. In fact, it could be the case that a single feature is not the best choice. For example, a combination of features might be optimal. Using a single feature and optimizing the cutoff as we did on our training data can lead to overfitting.</li>
+</ol>
+<p>Given that we know the test data, we can treat it like we did our training data to see if the same feature with a different cutoff will optimize our predictions.</p>
+<p>Which feature best optimizes our overall accuracy?</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="section-2-machine-learning-basics-overview.html#cb88-1" aria-hidden="true"></a>foo &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb88-2"><a href="section-2-machine-learning-basics-overview.html#cb88-2" aria-hidden="true"></a>    rangedValues &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">range</span>(x)[<span class="dv">1</span>],<span class="kw">range</span>(x)[<span class="dv">2</span>],<span class="dt">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb88-3"><a href="section-2-machine-learning-basics-overview.html#cb88-3" aria-hidden="true"></a>    <span class="kw">sapply</span>(rangedValues,<span class="cf">function</span>(i){</span>
+<span id="cb88-4"><a href="section-2-machine-learning-basics-overview.html#cb88-4" aria-hidden="true"></a>        y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(x<span class="op">&gt;</span>i,<span class="st">&#39;virginica&#39;</span>,<span class="st">&#39;versicolor&#39;</span>)</span>
+<span id="cb88-5"><a href="section-2-machine-learning-basics-overview.html#cb88-5" aria-hidden="true"></a>        <span class="kw">mean</span>(y_hat<span class="op">==</span>test<span class="op">$</span>Species)</span>
+<span id="cb88-6"><a href="section-2-machine-learning-basics-overview.html#cb88-6" aria-hidden="true"></a>    })</span>
+<span id="cb88-7"><a href="section-2-machine-learning-basics-overview.html#cb88-7" aria-hidden="true"></a>}</span>
+<span id="cb88-8"><a href="section-2-machine-learning-basics-overview.html#cb88-8" aria-hidden="true"></a>predictions &lt;-<span class="st"> </span><span class="kw">apply</span>(test[,<span class="op">-</span><span class="dv">5</span>],<span class="dv">2</span>,foo)</span>
+<span id="cb88-9"><a href="section-2-machine-learning-basics-overview.html#cb88-9" aria-hidden="true"></a><span class="kw">sapply</span>(predictions,max)</span></code></pre></div>
+<pre><code>## Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+##         0.78         0.64         0.90         0.94</code></pre>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+A. Sepal.Length</li>
+<li><input type="checkbox" disabled="" />
+B. Sepal.Width</li>
+<li><input type="checkbox" disabled="" />
+C. Petal.Length</li>
+<li><input type="checkbox" disabled="" checked="" />
+D. Petal.Width</li>
+</ul>
+<ol start="11" style="list-style-type: decimal">
+<li>Now we will perform some exploratory data analysis on the data.</li>
+</ol>
+<p>Notice that <code>Petal.Length</code> and <code>Petal.Width</code> in combination could potentially be more information than either feature alone.</p>
+<p>Optimize the the cutoffs for <code>Petal.Length</code> and <code>Petal.Width</code> separately in the train dataset by using the <code>seq</code> function with increments of 0.1. Then, report the overall accuracy when applied to the test dataset by creating a rule that predicts virginica if <code>Petal.Length</code> is greater than the length cutoff OR <code>Petal.Width</code> is greater than the width cutoff, and versicolor otherwise.</p>
+<p>What is the overall accuracy for the test data now?</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="section-2-machine-learning-basics-overview.html#cb90-1" aria-hidden="true"></a><span class="kw">data</span>(iris)</span>
+<span id="cb90-2"><a href="section-2-machine-learning-basics-overview.html#cb90-2" aria-hidden="true"></a>iris &lt;-<span class="st"> </span>iris[<span class="op">-</span><span class="kw">which</span>(iris<span class="op">$</span>Species<span class="op">==</span><span class="st">&#39;setosa&#39;</span>),]</span>
+<span id="cb90-3"><a href="section-2-machine-learning-basics-overview.html#cb90-3" aria-hidden="true"></a>y &lt;-<span class="st"> </span>iris<span class="op">$</span>Species</span>
+<span id="cb90-4"><a href="section-2-machine-learning-basics-overview.html#cb90-4" aria-hidden="true"></a></span>
+<span id="cb90-5"><a href="section-2-machine-learning-basics-overview.html#cb90-5" aria-hidden="true"></a><span class="kw">plot</span>(iris,<span class="dt">pch=</span><span class="dv">21</span>,<span class="dt">bg=</span>iris<span class="op">$</span>Species)</span></code></pre></div>
+<p><img src="img/figures/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="section-2-machine-learning-basics-overview.html#cb91-1" aria-hidden="true"></a><span class="co"># set.seed(2) # if using R 3.5 or earlier</span></span>
+<span id="cb91-2"><a href="section-2-machine-learning-basics-overview.html#cb91-2" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">2</span>, <span class="dt">sample.kind=</span><span class="st">&quot;Rounding&quot;</span>) <span class="co"># if using R 3.6 or later</span></span></code></pre></div>
+<pre><code>## Warning in set.seed(2, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler used</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="section-2-machine-learning-basics-overview.html#cb93-1" aria-hidden="true"></a>test_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(y,<span class="dt">times=</span><span class="dv">1</span>,<span class="dt">p=</span><span class="fl">0.5</span>,<span class="dt">list=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## Warning in createDataPartition(y, times = 1, p = 0.5, list = FALSE): Some classes have no records ( setosa ) and these will be ignored</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="section-2-machine-learning-basics-overview.html#cb95-1" aria-hidden="true"></a>test &lt;-<span class="st"> </span>iris[test_index,]</span>
+<span id="cb95-2"><a href="section-2-machine-learning-basics-overview.html#cb95-2" aria-hidden="true"></a>train &lt;-<span class="st"> </span>iris[<span class="op">-</span>test_index,]</span>
+<span id="cb95-3"><a href="section-2-machine-learning-basics-overview.html#cb95-3" aria-hidden="true"></a>            </span>
+<span id="cb95-4"><a href="section-2-machine-learning-basics-overview.html#cb95-4" aria-hidden="true"></a>petalLengthRange &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">range</span>(train<span class="op">$</span>Petal.Length)[<span class="dv">1</span>],<span class="kw">range</span>(train<span class="op">$</span>Petal.Length)[<span class="dv">2</span>],<span class="dt">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb95-5"><a href="section-2-machine-learning-basics-overview.html#cb95-5" aria-hidden="true"></a>petalWidthRange &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">range</span>(train<span class="op">$</span>Petal.Width)[<span class="dv">1</span>],<span class="kw">range</span>(train<span class="op">$</span>Petal.Width)[<span class="dv">2</span>],<span class="dt">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb95-6"><a href="section-2-machine-learning-basics-overview.html#cb95-6" aria-hidden="true"></a></span>
+<span id="cb95-7"><a href="section-2-machine-learning-basics-overview.html#cb95-7" aria-hidden="true"></a>length_predictions &lt;-<span class="st"> </span><span class="kw">sapply</span>(petalLengthRange,<span class="cf">function</span>(i){</span>
+<span id="cb95-8"><a href="section-2-machine-learning-basics-overview.html#cb95-8" aria-hidden="true"></a>        y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(train<span class="op">$</span>Petal.Length<span class="op">&gt;</span>i,<span class="st">&#39;virginica&#39;</span>,<span class="st">&#39;versicolor&#39;</span>)</span>
+<span id="cb95-9"><a href="section-2-machine-learning-basics-overview.html#cb95-9" aria-hidden="true"></a>        <span class="kw">mean</span>(y_hat<span class="op">==</span>train<span class="op">$</span>Species)</span>
+<span id="cb95-10"><a href="section-2-machine-learning-basics-overview.html#cb95-10" aria-hidden="true"></a>    })</span>
+<span id="cb95-11"><a href="section-2-machine-learning-basics-overview.html#cb95-11" aria-hidden="true"></a>length_cutoff &lt;-<span class="st"> </span>petalLengthRange[<span class="kw">which.max</span>(length_predictions)] <span class="co"># 4.7</span></span>
+<span id="cb95-12"><a href="section-2-machine-learning-basics-overview.html#cb95-12" aria-hidden="true"></a></span>
+<span id="cb95-13"><a href="section-2-machine-learning-basics-overview.html#cb95-13" aria-hidden="true"></a>width_predictions &lt;-<span class="st"> </span><span class="kw">sapply</span>(petalWidthRange,<span class="cf">function</span>(i){</span>
+<span id="cb95-14"><a href="section-2-machine-learning-basics-overview.html#cb95-14" aria-hidden="true"></a>        y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(train<span class="op">$</span>Petal.Width<span class="op">&gt;</span>i,<span class="st">&#39;virginica&#39;</span>,<span class="st">&#39;versicolor&#39;</span>)</span>
+<span id="cb95-15"><a href="section-2-machine-learning-basics-overview.html#cb95-15" aria-hidden="true"></a>        <span class="kw">mean</span>(y_hat<span class="op">==</span>train<span class="op">$</span>Species)</span>
+<span id="cb95-16"><a href="section-2-machine-learning-basics-overview.html#cb95-16" aria-hidden="true"></a>    })</span>
+<span id="cb95-17"><a href="section-2-machine-learning-basics-overview.html#cb95-17" aria-hidden="true"></a>width_cutoff &lt;-<span class="st"> </span>petalWidthRange[<span class="kw">which.max</span>(width_predictions)] <span class="co"># 1.5</span></span>
+<span id="cb95-18"><a href="section-2-machine-learning-basics-overview.html#cb95-18" aria-hidden="true"></a></span>
+<span id="cb95-19"><a href="section-2-machine-learning-basics-overview.html#cb95-19" aria-hidden="true"></a>y_hat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(test<span class="op">$</span>Petal.Length<span class="op">&gt;</span>length_cutoff <span class="op">|</span><span class="st"> </span>test<span class="op">$</span>Petal.Width<span class="op">&gt;</span>width_cutoff,<span class="st">&#39;virginica&#39;</span>,<span class="st">&#39;versicolor&#39;</span>)</span>
+<span id="cb95-20"><a href="section-2-machine-learning-basics-overview.html#cb95-20" aria-hidden="true"></a><span class="kw">mean</span>(y_hat<span class="op">==</span>test<span class="op">$</span>Species)</span></code></pre></div>
+<pre><code>## [1] 0.88</code></pre>
+</div>
+<div id="conditional-probabilities" class="section level2" number="3.9">
+<h2><span class="header-section-number">3.9</span> Conditional probabilities</h2>
+<p>There is a link to the relevant section of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-probabilities-1" target="_blank">Conditional probabilities</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>Conditional probabilities for each class:</li>
+</ul>
+<p><span class="math inline">\(p_{k}(x) = Pr(Y = k|X = x), for\, k = 1, ..., K\)</span></p>
+<ul>
+<li>In machine learning, this is referred to as <strong>Bayes’ Rule</strong>. This is a theoretical rule because in practice we don’t know <span class="math inline">\(p(x)\)</span>. Having a good estimate of the <span class="math inline">\(p(x)\)</span> will suffice for us to build optimal prediction models, since we can control the balance between specificity and sensitivity however we wish. In fact, estimating these conditional probabilities can be thought of as the main challenge of machine learning.</li>
+</ul>
+</div>
+<div id="conditional-expectations-and-loss-function" class="section level2" number="3.10">
+<h2><span class="header-section-number">3.10</span> Conditional expectations and loss function</h2>
+<p>There is a link to the relevant sections of the textbook: <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-expectations" target="_blank">Conditional expectations</a> and <a href="https://rafalab.github.io/dsbook/introduction-to-machine-learning.html#conditional-expectation-minimizes-squared-loss-function" target="_blank">Loss functions</a></p>
+<p><strong>Key points</strong></p>
+<ul>
+<li>Due to the connection between <strong>conditional probabilities</strong> and <strong>conditional expectations</strong>:</li>
+</ul>
+<p><span class="math inline">\(p_{k}(x) = Pr(Y = k|X = x),\,\text{for}\,k = 1, ..., K\)</span></p>
+<p>we often only use the expectation to denote both the conditional probability and conditional expectation.</p>
+<ul>
+<li>For continuous outcomes, we define a loss function to evaluate the model. The most commonly used one is <strong>MSE (Mean Squared Error)</strong>. The reason why we care about the conditional expectation in machine learning is that the expected value minimizes the MSE:</li>
+</ul>
+<p><span class="math inline">\(\hat{Y} = E(Y|X = x)\, \text{minimizes}\, E\{(\hat{Y} - Y)^2|X=x\}\)</span></p>
+<p>Due to this property, a succinct description of the main task of machine learning is that we use data to estimate for any set of features. <strong>The main way in which competing machine learning algorithms differ is in their approach to estimating this expectation</strong>.</p>
+</div>
+<div id="comprehension-check---conditional-probabilities-part-1" class="section level2" number="3.11">
+<h2><span class="header-section-number">3.11</span> Comprehension Check - Conditional Probabilities, Part 1</h2>
+<ol style="list-style-type: decimal">
+<li>In a previous module, we covered Bayes’ theorem and the Bayesian paradigm. Conditional probabilities are a fundamental part of this previous covered rule.</li>
+</ol>
+<p><span class="math inline">\(P(A|B) = P(B|A)\frac{P(A)}{P(B)}\)</span></p>
+<p>We first review a simple example to go over conditional probabilities.</p>
+<p>Assume a patient comes into the doctor’s office to test whether they have a particular disease.</p>
+<ul>
+<li>The test is positive 85% of the time when tested on a patient with the disease (high sensitivity): <span class="math inline">\(P(\text{test} + | \text{disease}) = 0.85\)</span></li>
+<li>The test is negative 90% of the time when tested on a healthy patient (high specificity): <span class="math inline">\(P(\text{test} - | \text{heathy}) = 0.90\)</span></li>
+<li>The disease is prevalent in about 2% of the community: <span class="math inline">\(P(\text{disease}) = 0.02\)</span></li>
+</ul>
+<p>Using Bayes’ theorem, calculate the probability that you have the disease if the test is positive.</p>
+<p><span class="math inline">\(P(\text{disease} | \text{test}+) = P(\text{test}+ | \text{disease}) \times \frac{P(\text{disease})}{P(\text{test}+)} = \frac{P(\text{test}+ | \text{disease})P(\text{disease})}{P(\text{test}+ | \text{disease})P(\text{disease})+P(\text{test}+ | \text{healthy})P(\text{healthy})]} = \frac{0.85 \times 0.02}{0.85 \times 0.02 + 0.1 \times 0.98} = 0.1478261\)</span></p>
+<p>The following 4 questions (Q2-Q5) all relate to implementing this calculation using R.</p>
+<p>We have a hypothetical population of 1 million individuals with the following conditional probabilities as described below:</p>
+<ul>
+<li>The test is positive 85% of the time when tested on a patient with the disease (high sensitivity): <span class="math inline">\(P(\text{test} + | \text{disease}) = 0.85\)</span></li>
+<li>The test is negative 90% of the time when tested on a healthy patient (high specificity): <span class="math inline">\(P(\text{test} - | \text{heathy}) = 0.90\)</span></li>
+<li>The disease is prevalent in about 2% of the community: <span class="math inline">\(P(\text{disease}) = 0.02\)</span></li>
+</ul>
+<p>Here is some sample code to get you started:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="section-2-machine-learning-basics-overview.html#cb97-1" aria-hidden="true"></a><span class="co"># set.seed(1) # if using R 3.5 or earlier</span></span>
+<span id="cb97-2"><a href="section-2-machine-learning-basics-overview.html#cb97-2" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">1</span>, <span class="dt">sample.kind =</span> <span class="st">&quot;Rounding&quot;</span>) <span class="co"># if using R 3.6 or later</span></span></code></pre></div>
+<pre><code>## Warning in set.seed(1, sample.kind = &quot;Rounding&quot;): non-uniform &#39;Rounding&#39; sampler used</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="section-2-machine-learning-basics-overview.html#cb99-1" aria-hidden="true"></a>disease &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size=</span><span class="fl">1e6</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(<span class="fl">0.98</span>,<span class="fl">0.02</span>))</span>
+<span id="cb99-2"><a href="section-2-machine-learning-basics-overview.html#cb99-2" aria-hidden="true"></a>test &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="fl">1e6</span>)</span>
+<span id="cb99-3"><a href="section-2-machine-learning-basics-overview.html#cb99-3" aria-hidden="true"></a>test[disease<span class="op">==</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size=</span><span class="kw">sum</span>(disease<span class="op">==</span><span class="dv">0</span>), <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(<span class="fl">0.90</span>,<span class="fl">0.10</span>))</span>
+<span id="cb99-4"><a href="section-2-machine-learning-basics-overview.html#cb99-4" aria-hidden="true"></a>test[disease<span class="op">==</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size=</span><span class="kw">sum</span>(disease<span class="op">==</span><span class="dv">1</span>), <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(<span class="fl">0.15</span>, <span class="fl">0.85</span>))</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>What is the probability that a test is positive?</li>
+</ol>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="section-2-machine-learning-basics-overview.html#cb100-1" aria-hidden="true"></a><span class="kw">mean</span>(test)</span></code></pre></div>
+<pre><code>## [1] 0.114509</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>What is the probability that an individual has the disease if the test is negative?</li>
+</ol>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="section-2-machine-learning-basics-overview.html#cb102-1" aria-hidden="true"></a><span class="kw">mean</span>(disease[test<span class="op">==</span><span class="dv">0</span>])</span></code></pre></div>
+<pre><code>## [1] 0.003461356</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>What is the probability that you have the disease if the test is positive? Remember: calculate the conditional probability the disease is positive assuming a positive test.</li>
+</ol>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="section-2-machine-learning-basics-overview.html#cb104-1" aria-hidden="true"></a><span class="kw">mean</span>(disease[test<span class="op">==</span><span class="dv">1</span>]<span class="op">==</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.1471762</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Compare the prevalence of disease in people who test positive to the overall prevalence of disease.</li>
+</ol>
+<p>If a patient’s test is positive, by how many times does that increase their risk of having the disease? First calculate the probability of having the disease given a positive test, then divide by the probability of having the disease.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="section-2-machine-learning-basics-overview.html#cb106-1" aria-hidden="true"></a><span class="kw">mean</span>(disease[test<span class="op">==</span><span class="dv">1</span>]<span class="op">==</span><span class="dv">1</span>)<span class="op">/</span><span class="kw">mean</span>(disease<span class="op">==</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 7.389106</code></pre>
+</div>
+<div id="comprehension-check---conditional-probabilities-part-2" class="section level2" number="3.12">
+<h2><span class="header-section-number">3.12</span> Comprehension Check - Conditional Probabilities, Part 2</h2>
+<ol start="6" style="list-style-type: decimal">
+<li>We are now going to write code to compute conditional probabilities for being male in the heights dataset. Round the heights to the closest inch. Plot the estimated conditional probability <span class="math inline">\(P(x) = \mbox{Pr}(\mbox{Male} | \mbox{height}=x)\)</span>.</li>
+</ol>
+<p>Part of the code is provided here:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="section-2-machine-learning-basics-overview.html#cb108-1" aria-hidden="true"></a><span class="kw">data</span>(<span class="st">&quot;heights&quot;</span>)</span>
+<span id="cb108-2"><a href="section-2-machine-learning-basics-overview.html#cb108-2" aria-hidden="true"></a><span class="co"># MISSING CODE</span></span>
+<span id="cb108-3"><a href="section-2-machine-learning-basics-overview.html#cb108-3" aria-hidden="true"></a>    <span class="kw">qplot</span>(height, p, <span class="dt">data =</span>.)</span></code></pre></div>
+<p>Which of the following blocks of code can be used to replace <strong># MISSING CODE</strong> to make the correct plot?</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+A.</li>
+</ul>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="section-2-machine-learning-basics-overview.html#cb109-1" aria-hidden="true"></a>heights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb109-2"><a href="section-2-machine-learning-basics-overview.html#cb109-2" aria-hidden="true"></a><span class="st">    </span><span class="kw">group_by</span>(height) <span class="op">%&gt;%</span></span>
+<span id="cb109-3"><a href="section-2-machine-learning-basics-overview.html#cb109-3" aria-hidden="true"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(sex <span class="op">==</span><span class="st"> &quot;Male&quot;</span>)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+B.</li>
+</ul>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="section-2-machine-learning-basics-overview.html#cb110-1" aria-hidden="true"></a>heights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb110-2"><a href="section-2-machine-learning-basics-overview.html#cb110-2" aria-hidden="true"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">height =</span> <span class="kw">round</span>(height)) <span class="op">%&gt;%</span></span>
+<span id="cb110-3"><a href="section-2-machine-learning-basics-overview.html#cb110-3" aria-hidden="true"></a><span class="st">    </span><span class="kw">group_by</span>(height) <span class="op">%&gt;%</span></span>
+<span id="cb110-4"><a href="section-2-machine-learning-basics-overview.html#cb110-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(sex <span class="op">==</span><span class="st"> &quot;Female&quot;</span>)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+C.</li>
+</ul>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="section-2-machine-learning-basics-overview.html#cb111-1" aria-hidden="true"></a>heights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-2"><a href="section-2-machine-learning-basics-overview.html#cb111-2" aria-hidden="true"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">height =</span> <span class="kw">round</span>(height)) <span class="op">%&gt;%</span></span>
+<span id="cb111-3"><a href="section-2-machine-learning-basics-overview.html#cb111-3" aria-hidden="true"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(sex <span class="op">==</span><span class="st"> &quot;Male&quot;</span>)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+D.</li>
+</ul>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="section-2-machine-learning-basics-overview.html#cb112-1" aria-hidden="true"></a>heights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb112-2"><a href="section-2-machine-learning-basics-overview.html#cb112-2" aria-hidden="true"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">height =</span> <span class="kw">round</span>(height)) <span class="op">%&gt;%</span></span>
+<span id="cb112-3"><a href="section-2-machine-learning-basics-overview.html#cb112-3" aria-hidden="true"></a><span class="st">    </span><span class="kw">group_by</span>(height) <span class="op">%&gt;%</span></span>
+<span id="cb112-4"><a href="section-2-machine-learning-basics-overview.html#cb112-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(sex <span class="op">==</span><span class="st"> &quot;Male&quot;</span>)) <span class="op">%&gt;%</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="section-2-machine-learning-basics-overview.html#cb113-1" aria-hidden="true"></a><span class="kw">data</span>(<span class="st">&quot;heights&quot;</span>)</span>
+<span id="cb113-2"><a href="section-2-machine-learning-basics-overview.html#cb113-2" aria-hidden="true"></a>heights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb113-3"><a href="section-2-machine-learning-basics-overview.html#cb113-3" aria-hidden="true"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">height =</span> <span class="kw">round</span>(height)) <span class="op">%&gt;%</span></span>
+<span id="cb113-4"><a href="section-2-machine-learning-basics-overview.html#cb113-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">group_by</span>(height) <span class="op">%&gt;%</span></span>
+<span id="cb113-5"><a href="section-2-machine-learning-basics-overview.html#cb113-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(sex <span class="op">==</span><span class="st"> &quot;Male&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb113-6"><a href="section-2-machine-learning-basics-overview.html#cb113-6" aria-hidden="true"></a><span class="st">    </span><span class="kw">qplot</span>(height, p, <span class="dt">data =</span>.)</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="img/figures/unnamed-chunk-30-1.png" width="672" /></p>
+<ol start="7" style="list-style-type: decimal">
+<li>In the plot we just made in Q6 we see high variability for low values of height. This is because we have few data points. This time use the quantile <span class="math inline">\(0.1,0.2,\dots,0.9\)</span> and the <code>cut()</code> function to assure each group has the same number of points. Note that for any numeric vector <code>x</code>, you can create groups based on quantiles like this: <code>cut(x, quantile(x, seq(0, 1, 0.1)), include.lowest = TRUE)</code>.</li>
+</ol>
+<p>Part of the code is provided here:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="section-2-machine-learning-basics-overview.html#cb115-1" aria-hidden="true"></a>ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb115-2"><a href="section-2-machine-learning-basics-overview.html#cb115-2" aria-hidden="true"></a>heights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb115-3"><a href="section-2-machine-learning-basics-overview.html#cb115-3" aria-hidden="true"></a><span class="st">    </span><span class="co"># MISSING CODE</span></span>
+<span id="cb115-4"><a href="section-2-machine-learning-basics-overview.html#cb115-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">group_by</span>(g) <span class="op">%&gt;%</span></span>
+<span id="cb115-5"><a href="section-2-machine-learning-basics-overview.html#cb115-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(sex <span class="op">==</span><span class="st"> &quot;Male&quot;</span>), <span class="dt">height =</span> <span class="kw">mean</span>(height)) <span class="op">%&gt;%</span></span>
+<span id="cb115-6"><a href="section-2-machine-learning-basics-overview.html#cb115-6" aria-hidden="true"></a><span class="st">    </span><span class="kw">qplot</span>(height, p, <span class="dt">data =</span>.)</span></code></pre></div>
+<p>Which of the following lines of code can be used to replace <strong># MISSING CODE</strong> to make the correct plot?</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+A.</li>
+</ul>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="section-2-machine-learning-basics-overview.html#cb116-1" aria-hidden="true"></a><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(male, <span class="kw">quantile</span>(height, ps), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+B.</li>
+</ul>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="section-2-machine-learning-basics-overview.html#cb117-1" aria-hidden="true"></a><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(height, <span class="kw">quantile</span>(height, ps), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+C.</li>
+</ul>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="section-2-machine-learning-basics-overview.html#cb118-1" aria-hidden="true"></a><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(female, <span class="kw">quantile</span>(height, ps), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+D.</li>
+</ul>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="section-2-machine-learning-basics-overview.html#cb119-1" aria-hidden="true"></a><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(height, <span class="kw">quantile</span>(height, ps))) <span class="op">%&gt;%</span></span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="section-2-machine-learning-basics-overview.html#cb120-1" aria-hidden="true"></a>ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb120-2"><a href="section-2-machine-learning-basics-overview.html#cb120-2" aria-hidden="true"></a>heights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb120-3"><a href="section-2-machine-learning-basics-overview.html#cb120-3" aria-hidden="true"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(height, <span class="kw">quantile</span>(height, ps), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb120-4"><a href="section-2-machine-learning-basics-overview.html#cb120-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">group_by</span>(g) <span class="op">%&gt;%</span></span>
+<span id="cb120-5"><a href="section-2-machine-learning-basics-overview.html#cb120-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(sex <span class="op">==</span><span class="st"> &quot;Male&quot;</span>), <span class="dt">height =</span> <span class="kw">mean</span>(height)) <span class="op">%&gt;%</span></span>
+<span id="cb120-6"><a href="section-2-machine-learning-basics-overview.html#cb120-6" aria-hidden="true"></a><span class="st">    </span><span class="kw">qplot</span>(height, p, <span class="dt">data =</span>.)</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="img/figures/unnamed-chunk-36-1.png" width="672" /></p>
+<ol start="8" style="list-style-type: decimal">
+<li>You can generate data from a bivariate normal distrubution using the <strong>MASS</strong> package using the following code:</li>
+</ol>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="section-2-machine-learning-basics-overview.html#cb122-1" aria-hidden="true"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(MASS)) <span class="kw">install.packages</span>(<span class="st">&quot;MASS&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: MASS</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="section-2-machine-learning-basics-overview.html#cb126-1" aria-hidden="true"></a>Sigma &lt;-<span class="st"> </span><span class="dv">9</span><span class="op">*</span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb126-2"><a href="section-2-machine-learning-basics-overview.html#cb126-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> <span class="dv">10000</span>, <span class="kw">c</span>(<span class="dv">69</span>, <span class="dv">69</span>), Sigma) <span class="op">%&gt;%</span></span>
+<span id="cb126-3"><a href="section-2-machine-learning-basics-overview.html#cb126-3" aria-hidden="true"></a><span class="st">    </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>))</span></code></pre></div>
+<p>And you can make a quick plot using <code>plot(dat)</code>.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="section-2-machine-learning-basics-overview.html#cb127-1" aria-hidden="true"></a><span class="kw">plot</span>(dat)</span></code></pre></div>
+<p><img src="img/figures/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Using an approach similar to that used in the previous exercise, let’s estimate the conditional expectations and make a plot. Part of the code has again been provided for you:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="section-2-machine-learning-basics-overview.html#cb128-1" aria-hidden="true"></a>ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb128-2"><a href="section-2-machine-learning-basics-overview.html#cb128-2" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb128-3"><a href="section-2-machine-learning-basics-overview.html#cb128-3" aria-hidden="true"></a><span class="st">    </span><span class="co"># MISSING CODE</span></span>
+<span id="cb128-4"><a href="section-2-machine-learning-basics-overview.html#cb128-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">qplot</span>(x, y, <span class="dt">data =</span>.)</span></code></pre></div>
+<p>Which of the following blocks of code can be used to replace <strong># MISSING CODE</strong> to make the correct plot?</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+A.</li>
+</ul>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="section-2-machine-learning-basics-overview.html#cb129-1" aria-hidden="true"></a><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(x, <span class="kw">quantile</span>(x, ps), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb129-2"><a href="section-2-machine-learning-basics-overview.html#cb129-2" aria-hidden="true"></a><span class="kw">group_by</span>(g) <span class="op">%&gt;%</span></span>
+<span id="cb129-3"><a href="section-2-machine-learning-basics-overview.html#cb129-3" aria-hidden="true"></a><span class="kw">summarize</span>(<span class="dt">y =</span> <span class="kw">mean</span>(y), <span class="dt">x =</span> <span class="kw">mean</span>(x)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+B.</li>
+</ul>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="section-2-machine-learning-basics-overview.html#cb130-1" aria-hidden="true"></a><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(x, <span class="kw">quantile</span>(x, ps))) <span class="op">%&gt;%</span></span>
+<span id="cb130-2"><a href="section-2-machine-learning-basics-overview.html#cb130-2" aria-hidden="true"></a><span class="kw">group_by</span>(g) <span class="op">%&gt;%</span></span>
+<span id="cb130-3"><a href="section-2-machine-learning-basics-overview.html#cb130-3" aria-hidden="true"></a><span class="kw">summarize</span>(<span class="dt">y =</span> <span class="kw">mean</span>(y), <span class="dt">x =</span> <span class="kw">mean</span>(x)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+C.</li>
+</ul>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="section-2-machine-learning-basics-overview.html#cb131-1" aria-hidden="true"></a><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(x, <span class="kw">quantile</span>(x, ps), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb131-2"><a href="section-2-machine-learning-basics-overview.html#cb131-2" aria-hidden="true"></a><span class="kw">summarize</span>(<span class="dt">y =</span> <span class="kw">mean</span>(y), <span class="dt">x =</span> <span class="kw">mean</span>(x)) <span class="op">%&gt;%</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+D.</li>
+</ul>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="section-2-machine-learning-basics-overview.html#cb132-1" aria-hidden="true"></a><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(x, <span class="kw">quantile</span>(x, ps), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb132-2"><a href="section-2-machine-learning-basics-overview.html#cb132-2" aria-hidden="true"></a><span class="kw">group_by</span>(g) <span class="op">%&gt;%</span></span>
+<span id="cb132-3"><a href="section-2-machine-learning-basics-overview.html#cb132-3" aria-hidden="true"></a><span class="kw">summarize</span>(<span class="dt">y =</span>(y), <span class="dt">x =</span>(x)) <span class="op">%&gt;%</span></span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="section-2-machine-learning-basics-overview.html#cb133-1" aria-hidden="true"></a>ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb133-2"><a href="section-2-machine-learning-basics-overview.html#cb133-2" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb133-3"><a href="section-2-machine-learning-basics-overview.html#cb133-3" aria-hidden="true"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">g =</span> <span class="kw">cut</span>(x, <span class="kw">quantile</span>(x, ps), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb133-4"><a href="section-2-machine-learning-basics-overview.html#cb133-4" aria-hidden="true"></a><span class="st">    </span><span class="kw">group_by</span>(g) <span class="op">%&gt;%</span></span>
+<span id="cb133-5"><a href="section-2-machine-learning-basics-overview.html#cb133-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">y =</span> <span class="kw">mean</span>(y), <span class="dt">x =</span> <span class="kw">mean</span>(x)) <span class="op">%&gt;%</span></span>
+<span id="cb133-6"><a href="section-2-machine-learning-basics-overview.html#cb133-6" aria-hidden="true"></a><span class="st">    </span><span class="kw">qplot</span>(x, y, <span class="dt">data =</span>.)</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="img/figures/unnamed-chunk-44-1.png" width="672" /></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-1-introduction-to-machine-learning-overview.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-3-linear-regression-for-prediction-smoothing-and-working-with-matrices-overview.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
